@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">个人信息助手</string>
+
+    <!-- 数据库和文件路径 -->
+    <string name="dir">/pmas</string>
+    <string name="app_dir">/app</string>
+    <string name="db_dir">/database</string>
+    <string name="img_dir">/img</string>
+    <string name="no_data">网络异常...</string>
+    <string name="contact">联系</string>
+    <string name="note">记事</string>
+    <string name="schedule">日程</string>
+    <string name="setting">设置</string>
+    <string name="loading">正在加载，请稍后...</string>
+
+    <string-array name="jazzy_effects">
+        <item>Standard</item>
+        <item>Tablet</item>
+        <item>CubeIn</item>
+        <item>CubeOut</item>
+        <item>FlipVertical</item>
+        <item>FlipHorizontal</item>
+        <item>Stack</item>
+        <item>ZoomIn</item>
+        <item>ZoomOut</item>
+        <item>RotateUp</item>
+        <item>RotateDown</item>
+        <item>Accordion</item>
+    </string-array>
+</resources>

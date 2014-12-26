@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@android:id/tabhost"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:visibility="gone">
+        </FrameLayout>
+
+        <org.mo.common.ui.JazzyViewPager
+                xmlns:app="http://schemas.android.com/apk/res/org.mo.pmas.activity"
+                android:id="@+id/jazzyPager"
+                app:style="standard"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_tabwidget_background"
+                android:visibility="visible"/>
+    </LinearLayout>
+
+</TabHost>
+

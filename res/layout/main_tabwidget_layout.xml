@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:padding="5dp" >
+
+    <RelativeLayout
+        android:id="@+id/normalLayout"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/normalTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="扫书"
+            android:textColor="#888888"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/normalImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/normalTV"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/scan_book" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/selectedLayout"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/selectedTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="扫书"
+            android:textColor="#00FF00"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/selectedImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/selectedTV"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/scan_book_hl" />
+    </RelativeLayout>
+
+</RelativeLayout>
