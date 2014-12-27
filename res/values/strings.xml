@@ -13,6 +13,7 @@
     <string name="schedule">日程</string>
     <string name="setting">设置</string>
     <string name="loading">正在加载，请稍后...</string>
+    <string name="group">我的群组</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

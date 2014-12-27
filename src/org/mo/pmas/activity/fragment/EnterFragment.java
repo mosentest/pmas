@@ -39,7 +39,7 @@ public class EnterFragment extends Fragment {
     private TextView dialog;
     private ContactAdapter adapter;
     private ClearEditText mClearEditText;
-    private Map<String, String> callRecords;
+    private List<Contact> callRecords;
     private LoadingView mLoadingView;
     View rootView;
 
@@ -64,7 +64,7 @@ public class EnterFragment extends Fragment {
         this.mNum = mNum;
     }
 
-//
+    //
     public static EnterFragment newInstance(Context context) {
         if (mEnterFragment == null)
             mEnterFragment = new EnterFragment(context);
@@ -128,8 +128,9 @@ public class EnterFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // 这里要利用adapter.getItem(position)来获取当前position所对应的对象
+                //TODO 显示联系人信息
                 Toast.makeText(getActivity(),
-                        ((Contact) adapter.getItem(position)).getName(),
+                        ((Contact) adapter.getItem(position)).getPhoneNumber(),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -146,7 +147,6 @@ public class EnterFragment extends Fragment {
         @Override
         protected Integer doInBackground(Integer... params) {
             int result = -1;
-            //TODO 权限没有....
             callRecords = ConstactUtil.getAllCallRecords(mContext);
             result = 1;
             return result;
@@ -157,22 +157,12 @@ public class EnterFragment extends Fragment {
 
             super.onPostExecute(result);
             if (result == 1) {
-                List<String> constact = new ArrayList<String>();
-                for (Iterator<String> keys = callRecords.keySet().iterator(); keys
-                        .hasNext(); ) {
-                    String key = keys.next();
-                    constact.add(key);
-                }
-                String[] names = new String[]{};
-                names = constact.toArray(names);
-                SourceDateList = filledData(names);
-
+                SourceDateList = filledData(callRecords);
                 // 根据a-z进行排序源数据
                 Collections.sort(SourceDateList, pinyinComparator);
                 adapter = new ContactAdapter(mContext, SourceDateList);
                 sortListView.setAdapter(adapter);
                 mClearEditText = (ClearEditText) rootView.findViewById(R.id.filter_edit);
-
                 // 根据输入框输入值的改变来过滤搜索
                 mClearEditText.addTextChangedListener(new TextWatcher() {
 
@@ -199,16 +189,13 @@ public class EnterFragment extends Fragment {
 
     }
 
-    public List<Contact> filledData(String[] date) {
+    public List<Contact> filledData(List<Contact> contacts) {
         List<Contact> mSortList = new ArrayList<Contact>();
-
-        for (int i = 0; i < date.length; i++) {
-            Contact sortModel = new Contact();
-            sortModel.setName(date[i]);
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact sortModel = contacts.get(i);
             // 汉字转换成拼音
-            String pinyin = characterParser.getSelling(date[i]);
+            String pinyin = characterParser.getSelling(sortModel.getName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
-
             // 正则表达式，判断首字母是否是英文字母
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());

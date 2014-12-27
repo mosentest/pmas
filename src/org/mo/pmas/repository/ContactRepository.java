@@ -42,17 +42,7 @@ public class ContactRepository {
         if (StringUtil.notEmpty(contact.getAddress())) {
             contentValues.put(ContactTable.ADDRESS, StringUtil.doEmpty(contact.getAddress()));
         }
-        if (StringUtil.notEmpty(contact.getPhoneOne())) {
-            contentValues.put(ContactTable.PHONE_ONE, StringUtil.doEmpty(contact.getPhoneOne()));
-        }
-        if (StringUtil.notEmpty(contact.getPhoneTwo())) {
-            contentValues.put(ContactTable.PHONE_TWO, StringUtil.doEmpty(contact.getPhoneTwo()));
-        }
-        if (StringUtil.notEmpty(contact.getPhoneThree())) {
-            contentValues.put(ContactTable.PHONE_THREE, StringUtil.doEmpty(contact.getPhoneThree()));
-        }
         contentValues.put(ContactTable.BIRTHDAY, contact.getBirthday());
-        contentValues.put(ContactTable.CG_ID, contact.getContactGroup().getId());
         return sqLiteTemplate.insert(ContactTable.TABLE_NAME, contentValues);
     }
 }

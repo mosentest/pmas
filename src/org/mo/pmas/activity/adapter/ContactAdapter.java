@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 import org.mo.pmas.activity.R;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     private List<Contact> list = null;
     private Context mContext;
-
+    ViewHolder viewHolder = null;
     public ContactAdapter(Context mContext, List<Contact> list) {
         this.mContext = mContext;
         this.list = list;
@@ -48,13 +49,14 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     }
 
     public View getView(final int position, View view, ViewGroup arg2) {
-        ViewHolder viewHolder = null;
+
         final Contact mContent = list.get(position);
         if (view == null) {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.fragment_phone_contacts_item, null);
             viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
             viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
+            viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -71,8 +73,9 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.tvLetter.setVisibility(View.GONE);
         }
 
-        viewHolder.tvTitle.setText(Html.fromHtml("<font color='green'>"+this.list.get(position).getName()+"</font>"));
-
+        viewHolder.tvTitle.setText(mContent.getName());
+        //TODO 设置图片
+        viewHolder.imageView.setImageBitmap(mContent.getContactPhoto());
         return view;
 
     }
@@ -81,6 +84,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     final static class ViewHolder {
         TextView tvLetter;
         TextView tvTitle;
+        ImageView imageView;
     }
 
 

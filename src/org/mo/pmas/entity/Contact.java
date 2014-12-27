@@ -1,5 +1,7 @@
 package org.mo.pmas.entity;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -7,31 +9,29 @@ import java.io.Serializable;
  */
 public class Contact implements Serializable {
 
-    private int id;
+    private Long  id;//编号
 
-    private String name;
+    private String name;//名字
 
-    private String birthday;
+    private String birthday;//生日
 
-    private String phoneOne;
+    private String email;//邮箱地址
 
-    private String phoneTwo;
+    private String address;//通讯地址
 
-    private String phoneThree;
+    private Bitmap contactPhoto;//联系人照片
 
-    private String email;
-
-    private String address;
+    private String phoneNumber;//联系电话
 
     private String sortLetters;  //显示数据拼音的首字母
 
-    private ContactGroup contactGroup;
+    private String contactGroup;//联系组名称
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,30 +51,6 @@ public class Contact implements Serializable {
         this.birthday = birthday;
     }
 
-    public String getPhoneOne() {
-        return phoneOne;
-    }
-
-    public void setPhoneOne(String phoneOne) {
-        this.phoneOne = phoneOne;
-    }
-
-    public String getPhoneThree() {
-        return phoneThree;
-    }
-
-    public void setPhoneThree(String phoneThree) {
-        this.phoneThree = phoneThree;
-    }
-
-    public String getPhoneTwo() {
-        return phoneTwo;
-    }
-
-    public void setPhoneTwo(String phoneTwo) {
-        this.phoneTwo = phoneTwo;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -91,12 +67,20 @@ public class Contact implements Serializable {
         this.address = address;
     }
 
-    public ContactGroup getContactGroup() {
-        return contactGroup;
+    public Bitmap getContactPhoto() {
+        return contactPhoto;
     }
 
-    public void setContactGroup(ContactGroup contactGroup) {
-        this.contactGroup = contactGroup;
+    public void setContactPhoto(Bitmap contactPhoto) {
+        this.contactPhoto = contactPhoto;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getSortLetters() {
@@ -107,19 +91,26 @@ public class Contact implements Serializable {
         this.sortLetters = sortLetters;
     }
 
+    public String getContactGroup() {
+        return contactGroup;
+    }
+
+    public void setContactGroup(String contactGroup) {
+        this.contactGroup = contactGroup;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthday='" + birthday + '\'' +
-                ", phoneOne='" + phoneOne + '\'' +
-                ", phoneTwo='" + phoneTwo + '\'' +
-                ", phoneThree='" + phoneThree + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-                ", contactGroup=" + contactGroup.toString() +
+                ", contactPhoto=" + contactPhoto +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", sortLetters='" + sortLetters + '\'' +
+                ", contactGroup='" + contactGroup + '\'' +
                 '}';
     }
-
 }
