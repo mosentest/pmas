@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by moziqi on 2014/12/25 0025.
  */
-public class Contact implements Serializable, Comparable<Contact> {
+public class Contact implements Serializable {
 
     private int id;
 
@@ -22,6 +22,8 @@ public class Contact implements Serializable, Comparable<Contact> {
     private String email;
 
     private String address;
+
+    private String sortLetters;  //显示数据拼音的首字母
 
     private ContactGroup contactGroup;
 
@@ -97,6 +99,14 @@ public class Contact implements Serializable, Comparable<Contact> {
         this.contactGroup = contactGroup;
     }
 
+    public String getSortLetters() {
+        return sortLetters;
+    }
+
+    public void setSortLetters(String sortLetters) {
+        this.sortLetters = sortLetters;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -112,13 +122,4 @@ public class Contact implements Serializable, Comparable<Contact> {
                 '}';
     }
 
-    @Override
-    public int compareTo(Contact another) {
-        int tag = this.name.compareTo(another.name);
-        if (tag != 0) {
-            return tag;
-        } else {
-            return this.birthday.compareTo(another.birthday);
-        }
-    }
 }

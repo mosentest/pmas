@@ -1,13 +1,11 @@
 package org.mo.pmas.activity;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.*;
@@ -17,18 +15,20 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
 import org.mo.common.ui.JazzyViewPager;
 import org.mo.common.ui.OutlineContainer;
+import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EnterActivity extends Activity implements View.OnClickListener{
+public class EnterActivity extends FragmentActivity implements View.OnClickListener {
     @ViewInject(R.id.jazzyPager)
     private JazzyViewPager jazzyPager;
     List<Map<String, View>> tabViews = new ArrayList<Map<String, View>>();
     Context context;
     public TabHost tabHost;
+    private EnterFragmentPageAdapter enterFragmentPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +127,10 @@ public class EnterActivity extends Activity implements View.OnClickListener{
 
     private void initJazzyPager(JazzyViewPager.TransitionEffect effect) {
         jazzyPager.setTransitionEffect(effect);
-        jazzyPager.setAdapter(new MainAdapter());
+        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager());
+        jazzyPager.setAdapter(enterFragmentPageAdapter);
+        //TODO 修改适配器
+//        jazzyPager.setAdapter(new MainAdapter());
         jazzyPager.setPageMargin(30);
         jazzyPager.setFadeEnabled(true);
         jazzyPager.setSlideCallBack(new JazzyViewPager.SlideCallback() {
@@ -174,6 +177,9 @@ public class EnterActivity extends Activity implements View.OnClickListener{
 
     }
 
+
+
+
     private class MainAdapter extends PagerAdapter {
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
@@ -184,9 +190,8 @@ public class EnterActivity extends Activity implements View.OnClickListener{
             //TODO 显示数据
             text.setText("郑潇乾你是个傻逼 " + position);
             text.setPadding(30, 30, 30, 30);
-//            int bg = Color.rgb((int) Math.floor(Math.random() * 128) + 64, (int) Math.floor(Math.random() * 128) + 64, (int) Math.floor(Math.random() * 128) + 64);
-//            text.setBackgroundColor(bg);
-            container.addView(text, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ListView listView  = new ListView(EnterActivity.this);
+            container.addView(listView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             jazzyPager.setObjectForPosition(text, position);
             return text;
         }
