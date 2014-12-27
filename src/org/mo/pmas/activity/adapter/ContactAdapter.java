@@ -1,6 +1,7 @@
 package org.mo.pmas.activity.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,10 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
     /**
      * 当ListView数据发生变化时,调用此方法来更新ListView
+     *
      * @param list
      */
-    public void updateListView(List<Contact> list){
+    public void updateListView(List<Contact> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -62,19 +64,18 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         int section = getSectionForPosition(position);
 
         //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
-        if(position == getPositionForSection(section)){
+        if (position == getPositionForSection(section)) {
             viewHolder.tvLetter.setVisibility(View.VISIBLE);
             viewHolder.tvLetter.setText(mContent.getSortLetters());
-        }else{
+        } else {
             viewHolder.tvLetter.setVisibility(View.GONE);
         }
 
-        viewHolder.tvTitle.setText(this.list.get(position).getName());
+        viewHolder.tvTitle.setText(Html.fromHtml("<font color='green'>"+this.list.get(position).getName()+"</font>"));
 
         return view;
 
     }
-
 
 
     final static class ViewHolder {
@@ -112,7 +113,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
      * @return
      */
     private String getAlpha(String str) {
-        String  sortStr = str.trim().substring(0, 1).toUpperCase();
+        String sortStr = str.trim().substring(0, 1).toUpperCase();
         // 正则表达式，判断首字母是否是英文字母
         if (sortStr.matches("[A-Z]")) {
             return sortStr;

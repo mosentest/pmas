@@ -32,7 +32,7 @@ import java.util.*;
  * Created by moziqi on 2014/12/27 0027.
  */
 public class EnterFragment extends Fragment {
-
+    private static EnterFragment mEnterFragment;
     private Context mContext;
     private ListView sortListView;
     private SideBar sideBar;
@@ -64,20 +64,21 @@ public class EnterFragment extends Fragment {
         this.mNum = mNum;
     }
 
+//
+    public static EnterFragment newInstance(Context context) {
+        if (mEnterFragment == null)
+            mEnterFragment = new EnterFragment(context);
+        return mEnterFragment;
+    }
 
-    public static EnterFragment newInstance(int num) {
-        EnterFragment fragment = new EnterFragment();
-        // Supply num input as an argument.
-        Bundle args = new Bundle();
-        args.putInt("num", num);
-        fragment.setArguments(args);
-        return fragment;
+
+    public EnterFragment(Context mContext) {
+        this.mContext = mContext;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
         //这里我只是简单的用num区别标签，其实具体应用中可以使用真实的fragment对象来作为叶片
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
     }
@@ -93,7 +94,7 @@ public class EnterFragment extends Fragment {
         sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
         dialog = (TextView) rootView.findViewById(R.id.dialog);
         sortListView = (ListView) rootView.findViewById(R.id.country_lvcountry);
-        //initData();
+        initData();
         return rootView;
     }
 
@@ -145,6 +146,7 @@ public class EnterFragment extends Fragment {
         @Override
         protected Integer doInBackground(Integer... params) {
             int result = -1;
+            //TODO 权限没有....
             callRecords = ConstactUtil.getAllCallRecords(mContext);
             result = 1;
             return result;

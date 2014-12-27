@@ -127,7 +127,8 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
 
     private void initJazzyPager(JazzyViewPager.TransitionEffect effect) {
         jazzyPager.setTransitionEffect(effect);
-        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager());
+        //TODO --------------------------------
+        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager(),this);
         jazzyPager.setAdapter(enterFragmentPageAdapter);
         //TODO 修改适配器
 //        jazzyPager.setAdapter(new MainAdapter());
