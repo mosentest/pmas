@@ -3,12 +3,11 @@ package org.mo.pmas.activity.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import org.mo.pmas.activity.ContactActivity;
+import org.mo.pmas.activity.ContactEidtActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.entity.Contact;
 
@@ -86,10 +85,10 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
             public void onClick(View v) {
                 //TODO 显示联系人信息
                 Toast.makeText(mContext, mContact.getPhoneNumber(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, ContactActivity.class);
+                Intent intent = new Intent(mContext, ContactEidtActivity.class);
                 Bundle mbundle = new Bundle();
                 mbundle.putLong("id",mContact.getId());
-                mbundle.putString("name",mContact.getName());
+                mbundle.putString("name", mContact.getName());
                 mbundle.putString("birthday",mContact.getBirthday());
                 mbundle.putString("email",mContact.getEmail());
                 mbundle.putString("address",mContact.getAddress());

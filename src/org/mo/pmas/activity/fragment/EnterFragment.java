@@ -47,6 +47,7 @@ public class EnterFragment extends Fragment {
      * 汉字转换成拼音的类
      */
     private CharacterParser characterParser;
+
     private List<Contact> SourceDateList;
 
     /**
@@ -54,15 +55,6 @@ public class EnterFragment extends Fragment {
      */
     private PinyinComparator pinyinComparator;
 
-    private int mNum; //页号
-
-    public int getmNum() {
-        return mNum;
-    }
-
-    public void setmNum(int mNum) {
-        this.mNum = mNum;
-    }
 
     //
     public static EnterFragment newInstance(Context context) {
@@ -79,8 +71,6 @@ public class EnterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //这里我只是简单的用num区别标签，其实具体应用中可以使用真实的fragment对象来作为叶片
-        mNum = getArguments() != null ? getArguments().getInt("num") : 1;
     }
 
     /**

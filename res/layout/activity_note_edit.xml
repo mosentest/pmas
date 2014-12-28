@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="45dp"
+                  android:textColor="@color/mylove"
+                  android:textSize="25dp"
+                  android:text="标题："
+                  android:gravity="center"
+                  android:id="@+id/textView_name"/>
+        <org.mo.common.ui.sideBar.ClearEditText
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/mylove"
+                android:ems="10"
+                android:id="@+id/editText_name"
+                android:hint="请输入标题"
+                android:singleLine="true"
+                android:layout_toRightOf="@id/textView_name"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="45dp"
+                  android:gravity="center"
+                  android:textColor="@color/mylove"
+                  android:textSize="25dp"
+                  android:text="类型："
+                  android:id="@+id/textView_group"/>
+        <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:id="@+id/spinner_group"
+                android:layout_toRightOf="@id/textView_group"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="45dp"
+                  android:textColor="@color/mylove"
+                  android:textSize="25dp"
+                  android:text="日期："
+                  android:gravity="center"
+                  android:id="@+id/textView_date"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:background="@drawable/sidebar_background"
+                android:textColor="@color/mylove"
+                android:ems="10"
+                android:id="@+id/editText_date"
+                android:focusable="false"
+                android:singleLine="true"
+                android:layout_toRightOf="@id/textView_date"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="45dp"
+                  android:textColor="@color/mylove"
+                  android:textSize="25dp"
+                  android:text="内容："
+                  android:gravity="center"
+                  android:id="@+id/textView_content"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:textColor="@color/mylove"
+                android:ems="10"
+                android:gravity="left|top"
+                android:minLines="6"
+                android:id="@+id/editText_content"
+                android:hint="最多只能输入200个字"
+                android:layout_toRightOf="@id/textView_content"/>
+    </RelativeLayout>
+
+    <org.mo.common.ui.button.FButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            fbutton:buttonColor="@color/fbutton_color_alizarin"
+            android:text="删除"
+            android:id="@+id/button_detete"
+            fbutton:shadowEnabled="true"
+            />
+</LinearLayout>

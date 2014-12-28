@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">个人信息助手</string>
+    <string name="app_name">小秘书</string>
 
     <!-- 数据库和文件路径 -->
     <string name="dir">/pmas</string>
@@ -14,6 +14,8 @@
     <string name="setting">设置</string>
     <string name="loading">正在加载，请稍后...</string>
     <string name="group">我的群组</string>
+    <string name="delete">删除</string>
+    <string name="save">保存</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

@@ -28,7 +28,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ContactActivity"
+        <activity android:name=".ContactEidtActivity"
+                  android:label="@string/app_name">
+        </activity>
+
+        <activity android:name=".NoteEditActivity"
                   android:label="@string/app_name">
         </activity>
 

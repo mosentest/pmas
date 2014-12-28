@@ -34,13 +34,13 @@ public class EnterFragmentPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new EnterFragment(mContext);
             case 1:
-                return new EnterFragment(mContext);
+                return new Fragment();
             case 2:
-                return new EnterFragment(mContext);
+                return new Fragment();
             case 3:
-                return new EnterFragment(mContext);
+                return new Fragment();
             default:
-                return new EnterFragment(mContext);
+                return new Fragment();
         }
     }
 

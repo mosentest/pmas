@@ -7,6 +7,7 @@ import org.mo.pmas.activity.BuildConfig;
  */
 public class AppLogger {
     protected static final String TAG = "PMAS";
+
     private AppLogger() {
     }
 
@@ -37,8 +38,7 @@ public class AppLogger {
      * @param msg
      */
     public static void d(String msg) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.d(TAG, buildMessage(msg));
+        android.util.Log.d(TAG, buildMessage(msg));
     }
 
     /**
@@ -48,8 +48,7 @@ public class AppLogger {
      * @param thr An exception to log
      */
     public static void d(String msg, Throwable thr) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.d(TAG, buildMessage(msg), thr);
+        android.util.Log.d(TAG, buildMessage(msg), thr);
     }
 
     /**
@@ -58,8 +57,7 @@ public class AppLogger {
      * @param msg The message you would like logged.
      */
     public static void i(String msg) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.i(TAG, buildMessage(msg));
+        android.util.Log.i(TAG, buildMessage(msg));
     }
 
     /**
@@ -69,8 +67,7 @@ public class AppLogger {
      * @param thr An exception to log
      */
     public static void i(String msg, Throwable thr) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.i(TAG, buildMessage(msg), thr);
+        android.util.Log.i(TAG, buildMessage(msg), thr);
     }
 
     /**
@@ -89,8 +86,7 @@ public class AppLogger {
      * @param msg The message you would like logged.
      */
     public static void w(String msg) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.w(TAG, buildMessage(msg));
+        android.util.Log.w(TAG, buildMessage(msg));
     }
 
     /**
@@ -100,8 +96,7 @@ public class AppLogger {
      * @param thr An exception to log
      */
     public static void w(String msg, Throwable thr) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.w(TAG, buildMessage(msg), thr);
+        android.util.Log.w(TAG, buildMessage(msg), thr);
     }
 
     /**
@@ -110,8 +105,7 @@ public class AppLogger {
      * @param thr An exception to log
      */
     public static void w(Throwable thr) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.w(TAG, buildMessage(""), thr);
+        android.util.Log.w(TAG, buildMessage(""), thr);
     }
 
     /**
@@ -121,8 +115,7 @@ public class AppLogger {
      * @param thr An exception to log
      */
     public static void e(String msg, Throwable thr) {
-        if (BuildConfig.DEBUG)
-            android.util.Log.e(TAG, buildMessage(msg), thr);
+        android.util.Log.e(TAG, buildMessage(msg), thr);
     }
 
     /**
