@@ -15,12 +15,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
-  <application android:label="@string/app_name"
+    <application android:label="@string/app_name"
                  android:icon="@drawable/ic_launcher"
                  android:theme="@style/CustomActionBarTheme"
                  android:allowBackup="true">
 
-    <activity android:name="EnterActivity"
+        <activity android:name="EnterActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,7 +28,9 @@
             </intent-filter>
         </activity>
 
-
+        <activity android:name=".ContactActivity"
+                  android:label="@string/app_name">
+        </activity>
 
     </application>
 </manifest>

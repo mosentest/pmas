@@ -1,14 +1,14 @@
 package org.mo.pmas.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.SectionIndexer;
-import android.widget.TextView;
+import android.widget.*;
+import org.mo.pmas.activity.ContactActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.entity.Contact;
 
@@ -21,6 +21,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     private List<Contact> list = null;
     private Context mContext;
     ViewHolder viewHolder = null;
+
     public ContactAdapter(Context mContext, List<Contact> list) {
         this.mContext = mContext;
         this.list = list;
@@ -50,7 +51,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
     public View getView(final int position, View view, ViewGroup arg2) {
 
-        final Contact mContent = list.get(position);
+        final Contact mContact = list.get(position);
         if (view == null) {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.fragment_phone_contacts_item, null);
@@ -68,14 +69,39 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
         if (position == getPositionForSection(section)) {
             viewHolder.tvLetter.setVisibility(View.VISIBLE);
-            viewHolder.tvLetter.setText(mContent.getSortLetters());
+            viewHolder.tvLetter.setText(mContact.getSortLetters());
+            viewHolder.tvLetter.setClickable(false);
+            viewHolder.tvLetter.setEnabled(false);
         } else {
             viewHolder.tvLetter.setVisibility(View.GONE);
+            viewHolder.tvLetter.setClickable(false);
+            viewHolder.tvLetter.setEnabled(false);
         }
 
-        viewHolder.tvTitle.setText(mContent.getName());
+        viewHolder.tvTitle.setText(mContact.getName());
+
+        //TODO 跳转页面
+        viewHolder.tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 显示联系人信息
+                Toast.makeText(mContext, mContact.getPhoneNumber(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ContactActivity.class);
+                Bundle mbundle = new Bundle();
+                mbundle.putLong("id",mContact.getId());
+                mbundle.putString("name",mContact.getName());
+                mbundle.putString("birthday",mContact.getBirthday());
+                mbundle.putString("email",mContact.getEmail());
+                mbundle.putString("address",mContact.getAddress());
+                mbundle.putString("phoneNumber",mContact.getPhoneNumber());
+                mbundle.putString("contactGroup",mContact.getContactGroup());
+                intent.putExtras(mbundle);
+                mContext.startActivity(intent);
+            }
+        });
+
         //TODO 设置图片
-        viewHolder.imageView.setImageBitmap(mContent.getContactPhoto());
+        viewHolder.imageView.setImageBitmap(mContact.getContactPhoto());
         return view;
 
     }

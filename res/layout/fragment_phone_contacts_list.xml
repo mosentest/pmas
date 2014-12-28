@@ -42,7 +42,7 @@
             <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:textColor="@color/holo_blue"
+                    android:textColor="@color/mylove"
                     android:layout_marginLeft="10dp"
                     android:text="@string/group"
                     android:textSize="18sp"/>

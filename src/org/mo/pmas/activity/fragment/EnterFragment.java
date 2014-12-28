@@ -122,18 +122,6 @@ public class EnterFragment extends Fragment {
             }
         });
 
-        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-                //TODO 显示联系人信息
-                Toast.makeText(getActivity(),
-                        ((Contact) adapter.getItem(position)).getPhoneNumber(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
         new AsyncTaskConstact(mLoadingView).execute(0);
     }
 

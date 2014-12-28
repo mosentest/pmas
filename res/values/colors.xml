@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="mylove">#18bc9c</color>
     <color name="holo_blue">#FF33E5B5</color>
     <color name="devide_line">#CBCED2</color>
     <color name="blue">#499BF7</color>
