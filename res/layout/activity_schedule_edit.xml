@@ -28,8 +28,8 @@
                       android:id="@+id/textView_name"/>
             <org.mo.common.ui.sideBar.ClearEditText
                     android:layout_width="fill_parent"
-                    android:layout_height="45dp"
                     android:background="@drawable/acm_inputbox"
+                    android:layout_height="45dp"
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/editText_name"
@@ -51,8 +51,8 @@
             <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
-                    android:background="@drawable/acm_inputbox"
                     android:id="@+id/spinner_group"
+                    android:background="@drawable/acm_inputbox"
                     android:layout_toRightOf="@id/textView_group"/>
         </RelativeLayout>
 
@@ -69,13 +69,12 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
-                    android:background="@drawable/acm_inputbox"
                     android:cursorVisible="false"
-                    android:editable="false"
+                    android:inputType="none"
+                    android:background="@drawable/acm_inputbox"
+                    android:hint="请输入日期"
                     android:ems="10"
                     android:id="@+id/editText_date"
-                    android:focusable="false"
-                    android:singleLine="true"
                     android:layout_toRightOf="@id/textView_date"/>
         </RelativeLayout>
 
@@ -97,14 +96,14 @@
                     android:gravity="left|top"
                     android:minLines="6"
                     android:id="@+id/editText_content"
-                    android:hint="最多只能输入200个字"
+                    android:hint="最多只能输入300个字"
                     android:background="@drawable/acm_inputbox"
                     android:layout_toRightOf="@id/textView_content"/>
         </RelativeLayout>
 
         <org.mo.common.ui.button.FButton
-                android:layout_marginTop="20dp"
                 android:layout_width="fill_parent"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 fbutton:buttonColor="@color/fbutton_color_alizarin"

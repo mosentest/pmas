@@ -33,4 +33,6 @@
         <item name="android:textColor">#ddd111</item>
         <!-- The textColor property is backward compatible with the Support Library -->
     </style>
+
+
 </resources>

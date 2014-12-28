@@ -1,135 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:fbutton="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <RelativeLayout android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="45dp"
-                  android:textColor="@color/mylove"
-                  android:textSize="25dp"
-                  android:text="名字："
-                  android:gravity="center"
-                  android:id="@+id/textView_name"/>
-        <org.mo.common.ui.sideBar.ClearEditText
-                android:layout_width="fill_parent"
-                android:layout_height="45dp"
-                android:inputType="textPersonName"
-                android:textColor="@color/mylove"
-                android:ems="10"
-                android:id="@+id/editText_name"
-                android:hint="请输入名字"
-                android:singleLine="true"
-                android:layout_toRightOf="@id/textView_name"/>
-    </RelativeLayout>
-
-    <RelativeLayout android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="45dp"
-                  android:gravity="center"
-                  android:textColor="@color/mylove"
-                  android:textSize="25dp"
-                  android:text="电话："
-                  android:id="@+id/textView_phoneNumber"/>
-        <org.mo.common.ui.sideBar.ClearEditText
-                android:layout_width="fill_parent"
-                android:layout_height="45dp"
-                android:inputType="phone"
-                android:textColor="@color/mylove"
-                android:ems="10"
-                android:hint="请输入电话"
-                android:id="@+id/editText_phoneNumber"
-                android:layout_toRightOf="@id/textView_phoneNumber"/>
-    </RelativeLayout>
-
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="45dp"
-                  android:gravity="center"
-                  android:textColor="@color/mylove"
-                  android:textSize="25dp"
-                  android:text="生日："
-                  android:id="@+id/textView_birthday"/>
-        <org.mo.common.ui.sideBar.ClearEditText
-                android:layout_width="fill_parent"
-                android:layout_height="45dp"
-                android:inputType="date"
-                android:ems="10"
-                android:hint="1990-12-31"
-                android:id="@+id/editText_birthday"
-                android:layout_toRightOf="@id/textView_birthday"/>
-    </RelativeLayout>
-
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="45dp"
-                  android:gravity="center"
-                  android:textColor="@color/mylove"
-                  android:textSize="25dp"
-                  android:text="邮箱："
-                  android:id="@+id/textView_email"/>
-        <org.mo.common.ui.sideBar.ClearEditText
-                android:layout_width="fill_parent"
-                android:layout_height="45dp"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/editText_email"
-                android:hint="123456@qq.com"
-                android:layout_toRightOf="@id/textView_email"/>
-    </RelativeLayout>
-
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="45dp"
-                  android:gravity="center"
-                  android:textColor="@color/mylove"
-                  android:textSize="25dp"
-                  android:text="地址："
-                  android:id="@+id/textView_address"/>
-        <org.mo.common.ui.sideBar.ClearEditText
-                android:layout_width="fill_parent"
-                android:layout_height="45dp"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:id="@+id/editText_address"
-                android:hint="广东"
-                android:layout_toRightOf="@id/textView_address"/>
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="45dp"
-              android:gravity="center"
-              android:textColor="@color/mylove"
-              android:textSize="25dp"
-              android:text="群组："
-              android:id="@+id/textView_group"/>
-    <Spinner
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:fbutton="http://schemas.android.com/apk/res-auto"
             android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:id="@+id/spinner_group"
-            android:layout_toRightOf="@id/textView_group"/>
-    </RelativeLayout>
+            android:layout_height="fill_parent">
 
-    <org.mo.common.ui.button.FButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            fbutton:buttonColor="@color/fbutton_color_alizarin"
-            android:text="删除"
-            android:id="@+id/button_detete"
-            fbutton:shadowEnabled="true"
-            />
-</LinearLayout>
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@drawable/acm_inputbox"
+                  android:layout_marginLeft="5dp"
+                  android:layout_marginTop="5dp"
+                  android:layout_marginRight="5dp"
+                  android:layout_marginEnd="5dp"
+                  android:paddingBottom="10dp"
+                  android:paddingRight="10dp"
+                  android:paddingLeft="10dp"
+                  android:paddingTop="10dp">
+        <RelativeLayout android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:textColor="@color/mylove"
+                      android:textSize="25dp"
+                      android:text="名字："
+                      android:gravity="center"
+                      android:id="@+id/textView_name"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editText_name"
+                    android:hint="请输入名字"
+                    android:background="@drawable/acm_inputbox"
+                    android:singleLine="true"
+                    android:layout_toRightOf="@id/textView_name"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="25dp"
+                      android:text="电话："
+                      android:id="@+id/textView_phoneNumber"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:hint="请输入电话"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/editText_phoneNumber"
+                    android:layout_toRightOf="@id/textView_phoneNumber"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="25dp"
+                      android:text="生日："
+                      android:id="@+id/textView_birthday"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:hint="请输入日期"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/editText_birthday"
+                    android:layout_toRightOf="@id/textView_birthday"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="25dp"
+                      android:text="邮箱："
+                      android:id="@+id/textView_email"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/editText_email"
+                    android:hint="123456@qq.com"
+                    android:layout_toRightOf="@id/textView_email"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="25dp"
+                      android:text="地址："
+                      android:id="@+id/textView_address"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="textPostalAddress"
+                    android:ems="10"
+                    android:id="@+id/editText_address"
+                    android:hint="广东"
+                    android:background="@drawable/acm_inputbox"
+                    android:layout_toRightOf="@id/textView_address"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="25dp"
+                      android:text="群组："
+                      android:id="@+id/textView_group"/>
+            <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/spinner_group"
+                    android:layout_toRightOf="@id/textView_group"/>
+        </RelativeLayout>
+
+        <org.mo.common.ui.button.FButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                fbutton:buttonColor="@color/fbutton_color_alizarin"
+                android:text="删除"
+                android:id="@+id/button_detete"
+                fbutton:shadowEnabled="true"
+                android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

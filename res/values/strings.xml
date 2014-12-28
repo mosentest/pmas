@@ -16,6 +16,9 @@
     <string name="group">我的群组</string>
     <string name="delete">删除</string>
     <string name="save">保存</string>
+    <string name="contact_edit">编辑联系人</string>
+    <string name="note_edit">编辑记事</string>
+    <string name="schedule_edit">编辑日程</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>
