@@ -30,6 +30,9 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
     public TabHost tabHost;
     private EnterFragmentPageAdapter enterFragmentPageAdapter;
 
+    public EnterActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,10 +131,9 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
     private void initJazzyPager(JazzyViewPager.TransitionEffect effect) {
         jazzyPager.setTransitionEffect(effect);
         //TODO --------------------------------
-        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager(),this);
+        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager(), this);
         jazzyPager.setAdapter(enterFragmentPageAdapter);
         //TODO 修改适配器
-//        jazzyPager.setAdapter(new MainAdapter());
         jazzyPager.setPageMargin(30);
         jazzyPager.setFadeEnabled(true);
         jazzyPager.setSlideCallBack(new JazzyViewPager.SlideCallback() {
@@ -160,61 +162,18 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        String[] effects = this.getResources().getStringArray(R.array.jazzy_effects);
-//        for (String effect : effects)
-//            menu.add(effect);
+        getMenuInflater().inflate(R.menu.activity_enter_actions, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        JazzyViewPager.TransitionEffect effect = JazzyViewPager.TransitionEffect.valueOf(item.getTitle().toString());
-//        initJazzyPager(effect);
         return true;
     }
 
     @Override
     public void onClick(View v) {
 
-    }
-
-
-
-
-    private class MainAdapter extends PagerAdapter {
-        @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
-            TextView text = new TextView(EnterActivity.this);
-            text.setGravity(Gravity.CENTER);
-            text.setTextSize(30);
-            text.setTextColor(Color.WHITE);
-            //TODO 显示数据
-            text.setText("郑潇乾你是个傻逼 " + position);
-            text.setPadding(30, 30, 30, 30);
-            ListView listView  = new ListView(EnterActivity.this);
-            container.addView(listView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            jazzyPager.setObjectForPosition(text, position);
-            return text;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object obj) {
-            container.removeView(jazzyPager.findViewFromObject(position));
-        }
-
-        @Override
-        public int getCount() {
-            return 4;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            if (view instanceof OutlineContainer) {
-                return ((OutlineContainer) view).getChildAt(0) == obj;
-            } else {
-                return view == obj;
-            }
-        }
     }
 
 }

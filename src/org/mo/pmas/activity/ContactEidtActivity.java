@@ -80,7 +80,7 @@ private ViewHolder viewHolder;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.contact_activity_actions, menu);
+        getMenuInflater().inflate(R.menu.activity_contact_actions, menu);
         return true;
     }
 

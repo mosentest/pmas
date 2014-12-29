@@ -21,7 +21,7 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="45dp"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="名字："
                       android:gravity="center"
                       android:id="@+id/textView_name"/>
@@ -45,7 +45,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="电话："
                       android:id="@+id/textView_phoneNumber"/>
             <org.mo.common.ui.sideBar.ClearEditText
@@ -67,7 +67,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="生日："
                       android:id="@+id/textView_birthday"/>
             <org.mo.common.ui.sideBar.ClearEditText
@@ -89,7 +89,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="邮箱："
                       android:id="@+id/textView_email"/>
             <org.mo.common.ui.sideBar.ClearEditText
@@ -111,7 +111,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="地址："
                       android:id="@+id/textView_address"/>
             <org.mo.common.ui.sideBar.ClearEditText
@@ -132,7 +132,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="群组："
                       android:id="@+id/textView_group"/>
             <Spinner

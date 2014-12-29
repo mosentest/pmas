@@ -57,12 +57,14 @@ public class EnterFragment extends Fragment {
 
 
     //
-    public static EnterFragment newInstance(Context context) {
+    public static Fragment newInstance(Context context) {
         if (mEnterFragment == null)
             mEnterFragment = new EnterFragment(context);
         return mEnterFragment;
     }
 
+    public EnterFragment() {
+    }
 
     public EnterFragment(Context mContext) {
         this.mContext = mContext;

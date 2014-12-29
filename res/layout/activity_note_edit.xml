@@ -22,7 +22,7 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="45dp"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="标题："
                       android:gravity="center"
                       android:id="@+id/textView_name"/>
@@ -45,7 +45,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="类型："
                       android:id="@+id/textView_group"/>
             <Spinner
@@ -62,7 +62,7 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="45dp"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="日期："
                       android:gravity="center"
                       android:id="@+id/textView_date"/>
@@ -85,7 +85,7 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="45dp"
                       android:textColor="@color/mylove"
-                      android:textSize="25dp"
+                      android:textSize="20dp"
                       android:text="内容："
                       android:gravity="center"
                       android:id="@+id/textView_content"/>

@@ -18,13 +18,10 @@ public class EnterFragmentPageAdapter extends FragmentPagerAdapter {
     private List<Fragment> list = new ArrayList<Fragment>();
 
     private Context mContext;
-    //private EnterFragment enterFragment;
 
     public EnterFragmentPageAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.mContext = context;
-        //enterFragment = new EnterFragment(mContext);
-        //list.add(enterFragment);
     }
 
     @Override
@@ -32,7 +29,7 @@ public class EnterFragmentPageAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new EnterFragment(mContext);
+                return EnterFragment.newInstance(mContext);
             case 1:
                 return new Fragment();
             case 2:
