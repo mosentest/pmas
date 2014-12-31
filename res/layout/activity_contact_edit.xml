@@ -17,37 +17,78 @@
                   android:paddingLeft="10dp"
                   android:paddingTop="10dp">
         <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:textColor="@color/mylove"
-                      android:textSize="20dp"
-                      android:text="名字："
-                      android:gravity="center"
-                      android:id="@+id/textView_name"/>
-            <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/editText_name"
-                    android:hint="请输入名字"
-                    android:background="@drawable/acm_inputbox"
-                    android:singleLine="true"
-                    android:layout_toRightOf="@id/textView_name"/>
+                        android:layout_height="fill_parent">
+            <RelativeLayout android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:background="@drawable/acm_inputbox">
+                <ImageView
+                        android:id="@+id/imageView_head"
+                        android:layout_width="80dip"
+                        android:layout_height="80dip"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="1dip"
+                        android:src="@drawable/ic_launcher"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="120dp">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="45dp"
+                          android:textColor="@color/mylove"
+                          android:textSize="18dp"
+                          android:text="名字："
+                          android:gravity="center"
+                          android:id="@+id/textView_name"/>
+                <org.mo.common.ui.sideBar.ClearEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/editText_name"
+                        android:hint="请输入名字"
+                        android:background="@drawable/acm_inputbox"
+                        android:singleLine="true"
+                        android:layout_toRightOf="@id/textView_name"/>
+            </RelativeLayout>
+
+            <RelativeLayout android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="55dp"
+                            android:layout_marginLeft="120dp">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="45dp"
+                          android:gravity="center"
+                          android:textColor="@color/mylove"
+                          android:textSize="18dp"
+                          android:text="生日："
+                          android:id="@+id/textView_birthday"/>
+                <org.mo.common.ui.sideBar.ClearEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:hint="请输入日期"
+                        android:background="@drawable/acm_inputbox"
+                        android:id="@+id/editText_birthday"
+                        android:layout_toRightOf="@id/textView_birthday"/>
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/phone1">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="20dp"
+                      android:textSize="18dp"
                       android:text="电话："
-                      android:id="@+id/textView_phoneNumber"/>
+                      android:id="@+id/textView_phoneNumber1"/>
             <org.mo.common.ui.sideBar.ClearEditText
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
@@ -55,31 +96,99 @@
                     android:ems="10"
                     android:hint="请输入电话"
                     android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_phoneNumber"
-                    android:layout_toRightOf="@id/textView_phoneNumber"/>
+                    android:id="@+id/editText_phoneNumber1"
+                    android:layout_toRightOf="@id/textView_phoneNumber1"/>
         </RelativeLayout>
-
-        <RelativeLayout android:layout_width="wrap_content"
+        <RelativeLayout android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/phone2">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="20dp"
-                      android:text="生日："
-                      android:id="@+id/textView_birthday"/>
+                      android:textSize="18dp"
+                      android:text="电话："
+                      android:id="@+id/textView_phoneNumber2"/>
             <org.mo.common.ui.sideBar.ClearEditText
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
-                    android:inputType="date"
+                    android:inputType="phone"
                     android:ems="10"
-                    android:hint="请输入日期"
+                    android:hint="请输入电话"
                     android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_birthday"
-                    android:layout_toRightOf="@id/textView_birthday"/>
+                    android:id="@+id/editText_phoneNumber2"
+                    android:layout_toRightOf="@id/textView_phoneNumber2"/>
         </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/phone3">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="18dp"
+                      android:text="电话："
+                      android:id="@+id/textView_phoneNumber3"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:hint="请输入电话"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/editText_phoneNumber3"
+                    android:layout_toRightOf="@id/textView_phoneNumber3"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/phone4">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="18dp"
+                      android:text="电话："
+                      android:id="@+id/textView_phoneNumber4"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:hint="请输入电话"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/editText_phoneNumber4"
+                    android:layout_toRightOf="@id/textView_phoneNumber4"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/phone5">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="45dp"
+                      android:gravity="center"
+                      android:textColor="@color/mylove"
+                      android:textSize="18dp"
+                      android:text="电话："
+                      android:id="@+id/textView_phoneNumber5"/>
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:hint="请输入电话"
+                    android:background="@drawable/acm_inputbox"
+                    android:id="@+id/editText_phoneNumber5"
+                    android:layout_toRightOf="@id/textView_phoneNumber5"/>
+        </RelativeLayout>
+
 
         <RelativeLayout android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -89,7 +198,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="20dp"
+                      android:textSize="18dp"
                       android:text="邮箱："
                       android:id="@+id/textView_email"/>
             <org.mo.common.ui.sideBar.ClearEditText
@@ -111,7 +220,7 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="20dp"
+                      android:textSize="18dp"
                       android:text="地址："
                       android:id="@+id/textView_address"/>
             <org.mo.common.ui.sideBar.ClearEditText
@@ -132,14 +241,14 @@
                       android:layout_height="45dp"
                       android:gravity="center"
                       android:textColor="@color/mylove"
-                      android:textSize="20dp"
+                      android:textSize="18dp"
                       android:text="群组："
                       android:id="@+id/textView_group"/>
-            <Spinner
+            <org.mo.common.ui.sideBar.ClearEditText
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/acm_inputbox"
-                    android:id="@+id/spinner_group"
+                    android:id="@+id/editText_group"
                     android:layout_toRightOf="@id/textView_group"/>
         </RelativeLayout>
 

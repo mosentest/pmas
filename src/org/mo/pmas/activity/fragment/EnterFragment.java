@@ -128,6 +128,7 @@ public class EnterFragment extends Fragment {
         @Override
         protected Integer doInBackground(Integer... params) {
             int result = -1;
+            //TODO 获取联系人数据
             callRecords = ConstactUtil.getAllCallRecords(mContext);
             result = 1;
             return result;

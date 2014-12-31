@@ -2,6 +2,8 @@ package org.mo.pmas.activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +96,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
                 mbundle.putString("address",mContact.getAddress());
                 mbundle.putString("phoneNumber",mContact.getPhoneNumber());
                 mbundle.putString("contactGroup",mContact.getContactGroup());
+                Bitmap contactPhoto = mContact.getContactPhoto();
+                mbundle.putParcelable("contactPhoto",contactPhoto);
                 intent.putExtras(mbundle);
                 mContext.startActivity(intent);
             }

@@ -5,6 +5,7 @@
       <root url="jar://$PROJECT_DIR$/libs/v7/appcompat/libs/android-support-v7-appcompat.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/master-nineoldandroids-library.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/x-utils-master-library.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/BmobSDK_V3.2.7_1209.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

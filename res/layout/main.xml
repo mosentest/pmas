@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-         android:id="@android:id/tabhost"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent">
-
-    <LinearLayout
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <FrameLayout
+            android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+        <TabHost
+                android:id="@android:id/tabhost"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-        <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:visibility="gone">
-        </FrameLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        <org.mo.common.ui.JazzyViewPager
-                xmlns:app="http://schemas.android.com/apk/res/org.mo.pmas.activity"
-                android:id="@+id/jazzyPager"
-                app:style="standard"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+                <FrameLayout
+                        android:id="@android:id/tabcontent"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:visibility="gone">
+                </FrameLayout>
 
-        <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/main_tabwidget_background"
-                android:visibility="visible"/>
-    </LinearLayout>
+                <org.mo.common.ui.JazzyViewPager
+                        xmlns:app="http://schemas.android.com/apk/res/org.mo.pmas.activity"
+                        android:id="@+id/jazzyPager"
+                        app:style="standard"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
 
-</TabHost>
+                <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/main_tabwidget_background"
+                        android:visibility="visible"/>
+            </LinearLayout>
+        </TabHost>
+    </FrameLayout>
+    <ListView android:id="@+id/listView_left_drawer"
+              android:layout_width="240dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="start"
+              android:background="@color/grays"/>
+
+</android.support.v4.widget.DrawerLayout>
 

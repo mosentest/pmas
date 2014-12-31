@@ -26,28 +26,6 @@
                 android:singleLine="true"
                 android:textSize="15.0dip" />
 
-        <LinearLayout
-                android:layout_height="60dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@color/whites">
-            <ImageView
-                    android:layout_height="40dp"
-                    android:layout_width="40dp"
-                    android:src="@drawable/h001"
-                    android:scaleType="fitXY"
-                    android:contentDescription="@string/app_name"
-                    android:layout_marginLeft="5dp"/>
-            <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/mylove"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/group"
-                    android:textSize="18sp"/>
-        </LinearLayout>
-
         <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -55,8 +33,8 @@
             <ListView
                     android:id="@+id/country_lvcountry"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
                     android:listSelector="@color/whites"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center" />
 
             <TextView

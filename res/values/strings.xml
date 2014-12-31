@@ -37,4 +37,16 @@
         <item>RotateDown</item>
         <item>Accordion</item>
     </string-array>
+
+    <string-array name="effects">
+        <item>联系人管理</item>
+        <item>群组管理</item>
+        <item>记事管理</item>
+        <item>记事类型管理</item>
+        <item>日程管理</item>
+        <item>日程类型管理</item>
+        <item>天气</item>
+        <item>附近</item>
+        <item>关于</item>
+    </string-array>
 </resources>

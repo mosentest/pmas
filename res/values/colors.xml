@@ -5,7 +5,7 @@
     <color name="holo_blue">#FF33E5B5</color>
     <color name="devide_line">#CBCED2</color>
     <color name="blue">#499BF7</color>
-    <color name="whites">#ffffff</color>
+    <color name="whites">#00000000</color>
     <color name="grays">#818181</color>
     <color name="gray_font">#818181</color>
     <color name="common_title">#F9F9F9</color>

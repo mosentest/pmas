@@ -1,12 +1,11 @@
 package org.mo.pmas.activity;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
@@ -14,7 +13,6 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
 import org.mo.common.ui.JazzyViewPager;
-import org.mo.common.ui.OutlineContainer;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
 
 import java.util.ArrayList;
@@ -29,6 +27,8 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
     Context context;
     public TabHost tabHost;
     private EnterFragmentPageAdapter enterFragmentPageAdapter;
+    private Menu menu;
+    private ListView mListView_left_drawer;
 
     public EnterActivity() {
     }
@@ -58,6 +58,56 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
         });
         tabHost.setCurrentTab(0);
         initJazzyPager(JazzyViewPager.TransitionEffect.Standard);
+        //TODO 抽屉实现
+        mListView_left_drawer = (ListView) findViewById(R.id.listView_left_drawer);
+        String[] stringArray = getResources().getStringArray(R.array.effects);
+        mListView_left_drawer.setAdapter(new DrawableAdapter(this, stringArray));
+        mListView_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+    }
+
+    /**
+     * 抽屉适配器
+     */
+    private static class DrawableAdapter extends BaseAdapter {
+
+        private String[] strings;
+        private Context contexts;
+
+        public DrawableAdapter(Context contexts, String[] strings) {
+            this.strings = strings;
+            this.contexts = contexts;
+        }
+
+        @Override
+        public int getCount() {
+            return strings.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return strings[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View inflate = LayoutInflater.from(contexts).inflate(R.layout.main_drawer_list_item, parent, false);
+            TextView textView = (TextView) inflate.findViewById(R.id.draw_item);
+            ImageView imageView = (ImageView)inflate.findViewById(R.id.imageView);
+            //TODO 这里没做好
+//            Bitmap bitmap = BitmapFactory.decodeFile(R.drawable.ic_drow_1 + "");
+//            imageView.setImageBitmap(bitmap);
+            textView.setText(strings[position]);
+            return inflate;
+        }
     }
 
     /**
@@ -147,6 +197,35 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
         jazzyPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        menu.findItem(R.id.save_contact).setVisible(true);
+                        menu.findItem(R.id.save_note).setVisible(false);
+                        menu.findItem(R.id.save_schedule).setVisible(false);
+                        menu.findItem(R.id.code).setVisible(false);
+
+                        break;
+                    case 1:
+                        menu.findItem(R.id.save_contact).setVisible(false);
+                        menu.findItem(R.id.save_note).setVisible(true);
+                        menu.findItem(R.id.save_schedule).setVisible(false);
+                        menu.findItem(R.id.code).setVisible(false);
+
+                        break;
+                    case 2:
+                        menu.findItem(R.id.save_contact).setVisible(false);
+                        menu.findItem(R.id.save_note).setVisible(false);
+                        menu.findItem(R.id.save_schedule).setVisible(true);
+                        menu.findItem(R.id.code).setVisible(false);
+
+                        break;
+                    case 3:
+                        menu.findItem(R.id.save_contact).setVisible(false);
+                        menu.findItem(R.id.save_note).setVisible(false);
+                        menu.findItem(R.id.save_schedule).setVisible(false);
+                        menu.findItem(R.id.code).setVisible(true);
+                        break;
+                }
                 tabHost.setCurrentTab(position);
             }
 
@@ -162,7 +241,13 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_enter_actions, menu);
+        //TODO 动态菜单
+        getMenuInflater().inflate(R.menu.activity_enter_setting_actions, menu);
+        this.menu = menu;
+        this.menu.findItem(R.id.save_contact).setVisible(true);
+        this.menu.findItem(R.id.save_note).setVisible(false);
+        this.menu.findItem(R.id.save_schedule).setVisible(false);
+        this.menu.findItem(R.id.code).setVisible(false);
         return true;
     }
 
