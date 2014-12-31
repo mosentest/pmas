@@ -9,9 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
+import cn.bmob.v3.Bmob;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
+import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
 
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EnterActivity extends FragmentActivity implements View.OnClickListener {
+public class EnterActivity extends BaseFramgmentActivity implements View.OnClickListener {
     @ViewInject(R.id.jazzyPager)
     private JazzyViewPager jazzyPager;
     List<Map<String, View>> tabViews = new ArrayList<Map<String, View>>();
@@ -101,7 +103,7 @@ public class EnterActivity extends FragmentActivity implements View.OnClickListe
         public View getView(int position, View convertView, ViewGroup parent) {
             View inflate = LayoutInflater.from(contexts).inflate(R.layout.main_drawer_list_item, parent, false);
             TextView textView = (TextView) inflate.findViewById(R.id.draw_item);
-            ImageView imageView = (ImageView)inflate.findViewById(R.id.imageView);
+//            ImageView imageView = (ImageView)inflate.findViewById(R.id.imageView);
             //TODO 这里没做好
 //            Bitmap bitmap = BitmapFactory.decodeFile(R.drawable.ic_drow_1 + "");
 //            imageView.setImageBitmap(bitmap);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">小秘书</string>
+    <string name="app_name">个人信息助理系统</string>
 
     <!-- 数据库和文件路径 -->
     <string name="dir">/pmas</string>
@@ -39,14 +39,11 @@
     </string-array>
 
     <string-array name="effects">
-        <item>联系人管理</item>
-        <item>群组管理</item>
-        <item>记事管理</item>
-        <item>记事类型管理</item>
-        <item>日程管理</item>
-        <item>日程类型管理</item>
+        <item>通讯录</item>
+        <item>记事本</item>
+        <item>日程</item>
         <item>天气</item>
-        <item>附近</item>
-        <item>关于</item>
+        <item>周边</item>
+        <item>系统</item>
     </string-array>
 </resources>

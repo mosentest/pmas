@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import org.mo.common.activity.BaseFramgmentActivity;
 
 /**
  * Created by moziqi on 2014/12/28 0028.
  */
-public class NoteEditActivity extends FragmentActivity {
+public class NoteEditActivity extends BaseFramgmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.ToastUtil;
 
 import java.util.Calendar;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 /**
  * Created by moziqi on 2014/12/28 0028.
  */
-public class ScheduleEditActivity extends FragmentActivity {
+public class ScheduleEditActivity extends BaseFramgmentActivity {
 
     private ViewHodler viewHodler;
 

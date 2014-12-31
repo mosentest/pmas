@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.StringUtil;
 
 import java.io.File;
@@ -28,7 +29,7 @@ import java.util.Calendar;
 /**
  * Created by moziqi on 2014/12/26 0026.
  */
-public class ContactEidtActivity extends FragmentActivity {
+public class ContactEidtActivity extends BaseFramgmentActivity {
     private ViewHolder viewHolder;
     private String mImgPath;
     private Bitmap head;//头像Bitmap

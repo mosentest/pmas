@@ -21,6 +21,7 @@ public class Contact implements Serializable {
 
     private String address;//通讯地址
 
+    //BmobFile
     private Bitmap contactPhoto;//联系人照片
 
     private String phoneNumber;//联系电话
