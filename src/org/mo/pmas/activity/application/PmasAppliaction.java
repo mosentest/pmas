@@ -2,6 +2,8 @@ package org.mo.pmas.activity.application;
 
 import android.app.Activity;
 import android.app.Application;
+import cn.bmob.v3.Bmob;
+import org.mo.pmas.comm.Constant;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +13,12 @@ import java.util.List;
  */
 public class PmasAppliaction extends Application {
     private List<Activity> activityList = new LinkedList<Activity>();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Bmob.initialize(this, Constant.BMOBNAME);
+    }
 
     // 添加Activity到容器中
     public void addActivity(Activity activity) {

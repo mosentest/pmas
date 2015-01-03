@@ -10,12 +10,18 @@ import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetCallback;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
+import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
+import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
+import org.mo.pmas.bmob.entity.MyUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +45,20 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        //TODO Bmob 测试获取成功
+        BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
+        bmobQuery.findObjects(this, new FindListener<MyUser>() {
+            @Override
+            public void onSuccess(List<MyUser> myUsers) {
+                for (MyUser myUser : myUsers)
+                    ToastUtil.showShortToast(EnterActivity.this, myUser.getUsername());
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                ToastUtil.showLongToast(EnterActivity.this, "失败");
+            }
+        });
         ViewUtils.inject(this);
         context = this;
         // --------------------
