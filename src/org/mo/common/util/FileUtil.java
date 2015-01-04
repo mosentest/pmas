@@ -1,6 +1,8 @@
 package org.mo.common.util;
 
+import android.content.Context;
 import android.util.Log;
+import org.mo.pmas.entity.Contact;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -120,7 +122,6 @@ public class FileUtil {
     /**
      * 向Text文件中写入内容
      *
-     * @param file
      * @param content
      * @return
      */
@@ -185,7 +186,7 @@ public class FileUtil {
      * @param startLine
      * @param lineCount
      * @return 读到文字的list, 如果list.size<lineCount则说明读到文件末尾了
-     */
+    */
     public static List<String> readFile(File file, int startLine, int lineCount) {
         if (file == null || startLine < 1 || lineCount < 1) {
             return null;
@@ -320,5 +321,11 @@ public class FileUtil {
         }
         System.out.println("string=" + string);
         return string.toString();
+    }
+
+    public static String getCacheFile(Context context) {
+        File cacheDir = context.getCacheDir();//文件所在目录为getFilesDir();
+        String cachePath = cacheDir.getPath();
+        return cachePath;
     }
 }

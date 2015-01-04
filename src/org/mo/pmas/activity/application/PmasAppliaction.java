@@ -2,9 +2,13 @@ package org.mo.pmas.activity.application;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import cn.bmob.v3.Bmob;
+import org.mo.common.util.FileUtil;
+import org.mo.common.util.ToastUtil;
 import org.mo.pmas.comm.Constant;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,4 +35,5 @@ public class PmasAppliaction extends Application {
             activity.finish();
         }
     }
+
 }

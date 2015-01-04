@@ -27,4 +27,6 @@ public class Constant {
     public static final String remove = "02";// 增加
 
     public static final String BMOBNAME = "309843b497a5abb68feeeb0475863c9d";
+
+    public static final String APP_PERFERCES_NAME="APP_PERFERCES_NAME";
 }
