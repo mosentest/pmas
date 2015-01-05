@@ -7,6 +7,7 @@ import cn.bmob.v3.Bmob;
 import org.mo.common.util.FileUtil;
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.comm.Constant;
+import org.mo.pmas.util.SharePreferenceUtil;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -16,11 +17,20 @@ import java.util.List;
  * Created by moziqi on 2014/12/26 0026.
  */
 public class PmasAppliaction extends Application {
+    // 单例模式，才能及时返回数据
+    private SharePreferenceUtil mSpUtil;
+    public static final String PREFERENCE_NAME = "_sharedinfo";
     private List<Activity> activityList = new LinkedList<Activity>();
+    private static PmasAppliaction pmasAppliaction;
+
+    public static PmasAppliaction getInstance(){
+        return pmasAppliaction;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        pmasAppliaction = this;
         Bmob.initialize(this, Constant.BMOBNAME);
     }
 
@@ -36,4 +46,11 @@ public class PmasAppliaction extends Application {
         }
     }
 
+    public synchronized SharePreferenceUtil getSpUtil() {
+        if (mSpUtil == null) {
+            String sharedName = PREFERENCE_NAME;
+            mSpUtil = new SharePreferenceUtil(this, sharedName);
+        }
+        return mSpUtil;
+    }
 }

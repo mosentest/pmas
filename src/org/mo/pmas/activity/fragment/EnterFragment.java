@@ -63,10 +63,8 @@ public class EnterFragment extends Fragment {
         return mEnterFragment;
     }
 
-    public EnterFragment() {
-    }
 
-    public EnterFragment(Context mContext) {
+    private EnterFragment(Context mContext) {
         this.mContext = mContext;
     }
 

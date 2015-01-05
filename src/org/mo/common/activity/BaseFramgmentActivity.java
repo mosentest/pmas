@@ -25,7 +25,7 @@ public class BaseFramgmentActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPmasAppliaction = new PmasAppliaction();
+        mPmasAppliaction = PmasAppliaction.getInstance();
         DisplayMetrics metric = new DisplayMetrics();
         //获取屏幕大小
         getWindowManager().getDefaultDisplay().getMetrics(metric);

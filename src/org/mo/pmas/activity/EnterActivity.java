@@ -41,6 +41,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     public EnterActivity() {
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -281,6 +282,21 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     @Override
     public void onClick(View v) {
 
+    }
+
+    private static long firstTime;
+    /**
+     * 连续按两次返回键就退出
+     */
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        if (firstTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            ShowToast("再按一次退出程序");
+        }
+        firstTime = System.currentTimeMillis();
     }
 
 }

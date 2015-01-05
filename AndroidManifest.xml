@@ -26,29 +26,34 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <!-- 通知震动权限 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <supports-screens
             android:anyDensity="true"
             android:largeScreens="true"
             android:normalScreens="false"
             android:resizeable="true"
-            android:smallScreens="true" />
+            android:smallScreens="true"/>
 
     <application android:label="@string/app_name"
                  android:icon="@drawable/ic_launcher"
                  android:theme="@style/CustomActionBarTheme"
                  android:allowBackup="true"
-                   android:name=".application.PmasAppliaction">
+                 android:name=".application.PmasAppliaction">
 
-        <activity android:name="LoginActivity"
+        <activity android:name="org.mo.common.ui.switchview.SwitchViewActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".LoginActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
         <activity android:name=".RegisterActivity"

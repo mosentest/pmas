@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.ListView;
 import org.mo.pmas.activity.fragment.EnterFragment;
+import org.mo.pmas.activity.fragment.SettingFragment;
 import org.mo.pmas.entity.Contact;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class EnterFragmentPageAdapter extends FragmentPagerAdapter {
             case 2:
                 return new Fragment();
             case 3:
-                return new Fragment();
+                return SettingFragment.getInstance(mContext);
             default:
                 return new Fragment();
         }
