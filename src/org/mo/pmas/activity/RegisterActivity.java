@@ -98,7 +98,7 @@ public class RegisterActivity extends BaseFramgmentActivity implements View.OnCl
             return;
         }
         if (!ValidateUtil.isEmail(email)) {
-            ShowToast("邮箱格式不正确");
+            ShowToast("邮箱格式不正确" + ValidateUtil.isEmail(email));
             return;
         }
         BmobQuery<BmobUser> query = new BmobQuery<BmobUser>();

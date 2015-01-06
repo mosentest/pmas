@@ -1,6 +1,5 @@
 package org.mo.pmas.activity.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +28,7 @@ public class NoteFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.framgment_note, null);
+        mRootView = inflater.inflate(R.layout.framgment_note_list, null);
         return mRootView;
     }
 }

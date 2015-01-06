@@ -1,6 +1,7 @@
 package org.mo.pmas.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,12 +37,13 @@ import java.util.Map;
 public class EnterActivity extends BaseFramgmentActivity implements View.OnClickListener {
     @ViewInject(R.id.jazzyPager)
     private JazzyViewPager jazzyPager;
-    List<Map<String, View>> tabViews =null;
+    List<Map<String, View>> tabViews = null;
     Context context;
     public TabHost tabHost;
     private EnterFragmentPageAdapter enterFragmentPageAdapter;
     private Menu menu;
     private ListView mListView_left_drawer;
+    private static long firstTime;
 
     private static List<Fragment> list = null;
 
@@ -291,15 +293,29 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return true;
+        switch (item.getItemId()) {
+            case R.id.save_contact:
+                ShowToast("添加联系人");
+                return true;
+            case R.id.save_note:
+                Intent intent = new Intent(EnterActivity.this, NoteAddActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.save_schedule:
+                ShowToast("添加日程");
+                return true;
+            case R.id.code:
+                ShowToast("二维码");
+                return true;
+            default:
+                return true;
+        }
     }
 
     @Override
     public void onClick(View v) {
 
     }
-
-    private static long firstTime;
 
     /**
      * 连续按两次返回键就退出

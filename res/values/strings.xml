@@ -12,6 +12,9 @@
     <string name="note">记事</string>
     <string name="schedule">日程</string>
     <string name="setting">设置</string>
+    <string name="weather">天气</string>
+    <string name="neighborhood">周边</string>
+    <string name="about">关于</string>
     <string name="loading">正在加载，请稍后...</string>
     <string name="group">我的群组</string>
     <string name="delete">删除</string>
@@ -48,6 +51,7 @@
     <string name="remember_pwd">记住密码</string>
     <string name="auto_login">自动登录</string>
     <string name="forget_pwd"><![CDATA[忘记密码>]]></string>
+    <string name="add_schedule">新增</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

@@ -23,8 +23,8 @@ public class ValidateUtil {
         boolean flag = true;
         String licenc = view.getText().toString();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		/*
-		 * { 11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",
+        /*
+         * { 11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",
 		 * 21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",
 		 * 33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",
 		 * 42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",
@@ -261,13 +261,13 @@ public class ValidateUtil {
             return false;
         }
         String str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        String[] str1 = { "京", "津", "冀", "晋", "蒙", "辽", "吉", "黑", "沪", "苏",
+        String[] str1 = {"京", "津", "冀", "晋", "蒙", "辽", "吉", "黑", "沪", "苏",
                 "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘", "粤", "桂", "琼", "渝",
                 "川", "贵", "云", "藏", "陕", "甘", "青", "宁", "新", "农", "台", "中",
                 "武", "WJ", "亥", "戌", "酉", "申", "未", "午", "巳", "辰", "卯", "寅",
                 "丑", "子", "葵", "壬", "辛", "庚", "己", "戊", "丁", "丙", "乙", "甲",
                 "河北", "山西", "北京", "北", "南", "兰", "沈", "济", "成", "广", "海", "空",
-                "军", "京V", "使" };
+                "军", "京V", "使"};
 
         if (no.equals("新车")) {
             return true;
@@ -326,10 +326,8 @@ public class ValidateUtil {
     }
 
     public static boolean isEmail(String strEmail) {
-        String strPattern = "^([a-z0-9A-Z]+[-|\\\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$";
-        Pattern p = Pattern.compile(strPattern);
-        Matcher m = p.matcher(strEmail);
-        return m.matches();
+        String strPattern = "^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\\\.][A-Za-z]{2,3}([\\\\.][A-Za-z]{2})?$";
+        return Pattern.matches(strPattern, strEmail);
     }
 
     public static boolean isDouble(TextView w, String displayStr) {
@@ -376,7 +374,9 @@ public class ValidateUtil {
         return true;
     }
 
-    /** 银行帐号为16-21位的数字 */
+    /**
+     * 银行帐号为16-21位的数字
+     */
     public static boolean isAccountNumber(TextView w) {
         if (!RegexUtil.isAccountNumber(w.getText().toString().trim())) {
             w.setError("银行帐号必须为16-21位的数字！");

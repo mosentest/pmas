@@ -3,7 +3,6 @@
               xmlns:fbutton="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/theme_bg_color"
               android:orientation="vertical">
 
     <LinearLayout style="@style/Register_Input">
@@ -75,7 +74,7 @@
         <EditText
                 android:id="@+id/et_register_email"
                 style="@style/Register_Edit"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:hint="@string/login_email_hint"/>
     </LinearLayout>
 

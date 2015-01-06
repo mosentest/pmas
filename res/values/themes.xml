@@ -14,10 +14,15 @@
     <!-- ActionBar styles -->
     <style name="MyActionBar"
            parent="@style/Widget.AppCompat.ActionBar">
+       <!-- 修改ActionBar样式-->
+        <item name="android:background">@android:color/holo_orange_light</item>
+        <item name="android:backgroundStacked">@android:color/holo_green_dark</item>s
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
 
         <!-- Support library compatibility -->
+        <item name="background">@android:color/holo_purple</item>
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+        <item name="backgroundStacked">@android:color/holo_green_dark</item>
     </style>
 
     <!-- ActionBar title text -->

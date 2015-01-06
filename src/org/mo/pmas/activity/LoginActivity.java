@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -144,9 +145,16 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
                     }
                     edit.putBoolean("autoLogin", autoLogin);
                     edit.commit();
-                    Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
-                    startActivity(intent);
-                    LoginActivity.this.finish();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
+                            startActivity(intent);
+                            LoginActivity.this.finish();
+                            overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
+                        }
+                    }, 0);
                     progress.dismiss();
                 }
 
