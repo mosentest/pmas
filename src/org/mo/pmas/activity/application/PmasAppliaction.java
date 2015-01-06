@@ -23,7 +23,7 @@ public class PmasAppliaction extends Application {
     private List<Activity> activityList = new LinkedList<Activity>();
     private static PmasAppliaction pmasAppliaction;
 
-    public static PmasAppliaction getInstance(){
+    public static PmasAppliaction getInstance() {
         return pmasAppliaction;
     }
 

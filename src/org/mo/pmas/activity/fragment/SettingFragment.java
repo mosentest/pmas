@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
+import org.mo.pmas.activity.EnterActivity;
 import org.mo.pmas.activity.LoginActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.application.PmasAppliaction;
@@ -72,8 +72,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         SharedPreferences.Editor edit = preferences.edit();
         edit.putBoolean("autoLogin", false);
         edit.commit();
-        BmobUser.logOut(mContext);   //清除缓存用户对象
-        BmobUser currentUser = BmobUser.getCurrentUser(mContext); // 现在的currentUser是null了
+        PmasAppliaction.getInstance().exit();
         Intent intent = new Intent(mContext, LoginActivity.class);
         this.getActivity().startActivity(intent);
         this.getActivity().finish();

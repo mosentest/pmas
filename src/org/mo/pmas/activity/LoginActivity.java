@@ -1,8 +1,10 @@
 package org.mo.pmas.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,7 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
     private CheckBox m_cb_remember_pwd;
     private CheckBox m_cb_auto_login;
     private TextView m_tv_forget_pwd;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,41 +84,12 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
     }
 
     private void login(final String username, final String password, final boolean autoLogin, final boolean rememberPwd) {
-        final ProgressDialog progress = new ProgressDialog(LoginActivity.this);
+        progress = new ProgressDialog(LoginActivity.this);
         progress.setMessage("正在登录...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
-        BmobUser bmobUser = new BmobUser();
-        bmobUser.setUsername(username);
-        bmobUser.setPassword(password);
-        bmobUser.login(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                SharedPreferences preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", MODE_PRIVATE);
-                SharedPreferences.Editor edit = preferences.edit();
-                edit.putString("username", username);
-                if (rememberPwd == true) {
-                    edit.putString("password", password);
-                    edit.putBoolean("rememberPwd", true);
-                } else {
-                    edit.putString("password", null);
-                    edit.putBoolean("rememberPwd", false);
-                }
-                edit.putBoolean("autoLogin", autoLogin);
-                edit.commit();
-                Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
-                startActivity(intent);
-                progress.dismiss();
-                LoginActivity.this.finish();
-            }
+        new LoadAsynTask(username, password, autoLogin, rememberPwd, this).execute();
 
-            @Override
-            public void onFailure(int code, String msg) {
-                ErrorEnum ident = ErrorEnum.ident(code);
-                ShowToast(ident.getMessage());
-                progress.dismiss();
-            }
-        });
     }
 
     private void register() {
@@ -133,5 +107,57 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         this.m_tv_forget_pwd = (TextView) findViewById(R.id.tv_forget_pwd);
         mLogin.setOnClickListener(this);
         mRegister.setOnClickListener(this);
+    }
+
+    private class LoadAsynTask extends AsyncTask<Void, Void, Void> {
+        String username;
+        String password;
+        boolean autoLogin;
+        boolean rememberPwd;
+        Context context;
+
+        private LoadAsynTask(String username, String password, boolean autoLogin, boolean rememberPwd, Context context) {
+            this.username = username;
+            this.password = password;
+            this.autoLogin = autoLogin;
+            this.rememberPwd = rememberPwd;
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            BmobUser bmobUser = new BmobUser();
+            bmobUser.setUsername(username);
+            bmobUser.setPassword(password);
+            bmobUser.login(context, new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    SharedPreferences preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", MODE_PRIVATE);
+                    SharedPreferences.Editor edit = preferences.edit();
+                    edit.putString("username", username);
+                    if (rememberPwd == true) {
+                        edit.putString("password", password);
+                        edit.putBoolean("rememberPwd", true);
+                    } else {
+                        edit.putString("password", null);
+                        edit.putBoolean("rememberPwd", false);
+                    }
+                    edit.putBoolean("autoLogin", autoLogin);
+                    edit.commit();
+                    Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(int code, String msg) {
+                    ErrorEnum ident = ErrorEnum.ident(code);
+                    ShowToast(ident.getMessage());
+                    progress.dismiss();
+                }
+            });
+            return null;
+        }
     }
 }

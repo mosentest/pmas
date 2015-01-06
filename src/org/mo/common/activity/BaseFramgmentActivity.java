@@ -17,7 +17,6 @@ import org.mo.pmas.comm.Constant;
  */
 public class BaseFramgmentActivity extends FragmentActivity {
 
-    private PmasAppliaction mPmasAppliaction;
     private Toast mToast;
     protected int mScreenWidth;
     protected int mScreenHeight;
@@ -25,7 +24,7 @@ public class BaseFramgmentActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPmasAppliaction = PmasAppliaction.getInstance();
+        PmasAppliaction.getInstance().addActivity(this);
         DisplayMetrics metric = new DisplayMetrics();
         //获取屏幕大小
         getWindowManager().getDefaultDisplay().getMetrics(metric);
@@ -61,7 +60,7 @@ public class BaseFramgmentActivity extends FragmentActivity {
         this.startActivity(intent);
     }
 
-    public void loginout(){
+    public void loginout() {
         BmobUser.logOut(this);   //清除缓存用户对象
         BmobUser currentUser = BmobUser.getCurrentUser(this); // 现在的currentUser是null了
     }

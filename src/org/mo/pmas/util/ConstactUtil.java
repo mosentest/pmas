@@ -1,5 +1,6 @@
 package org.mo.pmas.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +64,11 @@ public class ConstactUtil {
                     Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
                     InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), uri);
                     contactPhoto = BitmapFactory.decodeStream(input);
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }else {
                     contactPhoto = BitmapFactory.decodeResource(context.getResources(), R.drawable.h001);
                 }

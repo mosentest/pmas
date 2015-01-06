@@ -4,9 +4,13 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import org.mo.pmas.activity.fragment.CalenderFragment;
 import org.mo.pmas.activity.fragment.EnterFragment;
+import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
+import org.mo.pmas.bmob.entity.Note;
 import org.mo.pmas.entity.Contact;
 
 import java.util.ArrayList;
@@ -18,28 +22,26 @@ import java.util.List;
 public class EnterFragmentPageAdapter extends FragmentPagerAdapter {
     private List<Fragment> list = new ArrayList<Fragment>();
 
-    private Context mContext;
-
-    public EnterFragmentPageAdapter(FragmentManager fm, Context context) {
+    public EnterFragmentPageAdapter(FragmentManager fm, Context context, List<Fragment> list) {
         super(fm);
-        this.mContext = context;
+        this.list = list;
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        switch (position) {
-            case 0:
-                return EnterFragment.newInstance(mContext);
-            case 1:
-                return new Fragment();
-            case 2:
-                return new Fragment();
-            case 3:
-                return SettingFragment.getInstance(mContext);
-            default:
-                return new Fragment();
+        Fragment page = null;
+        if (list.size() > position) {
+            page = list.get(position);
+            if (page != null) {
+                return page;
+            }
         }
+        while (position >= list.size()) {
+            list.add(null);
+        }
+        page = list.get(position);
+        list.set(position, page);
+        return page;
     }
 
     @Override
@@ -49,8 +51,11 @@ public class EnterFragmentPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return list.size();
     }
 
-
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+    }
 }

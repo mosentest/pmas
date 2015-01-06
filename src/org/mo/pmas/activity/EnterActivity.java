@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.*;
@@ -21,6 +22,10 @@ import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
+import org.mo.pmas.activity.fragment.CalenderFragment;
+import org.mo.pmas.activity.fragment.EnterFragment;
+import org.mo.pmas.activity.fragment.NoteFragment;
+import org.mo.pmas.activity.fragment.SettingFragment;
 import org.mo.pmas.bmob.entity.MyUser;
 
 import java.util.ArrayList;
@@ -31,12 +36,15 @@ import java.util.Map;
 public class EnterActivity extends BaseFramgmentActivity implements View.OnClickListener {
     @ViewInject(R.id.jazzyPager)
     private JazzyViewPager jazzyPager;
-    List<Map<String, View>> tabViews = new ArrayList<Map<String, View>>();
+    List<Map<String, View>> tabViews =null;
     Context context;
     public TabHost tabHost;
     private EnterFragmentPageAdapter enterFragmentPageAdapter;
     private Menu menu;
     private ListView mListView_left_drawer;
+
+    private static List<Fragment> list = null;
+
 
     public EnterActivity() {
     }
@@ -46,6 +54,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        tabViews = new ArrayList<Map<String, View>>();
         //TODO Bmob 测试获取成功
         BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
         bmobQuery.findObjects(this, new FindListener<MyUser>() {
@@ -202,9 +211,15 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     }
 
     private void initJazzyPager(JazzyViewPager.TransitionEffect effect) {
+        list = new ArrayList<Fragment>();
+        list.add(EnterFragment.newInstance(this));
+        list.add(NoteFragment.getInstance(this));
+        list.add(CalenderFragment.getInstance(this));
+        list.add(SettingFragment.getInstance(this));
         jazzyPager.setTransitionEffect(effect);
-        //TODO --------------------------------
-        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager(), this);
+        //TODO -------------卡顿
+        jazzyPager.setOffscreenPageLimit(list.size());
+        enterFragmentPageAdapter = new EnterFragmentPageAdapter(getSupportFragmentManager(), this, list);
         jazzyPager.setAdapter(enterFragmentPageAdapter);
         //TODO 修改适配器
         jazzyPager.setPageMargin(30);
@@ -285,6 +300,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     }
 
     private static long firstTime;
+
     /**
      * 连续按两次返回键就退出
      */

@@ -13,7 +13,6 @@ public class BaseFragment extends Fragment {
 
     public LayoutInflater mInflater;
     private Toast mToast;
-    public PmasAppliaction pmasAppliaction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
