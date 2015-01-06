@@ -59,6 +59,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
             viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
             viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
+            viewHolder.m_ll_constact = (LinearLayout)view.findViewById(R.id.ll_constact);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -80,33 +81,50 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         }
 
         viewHolder.tvTitle.setText(mContact.getName());
-
         //TODO 跳转页面
         viewHolder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 显示联系人信息
-                Toast.makeText(mContext, mContact.getPhoneNumber(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, ContactEidtActivity.class);
-                Bundle mbundle = new Bundle();
-                mbundle.putLong("id",mContact.getId());
-                mbundle.putString("name", mContact.getName());
-                mbundle.putString("birthday",mContact.getBirthday());
-                mbundle.putString("email",mContact.getEmail());
-                mbundle.putString("address",mContact.getAddress());
-                mbundle.putString("phoneNumber",mContact.getPhoneNumber());
-                mbundle.putString("contactGroup",mContact.getContactGroup());
-                Bitmap contactPhoto = mContact.getContactPhoto();
-                mbundle.putParcelable("contactPhoto",contactPhoto);
-                intent.putExtras(mbundle);
-                mContext.startActivity(intent);
+                showOneContactInThis(mContact);
+
             }
         });
 
         //TODO 设置图片
         viewHolder.imageView.setImageBitmap(mContact.getContactPhoto());
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOneContactInThis(mContact);
+            }
+        });
+
+        viewHolder.m_ll_constact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOneContactInThis(mContact);
+            }
+        });
         return view;
 
+    }
+
+    private void showOneContactInThis(Contact mContact) {
+        //TODO 显示联系人信息
+        Toast.makeText(mContext, mContact.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mContext, ContactEidtActivity.class);
+        Bundle mbundle = new Bundle();
+        mbundle.putLong("id",mContact.getId());
+        mbundle.putString("name", mContact.getName());
+        mbundle.putString("birthday",mContact.getBirthday());
+        mbundle.putString("email",mContact.getEmail());
+        mbundle.putString("address",mContact.getAddress());
+        mbundle.putString("phoneNumber",mContact.getPhoneNumber());
+        mbundle.putString("contactGroup",mContact.getContactGroup());
+        Bitmap contactPhoto = mContact.getContactPhoto();
+        mbundle.putParcelable("contactPhoto",contactPhoto);
+        intent.putExtras(mbundle);
+        mContext.startActivity(intent);
     }
 
 
@@ -114,6 +132,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         TextView tvLetter;
         TextView tvTitle;
         ImageView imageView;
+        LinearLayout m_ll_constact;
     }
 
 
