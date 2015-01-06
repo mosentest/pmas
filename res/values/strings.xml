@@ -52,6 +52,13 @@
     <string name="auto_login">自动登录</string>
     <string name="forget_pwd"><![CDATA[忘记密码>]]></string>
     <string name="add_schedule">新增</string>
+    <string name="title">标题</string>
+    <string name="input_title">请输入标题</string>
+    <string name="note_type">类型</string>
+    <string name="choice">请选择</string>
+    <string name="note_content">内容</string>
+    <string name="note_input_content">最多只能输入200个字</string>
+    <string name="add_note">新增记事</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>
@@ -69,9 +76,6 @@
     </string-array>
 
     <string-array name="effects">
-        <item>通讯录</item>
-        <item>记事本</item>
-        <item>日程</item>
         <item>天气</item>
         <item>周边</item>
         <item>系统</item>

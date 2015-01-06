@@ -1,91 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:fbutton="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout style="@style/Register_Input">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true">
 
-        <TextView
-                style="@style/Smile.TextView._Black"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:textColor="@color/mylove"
-                android:text="@string/login_account"
-                android:inputType="text"
-                android:textStyle="bold"/>
+        <LinearLayout style="@style/Register_Input">
 
-        <EditText
-                android:id="@+id/et_register_username"
-                style="@style/Register_Edit"
-                android:hint="@string/login_username_hint"/>
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/mylove"
+                    android:text="@string/login_account"
+                    android:inputType="text"
+                    android:textStyle="bold"/>
+
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:id="@+id/et_register_username"
+                    style="@style/Register_Edit"
+                    android:hint="@string/login_username_hint"/>
+        </LinearLayout>
+
+        <LinearLayout style="@style/Register_Input">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/login_pwd"
+                    android:textColor="@color/mylove"
+                    android:textStyle="bold"/>
+
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:id="@+id/et_register_password"
+                    style="@style/Register_Edit"
+
+                    android:inputType="textPassword"
+                    android:hint="@string/login_password_hint"/>
+        </LinearLayout>
+
+        <LinearLayout style="@style/Register_Input">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/login_repwd"
+                    android:textColor="@color/mylove"
+                    android:textStyle="bold"/>
+
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:id="@+id/et_register_repassword"
+                    style="@style/Register_Edit"
+
+                    android:inputType="textPassword"
+                    android:hint="@string/login_repassword_hint"/>
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/Register_Input">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/login_email"
+                    android:textColor="@color/mylove"
+                    android:textStyle="bold"/>
+
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:id="@+id/et_register_email"
+                    style="@style/Register_Edit"
+
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/login_email_hint"/>
+        </LinearLayout>
+
+        <org.mo.common.ui.button.FButton
+                android:id="@+id/btn_register2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/register"
+                android:textColor="@android:color/white"
+                fbutton:buttonColor="@color/mylove"
+                android:textSize="@dimen/text_size_large"/>
     </LinearLayout>
-
-    <LinearLayout style="@style/Register_Input">
-
-        <TextView
-                style="@style/Smile.TextView._Black"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/login_pwd"
-                android:textColor="@color/mylove"
-                android:textStyle="bold"/>
-
-        <EditText
-                android:id="@+id/et_register_password"
-                style="@style/Register_Edit"
-                android:inputType="textPassword"
-                android:hint="@string/login_password_hint"/>
-    </LinearLayout>
-
-    <LinearLayout style="@style/Register_Input">
-
-        <TextView
-                style="@style/Smile.TextView._Black"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/login_repwd"
-                android:textColor="@color/mylove"
-                android:textStyle="bold"/>
-
-        <EditText
-                android:id="@+id/et_register_repassword"
-                style="@style/Register_Edit"
-                android:inputType="textPassword"
-                android:hint="@string/login_repassword_hint"/>
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/Register_Input">
-
-        <TextView
-                style="@style/Smile.TextView._Black"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/login_email"
-                android:textColor="@color/mylove"
-                android:textStyle="bold"/>
-
-        <EditText
-                android:id="@+id/et_register_email"
-                style="@style/Register_Edit"
-                android:inputType="textEmailAddress"
-                android:hint="@string/login_email_hint"/>
-    </LinearLayout>
-
-    <org.mo.common.ui.button.FButton
-            android:id="@+id/btn_register2"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/base_action_bar_height"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="@string/register"
-            android:textColor="@android:color/white"
-            fbutton:buttonColor="@color/mylove"
-            android:textSize="@dimen/text_size_large"/>
-
-</LinearLayout>
+</ScrollView>

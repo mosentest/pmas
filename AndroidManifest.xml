@@ -79,7 +79,10 @@
                   android:label="@string/schedule_edit"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".NoteAddActivity"/>
+        <activity android:name=".NoteAddActivity"
+                  android:label="@string/add_note"
+                  android:screenOrientation="portrait">
+        </activity>
 
     </application>
 </manifest>
