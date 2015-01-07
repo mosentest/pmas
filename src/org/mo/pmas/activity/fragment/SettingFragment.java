@@ -15,6 +15,7 @@ import org.mo.pmas.activity.EnterActivity;
 import org.mo.pmas.activity.LoginActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.application.PmasAppliaction;
+import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.util.SharePreferenceUtil;
 
 /**
@@ -73,6 +74,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         edit.putBoolean("autoLogin", false);
         edit.commit();
         PmasAppliaction.getInstance().exit();
+        MyUser.logOut(getActivity().getApplicationContext());//清除缓存用户对象
         Intent intent = new Intent(mContext, LoginActivity.class);
         this.getActivity().startActivity(intent);
         this.getActivity().finish();

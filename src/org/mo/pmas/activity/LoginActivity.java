@@ -12,10 +12,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.pmas.activity.application.PmasAppliaction;
+import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.util.ErrorEnum;
 import org.mo.pmas.util.SharePreferenceUtil;
 
@@ -127,9 +129,11 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
 
         @Override
         protected Void doInBackground(Void... params) {
-            BmobUser bmobUser = new BmobUser();
+
+            MyUser bmobUser = new MyUser();
             bmobUser.setUsername(username);
             bmobUser.setPassword(password);
+
             bmobUser.login(context, new SaveListener() {
                 @Override
                 public void onSuccess() {

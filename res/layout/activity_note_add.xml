@@ -25,8 +25,7 @@
 
             <org.mo.common.ui.sideBar.ClearEditText
                     android:id="@+id/et_note_add_title"
-                    style="@style/Register_Edit"
-                    android:hint="@string/input_title"/>
+                    style="@style/Register_Edit"/>
         </LinearLayout>
 
         <LinearLayout style="@style/Register_Input">
@@ -43,8 +42,7 @@
 
             <org.mo.common.ui.sideBar.ClearEditText
                     android:id="@+id/et_note_add_group"
-                    style="@style/Register_Edit"
-                    android:hint="@string/choice"/>
+                    style="@style/Register_Edit"/>
         </LinearLayout>
         <LinearLayout style="@style/Register_Input"
                       android:layout_height="match_parent">
@@ -69,7 +67,6 @@
                     android:id="@+id/et_note_add_content"
                     android:padding="5dp"
                     android:layout_margin="5dp"
-                    android:hint="@string/note_input_content"
                     android:background="@drawable/acm_inputbox"
                     />
         </LinearLayout>

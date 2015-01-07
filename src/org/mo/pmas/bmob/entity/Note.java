@@ -9,8 +9,8 @@ import cn.bmob.v3.datatype.BmobPointer;
 public class Note extends BmobObject {
     private String title;
     private String content;
-    private BmobPointer noteGroup;
-    private BmobPointer user;
+    private NoteGroup noteGroup;
+    private MyUser user;
 
     public String getTitle() {
         return title;
@@ -28,19 +28,19 @@ public class Note extends BmobObject {
         this.content = content;
     }
 
-    public BmobPointer getNoteGroup() {
+    public NoteGroup getNoteGroup() {
         return noteGroup;
     }
 
-    public void setNoteGroup(BmobPointer noteGroup) {
+    public void setNoteGroup(NoteGroup noteGroup) {
         this.noteGroup = noteGroup;
     }
 
-    public BmobPointer getUser() {
+    public MyUser getUser() {
         return user;
     }
 
-    public void setUser(BmobPointer user) {
+    public void setUser(MyUser user) {
         this.user = user;
     }
 }

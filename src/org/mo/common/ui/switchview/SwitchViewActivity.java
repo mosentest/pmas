@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import org.mo.pmas.activity.EnterActivity;
 import org.mo.pmas.activity.LoginActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.application.PmasAppliaction;
@@ -32,11 +33,11 @@ public class SwitchViewActivity extends Activity implements
         super.onCreate(savedInstanceState);
         SharedPreferences guide = PmasAppliaction.getInstance().getSharedPreferences("guide", Context.MODE_PRIVATE);
         boolean first = guide.getBoolean("first", false);
-        if(first){
-            Intent intent = new Intent(SwitchViewActivity.this, LoginActivity.class);
+        if (first) {
+            Intent intent = new Intent(SwitchViewActivity.this, EnterActivity.class);
             startActivity(intent);
             finish();
-        }else{
+        } else {
             setContentView(R.layout.activity_switch_view);
             init();
         }
@@ -80,9 +81,9 @@ public class SwitchViewActivity extends Activity implements
             public void onClick(View v) {
                 SharedPreferences guide = PmasAppliaction.getInstance().getSharedPreferences("guide", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = guide.edit();
-                edit.putBoolean("first",true);
+                edit.putBoolean("first", true);
                 edit.commit();
-                Intent intent = new Intent(SwitchViewActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SwitchViewActivity.this, EnterActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -24,7 +24,7 @@
                     style="@style/Smile.TextView._Black"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/mylove"
+                    android:textColor="@drawable/btn_tologin_selector"
                     android:text="@string/set_myinfo"/>
 
             <TextView

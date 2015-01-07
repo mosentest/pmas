@@ -13,20 +13,21 @@ public interface BaseRepository<T extends BmobObject> {
 
     public static final int STATE_MORE = 1;// 加载更多
 
-    public int limit = 15; // 每页的数据是10条
+    public int limit = 15; // 每页的数据是15条
 
     public int curPage = 0;// 当前页的编号，从0开始
 
-    public boolean save(T entity);
+    public void save(T entity);
 
-    public boolean update(T entity);
+    public void update(T entity);
 
-    public boolean delete(T entity);
+    public void delete(T entity);
 
     public T findOne(String objectId);
 
-    public List<T> findAll();
+    public int countAll();
 
-    public List<T> findAllByLimit(int curPage, int limit);
+    public List<T> findAllByLimit(int curPage, int mLimit);
+
 
 }

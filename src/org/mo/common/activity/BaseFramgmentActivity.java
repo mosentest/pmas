@@ -21,6 +21,9 @@ public class BaseFramgmentActivity extends FragmentActivity {
     protected int mScreenWidth;
     protected int mScreenHeight;
 
+    public BaseFramgmentActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

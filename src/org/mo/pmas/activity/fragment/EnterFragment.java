@@ -84,7 +84,6 @@ public class EnterFragment extends Fragment {
         sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
         dialog = (TextView) rootView.findViewById(R.id.dialog);
         sortListView = (ListView) rootView.findViewById(R.id.country_lvcountry);
-        sortListView.setClickable(false);
         initData();
         return rootView;
     }

@@ -67,6 +67,10 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="test">测试</string>
+    <string name="save_success">保存成功</string>
+    <string name="update_success">更新成功</string>
+    <string name="delete_success">删除成功</string>
+    <string name="your_network_has_disconnected">网络连接失败</string>
 
 
     <string-array name="jazzy_effects">

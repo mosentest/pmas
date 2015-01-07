@@ -137,7 +137,7 @@ public class RegisterActivity extends BaseFramgmentActivity implements View.OnCl
             public void onSuccess() {
                 ShowToast("注册成功");
                 progress.dismiss();
-                Intent intent = new Intent(RegisterActivity.this, EnterActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
 

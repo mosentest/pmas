@@ -11,7 +11,7 @@ public class ContactGroup extends BmobObject{
     private String name;
     private String description;
     private BmobRelation contacts;
-    private BmobPointer user;
+    private MyUser user;
 
     public String getName() {
         return name;
@@ -37,11 +37,11 @@ public class ContactGroup extends BmobObject{
         this.contacts = contacts;
     }
 
-    public BmobPointer getUser() {
+    public MyUser getUser() {
         return user;
     }
 
-    public void setUser(BmobPointer user) {
+    public void setUser(MyUser user) {
         this.user = user;
     }
 }

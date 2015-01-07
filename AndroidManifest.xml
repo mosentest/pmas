@@ -57,7 +57,7 @@
         </activity>
 
         <activity android:name=".RegisterActivity"
-                  android:label="@string/return2"
+                  android:label="@string/register"
                   android:screenOrientation="portrait">
         </activity>
 
@@ -84,5 +84,10 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <receiver
+                android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
+                android:label="NetworkConnection"/>
+        <service
+                android:name="org.mo.pmas.service.NetService"/>
     </application>
 </manifest>

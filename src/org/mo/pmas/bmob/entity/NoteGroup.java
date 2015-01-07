@@ -11,7 +11,7 @@ public class NoteGroup extends BmobObject {
     private String name;
     private String description;
     private BmobRelation notes;
-    private BmobPointer user;
+    private MyUser user;
 
     public String getName() {
         return name;
@@ -37,11 +37,11 @@ public class NoteGroup extends BmobObject {
         this.notes = notes;
     }
 
-    public BmobPointer getUser() {
-        return user;
+    public void setUser(MyUser user) {
+        this.user = user;
     }
 
-    public void setUser(BmobPointer user) {
-        this.user = user;
+    public MyUser getUser() {
+        return user;
     }
 }
