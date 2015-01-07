@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import cn.bmob.v3.Bmob;
 import org.mo.common.util.FileUtil;
 import org.mo.common.util.ToastUtil;
+import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.comm.Constant;
 import org.mo.pmas.util.SharePreferenceUtil;
 
@@ -52,5 +53,29 @@ public class PmasAppliaction extends Application {
             mSpUtil = new SharePreferenceUtil(this, sharedName);
         }
         return mSpUtil;
+    }
+
+    public boolean isLogOut() {
+        MyUser.logOut(getApplicationContext());//清除缓存用户对象
+        MyUser currentUser = MyUser.getCurrentUser(getApplicationContext(), MyUser.class);
+        if (currentUser == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 没有登录就返回 请登录,有用户登录就显示当前用户
+     *
+     * @return
+     */
+    public String getCurrentUserName() {
+        MyUser currentUser = MyUser.getCurrentUser(getApplicationContext(), MyUser.class);
+        if (currentUser == null) {
+            return "请登录";
+        } else {
+            return currentUser.getUsername();
+        }
     }
 }

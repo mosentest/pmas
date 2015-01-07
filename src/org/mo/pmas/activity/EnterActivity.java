@@ -18,6 +18,7 @@ import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
+import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.activity.fragment.CalenderFragment;
 import org.mo.pmas.activity.fragment.EnterFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
@@ -110,13 +111,8 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         //检测网络============================================================
         setContentView(R.layout.main);
         tabViews = new ArrayList<Map<String, View>>();
-        //获取当前用户
-        MyUser myUser = MyUser.getCurrentUser(getApplicationContext(), MyUser.class);
-        if (myUser == null) {
-            ShowToast("请登录用户");
-        } else {
-            ShowToast("当前用户:" + myUser.getUsername());
-        }
+        //显示当前登录的用户
+        //ShowToast(PmasAppliaction.getInstance().getCurrentUserName());
         ViewUtils.inject(this);
         context = this;
         // --------------------
@@ -373,6 +369,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
             super.onBackPressed();
         } else {
             ShowToast("再按一次退出程序");
+            PmasAppliaction.getInstance().exit();
         }
         firstTime = System.currentTimeMillis();
     }

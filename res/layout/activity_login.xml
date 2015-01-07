@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/forget_pwd"
-                    android:textColor="@drawable/btn_tologin_selector"
+                    android:textColor="@color/btn_tologin_selector"
                     android:layout_marginRight="27dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"/>
@@ -119,7 +119,7 @@
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
                 android:text="@string/register_txt2"
-                android:textColor="@drawable/btn_tologin_selector"
+                android:textColor="@color/btn_tologin_selector"
                 android:textSize="20sp"/>
     </LinearLayout>
 

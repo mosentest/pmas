@@ -36,7 +36,7 @@
             <Button android:id="@+id/btn_to_login"
                     android:text="进入"
                     android:background="#00000000"
-                    android:textColor="@drawable/btn_tologin_selector"
+                    android:textColor="@color/btn_tologin_selector"
                     android:textSize="35dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
