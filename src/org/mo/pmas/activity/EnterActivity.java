@@ -1,24 +1,19 @@
 package org.mo.pmas.activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.*;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetCallback;
+import cn.bmob.v3.BmobUser;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
-import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
 import org.mo.common.util.ToastUtil;
@@ -28,6 +23,8 @@ import org.mo.pmas.activity.fragment.EnterFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
 import org.mo.pmas.bmob.entity.MyUser;
+import org.mo.pmas.resolver.ConnectionChangeReceiver;
+import org.mo.pmas.service.NetService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,33 +41,82 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     private Menu menu;
     private ListView mListView_left_drawer;
     private static long firstTime;
-
     private static List<Fragment> list = null;
+    //检测网络============================================================
+    private boolean conncetState = true;
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
 
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            NetService.NetBind bind = (NetService.NetBind) service;
+            NetService netService = bind.getNetService();
+            //此处回调
+            netService.setOnGetConnectState(new NetService.GetConnectState() {
+                @Override
+                public void GetState(boolean isConnected) {
+                    if (conncetState != isConnected) {
+                        conncetState = isConnected;
+                    }
+                    Message msg = handler.obtainMessage();
+                    if (conncetState) {
+                        msg.what = 1;
+                    } else {
+                        msg.what = 2;
+                    }
+                    handler.sendMessage(msg);
+                }
+            });
+
+        }
+    };
+
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    //Toast.makeText(EnterActivity.this, "connect", Toast.LENGTH_LONG).show();
+                    break;
+                case 2:
+                    Toast.makeText(EnterActivity.this, "无网络连接,请检查您的手机网络", Toast.LENGTH_LONG).show();
+                default:
+                    break;
+            }
+        }
+    };
+
+    private void unBind() {
+        if (conn != null) {
+            unbindService(conn);
+        }
+    }
 
     public EnterActivity() {
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unBind();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = new Intent(this, NetService.class);
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        //检测网络============================================================
         setContentView(R.layout.main);
         tabViews = new ArrayList<Map<String, View>>();
-        //TODO Bmob 测试获取成功
-        BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
-        bmobQuery.findObjects(this, new FindListener<MyUser>() {
-            @Override
-            public void onSuccess(List<MyUser> myUsers) {
-                for (MyUser myUser : myUsers)
-                    ToastUtil.showShortToast(EnterActivity.this, myUser.getUsername());
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                ToastUtil.showLongToast(EnterActivity.this, "失败");
-            }
-        });
+        //获取当前用户
+        MyUser myUser = MyUser.getCurrentUser(getApplicationContext(), MyUser.class);
+        if (myUser == null) {
+            ShowToast("请登录用户");
+        } else {
+            ShowToast("当前用户:" + myUser.getUsername());
+        }
         ViewUtils.inject(this);
         context = this;
         // --------------------
