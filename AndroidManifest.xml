@@ -83,6 +83,7 @@
                   android:label="@string/add_note"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".SetMyInfoActivity"/>
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"

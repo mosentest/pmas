@@ -72,6 +72,9 @@
     <string name="delete_success">删除成功</string>
     <string name="your_network_has_disconnected">网络连接失败</string>
     <string name="set_login">请登录</string>
+    <string name="my_phone">头像</string>
+    <string name="username">用户名</string>
+    <string name="alter_password">修改密码</string>
 
 
     <string-array name="jazzy_effects">

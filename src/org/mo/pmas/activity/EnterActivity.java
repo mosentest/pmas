@@ -364,12 +364,11 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
      */
     @Override
     public void onBackPressed() {
-        // TODO Auto-generated method stub
         if (firstTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
+            PmasAppliaction.getInstance().exit();
         } else {
             ShowToast("再按一次退出程序");
-            PmasAppliaction.getInstance().exit();
         }
         firstTime = System.currentTimeMillis();
     }

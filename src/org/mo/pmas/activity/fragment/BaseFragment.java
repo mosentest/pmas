@@ -3,6 +3,7 @@ package org.mo.pmas.activity.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 import org.mo.pmas.activity.application.PmasAppliaction;
 
@@ -28,5 +29,9 @@ public class BaseFragment extends Fragment {
             mToast.setText(text);
         }
         mToast.show();
+    }
+
+    public View findViewById(int paramInt) {
+        return getView().findViewById(paramInt);
     }
 }

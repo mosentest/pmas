@@ -26,12 +26,14 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:visibility="visible"/>
+
             <LinearLayout
                     android:id="@+id/ll_setting_loginned"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
                 <RelativeLayout
                         android:id="@+id/layout_info"
                         android:layout_width="match_parent"
@@ -39,6 +41,7 @@
                         android:minHeight="50dp"
                         android:paddingRight="5dp"
                         android:paddingLeft="5dp"
+                        android:background="@drawable/btn_selector"
                         >
 
                     <TextView
@@ -58,6 +61,11 @@
                             android:drawableRight="@drawable/register_bottom_arrow"/>
                 </RelativeLayout>
 
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/base_line_width_2"
+                        android:background="@drawable/base_horizontal_line">
+                </View>
 
                 <RelativeLayout
                         android:id="@+id/layout_blacklist"
@@ -66,7 +74,7 @@
                         android:minHeight="50dp"
                         android:paddingRight="5dp"
                         android:paddingLeft="5dp"
-                        >
+                        android:background="@drawable/btn_selector">
 
                     <TextView
                             style="@style/Smile.TextView._Black"
@@ -193,7 +201,6 @@
                 android:id="@+id/rl_switch_voice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_selector"
                 android:paddingRight="5dp"
                 android:minHeight="50dp"
                 android:paddingLeft="5dp">
@@ -238,7 +245,6 @@
                 android:id="@+id/rl_switch_vibrate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_selector"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
                 android:minHeight="50dp">
