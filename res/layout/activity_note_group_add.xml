@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+        <LinearLayout style="@style/Register_Input">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/mylove"
+                    android:text="@string/note_group_add_name"
+                    android:inputType="text"
+                    android:textStyle="bold"/>
+
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:id="@+id/et_note_group_add_name"
+                    style="@style/Register_Edit"/>
+        </LinearLayout>
+
+        <LinearLayout style="@style/Register_Input"
+                      android:layout_height="match_parent">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/mylove"
+                    android:text="@string/note_group_add_description"
+                    android:inputType="text"
+                    android:textStyle="bold"/>
+
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:gravity="left|top"
+                    android:minLines="6"
+                    android:id="@+id/et_note_group_add_description"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/acm_inputbox"
+                    />
+        </LinearLayout>
+
+        <org.mo.common.ui.button.FButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                fbutton:buttonColor="@color/mylove"
+                android:text="@string/save"
+                android:textSize="@dimen/text_size_large"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:id="@+id/btn_note_group_add_save"
+                fbutton:shadowEnabled="true"
+                />
+    </LinearLayout>
+</ScrollView>

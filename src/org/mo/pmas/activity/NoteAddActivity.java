@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
@@ -14,13 +15,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import org.mo.common.activity.BaseFramgmentActivity;
-import org.mo.common.util.ToastUtil;
+import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.bmob.entity.Note;
 import org.mo.pmas.bmob.entity.NoteGroup;
-import org.mo.pmas.bmob.entity.repository.NoteGroupRepository;
-import org.mo.pmas.util.ErrorEnum;
 
 import java.util.List;
 
@@ -28,17 +31,22 @@ import java.util.List;
  * Created by moziqi on 2015/1/6 0006.
  */
 public class NoteAddActivity extends BaseFramgmentActivity implements View.OnClickListener {
+    private final static String TAG = NoteAddActivity.class.getSimpleName();
     private EditText m_et_note_add_title;
     private EditText m_et_note_add_group;
     private EditText m_et_note_add_content;
     private Button m_btn_note_add_save;
     private final static int MAX_COUNT = 140;
+    private NoteGroup mNoteGroup;
+    private Note mNote;
+    private MyUser myUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_add);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        myUser = MyUser.getCurrentUser(this, MyUser.class);
         init();
     }
 
@@ -104,14 +112,15 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
         }
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_note_add_group:
-                noteAddGroupClickListener();
+                toNoteAddGroup();
                 break;
             case R.id.btn_note_add_save:
-                noteAddSaveClickListener();
+                findNoteInfoByTitle();
                 break;
         }
     }
@@ -120,10 +129,23 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
     //记事类型数组
     String arrayNoteGroup[];
 
-    public void noteAddGroupClickListener() {
+    /**
+     * 添加记事类型
+     */
+    private void toNoteAddGroup() {
+        findNoteGroup();
+    }
+
+    /**
+     * 查找记事类型
+     */
+    private void findNoteGroup() {
         BmobQuery<NoteGroup> query = new BmobQuery<NoteGroup>();
         query.setLimit(1000);
         query.order("createdAt");
+        query.addWhereEqualTo("user", myUser);//查询当前用户
+        Log.e(NoteAddActivity.this.getClass().getSimpleName(), myUser.getUsername());
+        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);// 先从缓存获取数据，如果没有，再从网络获取。
         query.findObjects(NoteAddActivity.this, new FindListener<NoteGroup>() {
             @Override
             public void onSuccess(List<NoteGroup> noteGroups) {
@@ -132,11 +154,16 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
 
             @Override
             public void onError(int i, String s) {
-                showErrorIms(i);
+                //showErrorIms(i);
             }
         });
     }
 
+    /**
+     * 显示记事类型对话框
+     *
+     * @param noteGroups
+     */
     private void showNoteGroupDialog(List<NoteGroup> noteGroups) {
         if (noteGroups.size() == 0) {
             arrayNoteGroup = new String[]{"新增"};
@@ -151,7 +178,8 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if ("新增".equals(arrayNoteGroup[which])) {
-
+                    Intent intent = new Intent(NoteAddActivity.this, NoteGroupAddActivity.class);
+                    startActivity(intent);
                 } else {
                     m_et_note_add_group.setText(arrayNoteGroup[which]);
                 }
@@ -159,20 +187,114 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
         }).show();
     }
 
-    public void noteAddSaveClickListener() {
-        String title = m_et_note_add_title.getText().toString();
-        String group = m_et_note_add_group.getText().toString();
-        String content = m_et_note_add_content.getText().toString();
-        Note note = new Note();
-        note.setTitle(title);
-        note.setContent(content);
+    /**
+     * 查询是否存在已存在的Note名字
+     */
+    private void findNoteInfoByTitle() {
+        if (TextUtils.isEmpty(m_et_note_add_title.getText().toString().trim())) {
+            ShowToast("标题不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(m_et_note_add_content.getText().toString().trim())) {
+            ShowToast("内容不能为空");
+            return;
+        }
+        BmobQuery<Note> notes = new BmobQuery<Note>();
+        notes.addWhereRelatedTo("notes", new BmobPointer(myUser));
+        notes.addWhereEqualTo("title", m_et_note_add_title.getText().toString());
+        notes.findObjects(this, new FindListener<Note>() {
+            @Override
+            public void onSuccess(List<Note> notes) {
+                if (notes.size() == 0) {
+                    saveNoteInfo();
+                } else {
+                    ShowToast("已存在\"" + m_et_note_add_title.getText().toString() + "\"");
+                }
+            }
 
-        //==================================================================================================
+            @Override
+            public void onError(int i, String s) {
+                showErrorIms(i);
+            }
+        });
     }
 
-    private void showErrorIms(int i) {
-        ErrorEnum ident = ErrorEnum.ident(i);
-        ToastUtil.showShortToast(NoteAddActivity.this, ident.getMessage());
+    /**
+     * 保存记事
+     */
+    private void saveNoteInfo() {
+        String group = m_et_note_add_group.getText().toString();
+        if (TextUtils.isEmpty(group)) {
+            mNote = new Note();
+            mNote.setTitle(m_et_note_add_title.getText().toString().trim());
+            mNote.setContent(m_et_note_add_content.getText().toString().trim());
+            mNote.setUser(myUser);
+            mNote.save(this, new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    addNoteToUser();
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    showErrorIms(i);
+                }
+            });
+        } else {
+            BmobQuery<NoteGroup> query = new BmobQuery<NoteGroup>();
+            query.setLimit(1000);
+            query.addWhereEqualTo("user", myUser);//查询当前用户
+            query.addWhereEqualTo("name", m_et_note_add_group.getText().toString().trim());
+            query.findObjects(NoteAddActivity.this, new FindListener<NoteGroup>() {
+                @Override
+                public void onSuccess(List<NoteGroup> noteGroups) {
+                    saveNoteWithNoteGroup(noteGroups);
+                }
+
+                @Override
+                public void onError(int i, String s) {
+                    showErrorIms(i);
+                }
+            });
+        }
+    }
+
+    private void saveNoteWithNoteGroup(List<NoteGroup> noteGroups) {
+        mNoteGroup = noteGroups.get(0);
+        mNote = new Note();
+        mNote.setTitle(m_et_note_add_title.getText().toString().trim());
+        mNote.setContent(m_et_note_add_content.getText().toString().trim());
+        mNote.setNoteGroup(mNoteGroup);
+        mNote.setUser(myUser);
+        mNote.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                addNoteToUser();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+    }
+
+    public void addNoteToUser() {
+        BmobRelation notes = new BmobRelation();
+        notes.add(mNote);
+        myUser.setNotes(notes);
+        myUser.update(this, new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                BmobQuery.clearAllCachedResults(getApplicationContext());
+                ShowToast("保存\"" + m_et_note_add_title.getText().toString() + "\"成功");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                showErrorIms(i);
+            }
+        });
     }
 
     /**

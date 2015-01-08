@@ -6,17 +6,21 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.comm.Constant;
+import org.mo.pmas.util.ErrorEnum;
 
 /**
  * Created by moziqi on 2014/12/31 0031.
  */
 public class BaseFramgmentActivity extends FragmentActivity {
 
+    private static final String TAG = "PMAS";
     private Toast mToast;
     protected int mScreenWidth;
     protected int mScreenHeight;
@@ -68,4 +72,9 @@ public class BaseFramgmentActivity extends FragmentActivity {
         BmobUser currentUser = BmobUser.getCurrentUser(this); // 现在的currentUser是null了
     }
 
+    public void showErrorIms(int i) {
+        ErrorEnum ident = ErrorEnum.ident(i);
+        ToastUtil.showShortToast(getApplicationContext(), ident.getMessage());
+        Log.e(TAG, ident.getMessage());
+    }
 }

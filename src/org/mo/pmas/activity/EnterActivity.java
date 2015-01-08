@@ -340,8 +340,13 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                 ShowToast("添加联系人");
                 return true;
             case R.id.save_note:
-                Intent intent = new Intent(EnterActivity.this, NoteAddActivity.class);
-                startActivity(intent);
+                String currentUserName = PmasAppliaction.getInstance().getCurrentUserName();
+                if ("请登录".equals(currentUserName)) {
+                    ShowToast("请登录");
+                } else {
+                    Intent intent = new Intent(EnterActivity.this, NoteAddActivity.class);
+                    startActivity(intent);
+                }
                 return true;
             case R.id.save_schedule:
                 ShowToast("添加日程");

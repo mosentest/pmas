@@ -85,6 +85,10 @@
         </activity>
         <activity android:name=".SetMyInfoActivity"/>
 
+        <activity android:name=".NoteGroupAddActivity"
+                  android:label="@string/add_note_group">
+        </activity>
+
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
                 android:label="NetworkConnection"/>

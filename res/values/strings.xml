@@ -75,6 +75,9 @@
     <string name="my_phone">头像</string>
     <string name="username">用户名</string>
     <string name="alter_password">修改密码</string>
+    <string name="note_group_add_name">名称</string>
+    <string name="note_group_add_description">描述</string>
+    <string name="add_note_group">新增记事类型</string>
 
 
     <string-array name="jazzy_effects">
