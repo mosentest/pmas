@@ -8,9 +8,19 @@
             app:showAsAction="never"
             />
     <item
+            android:id="@+id/synchronous_contact"
+            android:title="@string/synchronous"
+            app:showAsAction="never"
+            />
+    <item
             android:id="@+id/save_schedule"
             android:title="@string/addSchedule"
             android:showAsAction="never"
+            />
+    <item
+            android:id="@+id/synchronous_schedule"
+            android:title="@string/synchronous"
+            app:showAsAction="never"
             />
     <item
             android:id="@+id/save_note"
@@ -18,8 +28,13 @@
             app:showAsAction="never"
             />
     <item
+            android:id="@+id/synchronous_note"
+            android:title="@string/synchronous"
+            app:showAsAction="never"
+            />
+    <item
             android:id="@+id/code"
-            android:title="二维码"
+            android:title="@string/menu_code"
             app:showAsAction="never"
             />
 </menu>

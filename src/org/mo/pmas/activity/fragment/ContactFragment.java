@@ -10,16 +10,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import org.mo.common.ui.sideBar.ClearEditText;
 import org.mo.common.ui.sideBar.LoadingView;
 import org.mo.common.ui.sideBar.SideBar;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.adapter.ContactAdapter;
-import org.mo.pmas.comm.Constant;
 import org.mo.pmas.entity.Contact;
 import org.mo.pmas.util.AsyncTaskBase;
 import org.mo.pmas.util.CharacterParser;
@@ -31,8 +28,8 @@ import java.util.*;
 /**
  * Created by moziqi on 2014/12/27 0027.
  */
-public class EnterFragment extends Fragment {
-    private static EnterFragment mEnterFragment;
+public class ContactFragment extends BaseFragment {
+    private static ContactFragment mContactFragment;
     private Context mContext;
     private ListView sortListView;
     private SideBar sideBar;
@@ -41,7 +38,6 @@ public class EnterFragment extends Fragment {
     private ClearEditText mClearEditText;
     private List<Contact> callRecords;
     private LoadingView mLoadingView;
-    View rootView;
 
     /**
      * 汉字转换成拼音的类
@@ -58,13 +54,13 @@ public class EnterFragment extends Fragment {
 
     //
     public static Fragment newInstance(Context context) {
-        if (mEnterFragment == null)
-            mEnterFragment = new EnterFragment(context);
-        return mEnterFragment;
+        if (mContactFragment == null)
+            mContactFragment = new ContactFragment(context);
+        return mContactFragment;
     }
 
 
-    private EnterFragment(Context mContext) {
+    private ContactFragment(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -79,18 +75,20 @@ public class EnterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_phone_contacts_list, null);
-        mLoadingView = (LoadingView) rootView.findViewById(R.id.loading);
-        sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
-        dialog = (TextView) rootView.findViewById(R.id.dialog);
-        sortListView = (ListView) rootView.findViewById(R.id.country_lvcountry);
-        initData();
-        return rootView;
+        return inflater.inflate(R.layout.fragment_phone_contacts_list, container, false);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mLoadingView = (LoadingView) findViewById(R.id.loading);
+        sideBar = (SideBar) findViewById(R.id.sidrbar);
+        dialog = (TextView) findViewById(R.id.dialog);
+        sortListView = (ListView) findViewById(R.id.country_lvcountry);
+        initData();
+    }
 
     private void initData() {
-
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
 
@@ -119,7 +117,6 @@ public class EnterFragment extends Fragment {
 
         public AsyncTaskConstact(LoadingView loadingView) {
             super(loadingView);
-            // TODO Auto-generated constructor stub
         }
 
         @Override
@@ -141,7 +138,7 @@ public class EnterFragment extends Fragment {
                 Collections.sort(SourceDateList, pinyinComparator);
                 adapter = new ContactAdapter(mContext, SourceDateList);
                 sortListView.setAdapter(adapter);
-                mClearEditText = (ClearEditText) rootView.findViewById(R.id.filter_edit);
+                mClearEditText = (ClearEditText) findViewById(R.id.filter_edit);
                 // 根据输入框输入值的改变来过滤搜索
                 mClearEditText.addTextChangedListener(new TextWatcher() {
 

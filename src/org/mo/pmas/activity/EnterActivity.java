@@ -1,7 +1,6 @@
 package org.mo.pmas.activity;
 
 import android.content.*;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -10,21 +9,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
-import cn.bmob.v3.BmobUser;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
-import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.activity.fragment.CalenderFragment;
-import org.mo.pmas.activity.fragment.EnterFragment;
+import org.mo.pmas.activity.fragment.ContactFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
-import org.mo.pmas.bmob.entity.MyUser;
-import org.mo.pmas.resolver.ConnectionChangeReceiver;
 import org.mo.pmas.service.NetService;
 
 import java.util.ArrayList;
@@ -256,7 +251,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
 
     private void initJazzyPager(JazzyViewPager.TransitionEffect effect) {
         list = new ArrayList<Fragment>();
-        list.add(EnterFragment.newInstance(this));
+        list.add(ContactFragment.newInstance(this));
         list.add(NoteFragment.getInstance(this));
         list.add(CalenderFragment.getInstance(this));
         list.add(SettingFragment.getInstance(this));
@@ -285,6 +280,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.save_note).setVisible(false);
                         menu.findItem(R.id.save_schedule).setVisible(false);
                         menu.findItem(R.id.code).setVisible(false);
+                        menu.findItem(R.id.synchronous_contact).setVisible(true);
+                        menu.findItem(R.id.synchronous_note).setVisible(false);
+                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
 
                         break;
                     case 1:
@@ -292,6 +290,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.save_note).setVisible(true);
                         menu.findItem(R.id.save_schedule).setVisible(false);
                         menu.findItem(R.id.code).setVisible(false);
+                        menu.findItem(R.id.synchronous_contact).setVisible(false);
+                        menu.findItem(R.id.synchronous_note).setVisible(true);
+                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
 
                         break;
                     case 2:
@@ -299,6 +300,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.save_note).setVisible(false);
                         menu.findItem(R.id.save_schedule).setVisible(true);
                         menu.findItem(R.id.code).setVisible(false);
+                        menu.findItem(R.id.synchronous_contact).setVisible(false);
+                        menu.findItem(R.id.synchronous_note).setVisible(false);
+                        menu.findItem(R.id.synchronous_schedule).setVisible(true);
 
                         break;
                     case 3:
@@ -306,6 +310,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.save_note).setVisible(false);
                         menu.findItem(R.id.save_schedule).setVisible(false);
                         menu.findItem(R.id.code).setVisible(true);
+                        menu.findItem(R.id.synchronous_contact).setVisible(false);
+                        menu.findItem(R.id.synchronous_note).setVisible(false);
+                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
                         break;
                 }
                 tabHost.setCurrentTab(position);
@@ -330,6 +337,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         this.menu.findItem(R.id.save_note).setVisible(false);
         this.menu.findItem(R.id.save_schedule).setVisible(false);
         this.menu.findItem(R.id.code).setVisible(false);
+        menu.findItem(R.id.synchronous_contact).setVisible(true);
+        menu.findItem(R.id.synchronous_note).setVisible(false);
+        menu.findItem(R.id.synchronous_schedule).setVisible(false);
         return true;
     }
 

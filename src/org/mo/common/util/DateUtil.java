@@ -82,6 +82,13 @@ public class DateUtil {
                 + ":" + c.get(Calendar.SECOND);
     }
 
+    public static String getCurDayStr() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        return c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-"
+                + c.get(Calendar.DAY_OF_MONTH);
+    }
+
     /**
      * 获得当前日期的字符串格式
      *

@@ -78,6 +78,8 @@
     <string name="note_group_add_name">名称</string>
     <string name="note_group_add_description">描述</string>
     <string name="add_note_group">新增记事类型</string>
+    <string name="menu_code">二维码</string>
+    <string name="synchronous">同步</string>
 
 
     <string-array name="jazzy_effects">

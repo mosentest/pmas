@@ -20,7 +20,7 @@
             android:layout_centerHorizontal="true"
             android:text="扫书"
             android:textColor="#888888"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/normalImg"
@@ -47,7 +47,7 @@
             android:layout_centerHorizontal="true"
             android:text="扫书"
             android:textColor="#00FF00"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/selectedImage"

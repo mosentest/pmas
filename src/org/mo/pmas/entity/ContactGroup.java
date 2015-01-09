@@ -1,48 +1,29 @@
 package org.mo.pmas.entity;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by moziqi on 2014/12/25 0025.
  */
-public class ContactGroup implements Serializable {
+public class ContactGroup implements Parcelable {
 
-    private int  id;
+    private Integer id;
 
     private String name;
 
     private String description;
 
-    public int getId() {
-        return id;
-    }
+    private MyUser myUser;
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public String toString() {
-        return "ContactGroup{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

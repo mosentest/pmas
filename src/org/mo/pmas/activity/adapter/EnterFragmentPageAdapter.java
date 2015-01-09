@@ -5,13 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import org.mo.pmas.activity.fragment.CalenderFragment;
-import org.mo.pmas.activity.fragment.EnterFragment;
-import org.mo.pmas.activity.fragment.NoteFragment;
-import org.mo.pmas.activity.fragment.SettingFragment;
-import org.mo.pmas.bmob.entity.Note;
-import org.mo.pmas.entity.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
