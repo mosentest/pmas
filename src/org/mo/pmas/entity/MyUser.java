@@ -2,10 +2,12 @@ package org.mo.pmas.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by moziqi on 2015/1/9 0009.
  */
+@DatabaseTable(tableName = "tb_user")
 public class MyUser implements Parcelable {
     private Integer id;
     private String objectId;
