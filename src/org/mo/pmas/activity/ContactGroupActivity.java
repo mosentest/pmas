@@ -67,6 +67,7 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
             case R.id.item_add_contact_group:
                 Intent intent = new Intent(ContactGroupActivity.this, ContactGroupAddActivtiy.class);
                 startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
