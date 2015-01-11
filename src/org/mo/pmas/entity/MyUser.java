@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by moziqi on 2015/1/9 0009.
  */
-public class MyUser implements Parcelable {
+public class MyUser {
     private Integer id;
     private String objectId;
     private String username;
@@ -27,42 +27,6 @@ public class MyUser implements Parcelable {
                 ", emailVerified='" + emailVerified + '\'' +
                 '}';
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(objectId);
-        dest.writeString(username);
-        dest.writeString(password);
-        dest.writeString(createdAt);
-        dest.writeString(email);
-        dest.writeString(emailVerified);
-    }
-
-    public static final Parcelable.Creator<MyUser> myUserCreator = new Creator<MyUser>() {
-        @Override
-        public MyUser createFromParcel(Parcel source) {
-            MyUser myUser = new MyUser();
-            myUser.setId(source.readInt());
-            myUser.setObjectId(source.readString());
-            myUser.setUsername(source.readString());
-            myUser.setPassword(source.readString());
-            myUser.setCreatedAt(source.readString());
-            myUser.setEmail(source.readString());
-            myUser.setEmailVerified(source.readString());
-            return myUser;
-        }
-
-        @Override
-        public MyUser[] newArray(int size) {
-            return new MyUser[size];
-        }
-    };
 
     public Integer getId() {
         return id;

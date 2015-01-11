@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.lidroid.xutils.ViewUtils;
@@ -20,6 +21,10 @@ import org.mo.pmas.activity.fragment.CalenderFragment;
 import org.mo.pmas.activity.fragment.ContactFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
+import org.mo.pmas.entity.Contact;
+import org.mo.pmas.entity.ContactGroup;
+import org.mo.pmas.resolver.ContactGroupResolver;
+import org.mo.pmas.resolver.ContactResolver;
 import org.mo.pmas.service.NetService;
 
 import java.util.ArrayList;
@@ -101,13 +106,11 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, NetService.class);
+        final Intent intent = new Intent(this, NetService.class);
         bindService(intent, conn, Context.BIND_AUTO_CREATE);
         //检测网络============================================================
         setContentView(R.layout.main);
         tabViews = new ArrayList<Map<String, View>>();
-        //显示当前登录的用户
-        //ShowToast(PmasAppliaction.getInstance().getCurrentUserName());
         ViewUtils.inject(this);
         context = this;
         // --------------------
@@ -136,6 +139,18 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         mListView_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Intent intent1 = new Intent(EnterActivity.this, ContactGroupActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        Log.e("TAG", "stringArray[1]");
+                        break;
+                    case 2:
+                        Log.e("TAG", "stringArray[2]");
+                        break;
+                }
             }
         });
     }
@@ -169,13 +184,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View inflate = LayoutInflater.from(contexts).inflate(R.layout.main_drawer_list_item, parent, false);
             TextView textView = (TextView) inflate.findViewById(R.id.draw_item);
-//            ImageView imageView = (ImageView)inflate.findViewById(R.id.imageView);
-            //TODO 这里没做好
-//            Bitmap bitmap = BitmapFactory.decodeFile(R.drawable.ic_drow_1 + "");
-//            imageView.setImageBitmap(bitmap);
             textView.setText(strings[position]);
             return inflate;
         }

@@ -60,7 +60,7 @@ public class ConstactUtil {
                 //得到联系人头像ID
                 Long photoid = c.getLong(c.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
                 //photoid 大于0 表示联系人有头像 如果没有给此人设置头像则给他一个默认的
-                if(photoid > 0 ) {
+                if (photoid > 0) {
                     Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
                     InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), uri);
                     contactPhoto = BitmapFactory.decodeStream(input);
@@ -69,12 +69,12 @@ public class ConstactUtil {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     contactPhoto = BitmapFactory.decodeResource(context.getResources(), R.drawable.h001);
                 }
                 //TODO 添加通讯录的信息
                 Contact contact = new Contact();
-                contact.setId(Long.parseLong(contactId));
+                contact.setId(Integer.parseInt(contactId));
                 contact.setName(name);
                 contact.setPhoneNumber(number);
                 contact.setContactPhoto(contactPhoto);

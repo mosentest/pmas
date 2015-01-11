@@ -80,6 +80,7 @@
     <string name="add_note_group">新增记事类型</string>
     <string name="menu_code">二维码</string>
     <string name="synchronous">同步</string>
+    <string name="contact_group">联系人群组</string>
 
 
     <string-array name="jazzy_effects">
@@ -98,8 +99,8 @@
     </string-array>
 
     <string-array name="effects">
-        <item>天气</item>
-        <item>周边</item>
-        <item>系统</item>
+        <item>联系人群组</item>
+        <item>记事类型</item>
+        <item>日程类型</item>
     </string-array>
 </resources>

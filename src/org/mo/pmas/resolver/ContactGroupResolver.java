@@ -3,10 +3,12 @@ package org.mo.pmas.resolver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import org.mo.pmas.entity.ContactGroup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +17,13 @@ import java.util.List;
 /**
  * Created by moziqi on 2014/12/29 0029.
  */
-public class ContactGroupResolver {
+public class ContactGroupResolver implements BaseResolver<ContactGroup> {
+
+    private Context mContext;
+
+    public ContactGroupResolver(Context mContext) {
+        this.mContext = mContext;
+    }
 
     private ContentResolver resolver;
 
@@ -70,7 +78,7 @@ public class ContactGroupResolver {
      */
     public int getGroupByTitle(String title) {
         int id = -1;
-        Cursor cursor = resolver.query(
+        Cursor cursor = mContext.getContentResolver().query(
                 ContactsContract.Groups.CONTENT_URI,
                 new String[]{ContactsContract.Groups._ID},
                 ContactsContract.Groups.TITLE + "='" + title + "'",
@@ -94,5 +102,67 @@ public class ContactGroupResolver {
                 ContactsContract.Groups._ID + selection,
                 ids);
         return i;
+    }
+
+    @Override
+    public boolean save(ContactGroup entity) {
+        if (TextUtils.isEmpty(entity.getName())) {
+            return false;
+        }
+        long gId = getGroupByTitle(entity.getName());
+        if (gId == -1) {
+            ContentValues values = new ContentValues();
+            values.put(ContactsContract.Groups.TITLE, entity.getName());
+            Uri uri = mContext.getContentResolver().insert(ContactsContract.Groups.CONTENT_URI, values);
+            gId = ContentUris.parseId(uri);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(ContactGroup entity) {
+        Uri uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, entity.getId());
+        ContentValues values = new ContentValues();
+        values.put(ContactsContract.Groups.TITLE, entity.getName());
+        mContext.getContentResolver().update(uri, values, null, null);
+        return true;
+    }
+
+    @Override
+    public boolean delete(ContactGroup entity) {
+        Uri uri = Uri.parse(ContactsContract.Groups.CONTENT_URI + "?" + ContactsContract.CALLER_IS_SYNCADAPTER + "=true");
+        int i = mContext.getContentResolver().delete(
+                uri,
+                ContactsContract.Groups._ID + "=" + entity.getId(),
+                null);
+        if (i > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<ContactGroup> findAll() {
+        List<ContactGroup> groups = new ArrayList<ContactGroup>();
+        Cursor cursor = mContext.getContentResolver().query(ContactsContract.Groups.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+        if (cursor.moveToFirst()) {
+            do {
+                ContactGroup contactGroup = new ContactGroup();
+                int id = cursor.getInt(cursor.getColumnIndex(ContactsContract.Groups._ID));
+                String title = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                contactGroup.setId(id);
+                contactGroup.setName(title);
+                groups.add(contactGroup);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return groups;
     }
 }

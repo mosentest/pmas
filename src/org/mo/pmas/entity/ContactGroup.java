@@ -3,12 +3,18 @@ package org.mo.pmas.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by moziqi on 2014/12/25 0025.
  */
-public class ContactGroup implements Parcelable {
+public class ContactGroup implements Serializable {
 
     private Integer id;
+
+    private String objectId;
+
+    private String createdAt;
 
     private String name;
 
@@ -16,14 +22,62 @@ public class ContactGroup implements Parcelable {
 
     private MyUser myUser;
 
+    public Integer getId() {
+        return id;
+    }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public MyUser getMyUser() {
+        return myUser;
+    }
+
+    public void setMyUser(MyUser myUser) {
+        this.myUser = myUser;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
+    public String toString() {
+        return "ContactGroup{" +
+                "id=" + id +
+                ", objectId='" + objectId + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

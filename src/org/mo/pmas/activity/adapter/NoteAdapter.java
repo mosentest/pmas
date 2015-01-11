@@ -1,4 +1,4 @@
-package org.mo.pmas.bmob.entity.adapter;
+package org.mo.pmas.activity.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

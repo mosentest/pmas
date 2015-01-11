@@ -5,13 +5,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by moziqi on 2014/12/25 0025.
  */
 public class Contact implements Serializable {
 
-    private Long  id;//编号
+    private Integer id;//编号
 
     private String name;//名字
 
@@ -29,11 +30,62 @@ public class Contact implements Serializable {
 
     private String contactGroup;//联系组名称
 
-    public Long getId() {
+    private String objectId;
+
+    private String createdAt;
+
+    private ContactGroup mContactGroup;
+
+    private MyUser myUser;
+
+    private List<Phone> phones;
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public ContactGroup getmContactGroup() {
+        return mContactGroup;
+    }
+
+    public void setmContactGroup(ContactGroup mContactGroup) {
+        this.mContactGroup = mContactGroup;
+    }
+
+    public MyUser getMyUser() {
+        return myUser;
+    }
+
+    public void setMyUser(MyUser myUser) {
+        this.myUser = myUser;
+    }
+
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -113,6 +165,9 @@ public class Contact implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", sortLetters='" + sortLetters + '\'' +
                 ", contactGroup='" + contactGroup + '\'' +
+                ", objectId='" + objectId + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", phones=" + phones +
                 '}';
     }
 }

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
@@ -15,9 +14,8 @@ import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.bmob.entity.Note;
-import org.mo.pmas.bmob.entity.adapter.NoteAdapter;
+import org.mo.pmas.activity.adapter.NoteAdapter;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,6 +28,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     private XListView mXListView;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNoteLists;
+//    private LoadingView mLoadingView;
     private Handler mHandler;
     private int currentPage = 1;
     private int size = 10;
@@ -64,6 +63,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mXListView = (XListView) findViewById(R.id.note_list);
+//        mLoadingView = (LoadingView) findViewById(R.id.note_loading);
         findAll();
         mXListView.setXListViewListener(this);
         mXListView.setPullLoadEnable(true);
