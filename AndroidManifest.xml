@@ -93,6 +93,10 @@
         <activity android:name=".ContactGroupActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/contact_group"/>
+        <activity android:name=".ContactGroupAddActivtiy"
+                  android:label="@string/add_contact_group"
+                  android:screenOrientation="portrait"
+                />
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"

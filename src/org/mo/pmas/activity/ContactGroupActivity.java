@@ -1,5 +1,6 @@
 package org.mo.pmas.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,7 +65,9 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
                 this.finish();
                 return true;
             case R.id.item_add_contact_group:
-                ShowToast("准备添加");
+                Intent intent = new Intent(ContactGroupActivity.this, ContactGroupAddActivtiy.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

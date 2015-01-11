@@ -16,7 +16,7 @@
     <string name="neighborhood">周边</string>
     <string name="about">关于</string>
     <string name="loading">正在加载，请稍后...</string>
-    <string name="group">我的群组</string>
+    <string name="group">群组</string>
     <string name="delete">删除</string>
     <string name="save">保存</string>
     <string name="contact_edit">编辑联系人</string>
@@ -83,6 +83,8 @@
     <string name="contact_group">联系人群组</string>
     <string name="edit">编辑</string>
     <string name="add">新增</string>
+    <string name="name">名称</string>
+    <string name="add_contact_group">新增群组</string>
 
 
     <string-array name="jazzy_effects">
