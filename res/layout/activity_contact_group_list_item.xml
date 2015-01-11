@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="60dp">
+
+    <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffcccccc"
+            android:gravity="center|right">
+        <org.mo.common.ui.button.FButton
+                android:id="@+id/bt_contact_group_list_item_update"
+                style="@style/button_text"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                fbutton:buttonColor="@color/mylove"
+                fbutton:shadowEnabled="true"
+                android:text="@string/edit">
+        </org.mo.common.ui.button.FButton>
+        <org.mo.common.ui.button.FButton
+                android:id="@+id/bt_contact_group_list_item_remove"
+                style="@style/button_text"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                fbutton:buttonColor="@color/fbutton_color_alizarin"
+                fbutton:shadowEnabled="true"
+                android:text="@string/delete">
+        </org.mo.common.ui.button.FButton>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/front"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff">
+        <TextView
+                android:id="@+id/tv_contact_group_list_item_text"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/mylove"
+                android:textSize="18sp"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:textAppearance="?android:attr/textAppearanceLarge">
+        </TextView>
+    </LinearLayout>
+
+</FrameLayout>

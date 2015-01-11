@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">个人信息助理系统</string>
+    <string name="app_name">个人信息助理</string>
 
     <!-- 数据库和文件路径 -->
     <string name="dir">/pmas</string>
@@ -81,6 +81,8 @@
     <string name="menu_code">二维码</string>
     <string name="synchronous">同步</string>
     <string name="contact_group">联系人群组</string>
+    <string name="edit">编辑</string>
+    <string name="add">新增</string>
 
 
     <string-array name="jazzy_effects">
