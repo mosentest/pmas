@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
 
 import java.util.ArrayList;
@@ -123,11 +124,17 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
 
     @Override
     public boolean update(ContactGroup entity) {
-        Uri uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, entity.getId());
-        ContentValues values = new ContentValues();
-        values.put(ContactsContract.Groups.TITLE, entity.getName());
-        mContext.getContentResolver().update(uri, values, null, null);
-        return true;
+        long gId = getGroupByTitle(entity.getName());
+        if (gId == -1) {
+            Uri uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, entity.getId());
+            ContentValues values = new ContentValues();
+            values.put(ContactsContract.Groups.TITLE, entity.getName());
+            mContext.getContentResolver().update(uri, values, null, null);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
@@ -164,5 +171,49 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         }
         cursor.close();
         return groups;
+    }
+
+    public List<Contact> getAllContactsByGroupId(int groupId) {
+        List<Contact> contacts = new ArrayList<Contact>();
+        String[] RAW_PROJECTION = new String[]{ContactsContract.Data.RAW_CONTACT_ID,};
+        String RAW_CONTACTS_WHERE = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                + "=?"
+                + " and "
+                + ContactsContract.Data.MIMETYPE
+                + "="
+                + "'"
+                + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE
+                + "'";
+
+        // 通过分组的id 查询得到RAW_CONTACT_ID
+        Cursor cursor = mContext.getContentResolver().query(
+                ContactsContract.Data.CONTENT_URI, RAW_PROJECTION,
+                RAW_CONTACTS_WHERE, new String[]{groupId + ""}, "data1 asc");
+        while (cursor.moveToNext()) {
+            // RAW_CONTACT_ID
+            int col = cursor.getColumnIndex("raw_contact_id");
+            int raw_contact_id = cursor.getInt(col);
+            Contact ce = new Contact();
+            ce.setId(raw_contact_id);
+            Uri dataUri = Uri.parse("content://com.android.contacts/data");
+            Cursor dataCursor = mContext.getContentResolver().query(dataUri,
+                    null, "raw_contact_id=?",
+                    new String[]{raw_contact_id + ""}, null);
+
+            while (dataCursor.moveToNext()) {
+                String data1 = dataCursor.getString(dataCursor
+                        .getColumnIndex("data1"));
+                String mime = dataCursor.getString(dataCursor
+                        .getColumnIndex("mimetype"));
+                if ("vnd.android.cursor.item/name".equals(mime)) {
+                    ce.setName(data1);
+                }
+            }
+            dataCursor.close();
+            contacts.add(ce);
+            ce = null;
+        }
+        cursor.close();
+        return contacts;
     }
 }

@@ -1,6 +1,7 @@
 package org.mo.pmas.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import org.mo.common.util.ToastUtil;
+import org.mo.pmas.activity.ContactGroupAddActivtiy;
+import org.mo.pmas.activity.ContactGroupEditActivtiy;
 import org.mo.pmas.activity.R;
+import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
 import org.mo.pmas.resolver.ContactGroupResolver;
 
@@ -23,6 +27,10 @@ public class ContactGroupAdapter extends BaseAdapter {
 
     public ContactGroupAdapter(Context mContext, List<ContactGroup> mContactGroupLists) {
         this.mContext = mContext;
+        this.mContactGroupLists = mContactGroupLists;
+    }
+
+    public void updateListView(List<ContactGroup> mContactGroupLists) {
         this.mContactGroupLists = mContactGroupLists;
     }
 
@@ -57,7 +65,9 @@ public class ContactGroupAdapter extends BaseAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-
+        ContactGroupResolver contactGroupResolver = new ContactGroupResolver(mContext);
+        List<Contact> allContactsByGroupId = contactGroupResolver.getAllContactsByGroupId(contactGroup.getId());
+//        mViewHolder.tv_contact_group_list_item_text.setText(contactGroup.getName() + "(" + allContactsByGroupId.size() + ")");
         mViewHolder.tv_contact_group_list_item_text.setText(contactGroup.getName());
         mViewHolder.bt_contact_group_list_item_remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +79,10 @@ public class ContactGroupAdapter extends BaseAdapter {
         mViewHolder.bt_contact_group_list_item_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showLongToast(mContext, contactGroup.getName() + "将给我更新");
+                Intent intent = new Intent(mContext, ContactGroupEditActivtiy.class);
+                intent.putExtra("id", contactGroup.getId());
+                intent.putExtra("name", contactGroup.getName());
+                mContext.startActivity(intent);
                 notifyDataSetChanged();
             }
         });

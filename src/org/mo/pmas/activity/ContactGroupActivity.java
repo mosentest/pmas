@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.swipelistview.SwipeListView;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.pmas.activity.adapter.ContactGroupAdapter;
+import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.entity.ContactGroup;
 import org.mo.pmas.resolver.ContactGroupResolver;
 
@@ -45,6 +47,12 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
         List<ContactGroup> all = contactGroupResolver.findAll();
         contactGroupAdapter = new ContactGroupAdapter(ContactGroupActivity.this, all);
         mSwipeListView.setAdapter(contactGroupAdapter);
+        mSwipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
     @Override
@@ -62,7 +70,9 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                PmasAppliaction.getInstance().exit();
+                Intent intent2 = new Intent(ContactGroupActivity.this, EnterActivity.class);
+                startActivity(intent2);
                 return true;
             case R.id.item_add_contact_group:
                 Intent intent = new Intent(ContactGroupActivity.this, ContactGroupAddActivtiy.class);
@@ -72,5 +82,13 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        PmasAppliaction.getInstance().exit();
+        Intent intent2 = new Intent(ContactGroupActivity.this, EnterActivity.class);
+        startActivity(intent2);
     }
 }

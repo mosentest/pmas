@@ -13,16 +13,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/calendarView"/>
-        <org.mo.common.ui.button.FButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/common_title"
-                fbutton:buttonColor="@color/mylove"
-                android:text="@string/add_schedule"
-                android:id="@+id/button_detete"
-                fbutton:shadowEnabled="true"
-                android:layout_alignParentBottom="true"
-                />
     </RelativeLayout>
 
 </LinearLayout>

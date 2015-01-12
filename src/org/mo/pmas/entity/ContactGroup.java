@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by moziqi on 2014/12/25 0025.
@@ -21,6 +22,8 @@ public class ContactGroup implements Serializable {
     private String description;
 
     private MyUser myUser;
+
+    private List<Contact> contactLists;
 
     public Integer getId() {
         return id;
@@ -68,6 +71,14 @@ public class ContactGroup implements Serializable {
 
     public void setMyUser(MyUser myUser) {
         this.myUser = myUser;
+    }
+
+    public List<Contact> getContactLists() {
+        return contactLists;
+    }
+
+    public void setContactLists(List<Contact> contactLists) {
+        this.contactLists = contactLists;
     }
 
     @Override

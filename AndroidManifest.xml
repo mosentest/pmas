@@ -97,6 +97,7 @@
                   android:label="@string/add_contact_group"
                   android:screenOrientation="portrait"
                 />
+        <activity android:name=".ContactGroupEditActivtiy"/>
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
