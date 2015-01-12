@@ -38,6 +38,16 @@ public class RegisterActivity extends BaseFramgmentActivity implements View.OnCl
         register();
     }
 
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     void register() {
         mAccount = (EditText) findViewById(R.id.et_register_username);
         mPassword = (EditText) findViewById(R.id.et_register_password);

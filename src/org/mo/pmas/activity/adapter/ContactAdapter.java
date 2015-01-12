@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import org.mo.pmas.activity.ContactEidtActivity;
+import org.mo.pmas.activity.ContactShowOneInfoActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.entity.Contact;
 
@@ -97,7 +98,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     }
 
     private void showOneContactInThis(Contact mContact) {
-        Intent intent = new Intent(mContext, ContactEidtActivity.class);
+        Intent intent = new Intent(mContext, ContactShowOneInfoActivity.class);
         Bundle mbundle = new Bundle();
         mbundle.putInt("id", mContact.getId());
         intent.putExtras(mbundle);

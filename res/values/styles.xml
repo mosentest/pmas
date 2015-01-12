@@ -130,7 +130,15 @@
         <item name="android:layout_marginTop">@dimen/register_margin</item>
         <item name="android:layout_marginLeft">@dimen/register_margin</item>
         <item name="android:layout_marginRight">@dimen/register_margin</item>
+    </style>
 
+    <style name="show_Input">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/base_action_bar_height</item>
+        <item name="android:layout_marginTop">@dimen/register_margin</item>
+        <item name="android:layout_marginLeft">@dimen/register_margin</item>
+        <item name="android:layout_marginRight">@dimen/register_margin</item>
     </style>
 
     <style name="Register_Edit">

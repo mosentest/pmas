@@ -30,6 +30,16 @@ public class ContactGroupEditActivtiy extends BaseFramgmentActivity implements V
         initUI();
     }
 
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     private void initUI() {
         et_contact_group_edit_title = (EditText) findViewById(R.id.et_contact_group_edit_title);
         btn_contact_group_edit_save = (Button) findViewById(R.id.btn_contact_group_edit_save);

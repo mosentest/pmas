@@ -38,20 +38,6 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_group_list);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        initUI();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ContactGroupResolver contactGroupResolver = new ContactGroupResolver(ContactGroupActivity.this);
-        List<ContactGroup> all = contactGroupResolver.findAll();
-        contactGroupAdapter = new ContactGroupAdapter(ContactGroupActivity.this, all);
-        mSwipeListView.setAdapter(contactGroupAdapter);
-        contactGroupAdapter.notifyDataSetChanged();
-    }
-
-    private void initUI() {
         mSwipeListView = (SwipeListView) findViewById(R.id.lv_contact_group);
         mSwipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,6 +45,20 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
 
             }
         });
+    }
+
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+        ContactGroupResolver contactGroupResolver = new ContactGroupResolver(ContactGroupActivity.this);
+        List<ContactGroup> all = contactGroupResolver.findAll();
+        contactGroupAdapter = new ContactGroupAdapter(ContactGroupActivity.this, all);
+        mSwipeListView.setAdapter(contactGroupAdapter);
+        contactGroupAdapter.notifyDataSetChanged();
     }
 
     @Override

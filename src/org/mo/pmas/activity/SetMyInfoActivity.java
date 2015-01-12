@@ -24,6 +24,16 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
         initUI();
     }
 
+    @Override
+    protected void toInitUI() {
+        
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     private void initUI() {
         btn_set_my_info_logout = (Button) findViewById(R.id.btn_set_my_info_logout);
         setOnClick();

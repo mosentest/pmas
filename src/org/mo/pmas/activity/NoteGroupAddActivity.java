@@ -126,6 +126,11 @@ public class NoteGroupAddActivity extends BaseFramgmentActivity implements View.
     }
 
     @Override
+    protected void toUIOper() {
+
+    }
+
+    @Override
     public void toInitDate() {
         m_btn_note_group_add_save.setOnClickListener(this);
     }

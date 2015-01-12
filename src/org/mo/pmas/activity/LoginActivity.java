@@ -62,6 +62,16 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
     }
 
     @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register:

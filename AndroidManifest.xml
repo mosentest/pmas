@@ -98,6 +98,7 @@
                   android:screenOrientation="portrait"
                 />
         <activity android:name=".ContactGroupEditActivtiy"/>
+        <activity android:name=".ContactShowOneInfoActivity"/>
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"

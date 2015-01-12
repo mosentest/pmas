@@ -155,6 +155,16 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         });
     }
 
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     /**
      * 抽屉适配器
      */

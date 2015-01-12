@@ -153,16 +153,10 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_edit);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        init(getIntent());
     }
 
-    /**
-     * 初始化
-     *
-     * @param intent
-     */
-    void init(Intent intent) {
-//===============================================================================================
+    @Override
+    protected void toInitUI() {
         imageView_head = (ImageView) findViewById(R.id.imageView_head);
         et_contact_edit_name = (EditText) findViewById(R.id.et_contact_edit_name);
         et_contact_edit_birthday = (EditText) findViewById(R.id.et_contact_edit_birthday);
@@ -188,7 +182,19 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         et_contact_edit_email.setOnClickListener(this);
         et_contact_edit_address.setOnClickListener(this);
         button_detete.setOnClickListener(this);
-//============================================================================================
+    }
+
+    @Override
+    protected void toUIOper() {
+        init(getIntent());
+    }
+
+    /**
+     * 初始化
+     *
+     * @param intent
+     */
+    void init(Intent intent) {
         et_contact_edit_contact_group.setInputType(InputType.TYPE_NULL);
         //TODO 群组列表
         ContactGroupResolver contactGroupResolver = new ContactGroupResolver(ContactEidtActivity.this);

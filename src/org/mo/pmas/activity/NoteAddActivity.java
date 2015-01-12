@@ -50,6 +50,16 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
         init();
     }
 
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     void init() {
         m_et_note_add_title = (EditText) findViewById(R.id.et_note_add_title);
         m_et_note_add_group = (EditText) findViewById(R.id.et_note_add_group);

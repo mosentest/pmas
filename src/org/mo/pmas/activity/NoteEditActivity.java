@@ -18,6 +18,16 @@ public class NoteEditActivity extends BaseFramgmentActivity {
     }
 
     @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }

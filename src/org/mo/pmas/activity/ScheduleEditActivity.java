@@ -30,6 +30,16 @@ public class ScheduleEditActivity extends BaseFramgmentActivity {
         init();
     }
 
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     private void init() {
         viewHodler = new ViewHodler();
         //TODO 弹出显示日期

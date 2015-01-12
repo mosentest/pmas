@@ -30,6 +30,16 @@ public class ContactGroupAddActivtiy extends BaseFramgmentActivity implements Vi
         initUI();
     }
 
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+    }
+
     private void initUI() {
         et_contact_group_add_title = (EditText) findViewById(R.id.et_contact_group_add_title);
         btn_contact_group_add_save = (Button) findViewById(R.id.btn_contact_group_add_save);

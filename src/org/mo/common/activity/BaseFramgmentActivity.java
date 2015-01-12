@@ -18,12 +18,18 @@ import org.mo.pmas.util.ErrorEnum;
 /**
  * Created by moziqi on 2014/12/31 0031.
  */
-public class BaseFramgmentActivity extends FragmentActivity {
+public abstract class BaseFramgmentActivity extends FragmentActivity {
 
     private static final String TAG = "PMAS";
     private Toast mToast;
     protected int mScreenWidth;
     protected int mScreenHeight;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toUIOper();
+    }
 
     public BaseFramgmentActivity() {
     }
@@ -37,6 +43,7 @@ public class BaseFramgmentActivity extends FragmentActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         mScreenWidth = metric.widthPixels;
         mScreenHeight = metric.heightPixels;
+        toInitUI();
     }
 
     public void ShowToast(final String text) {
@@ -77,4 +84,8 @@ public class BaseFramgmentActivity extends FragmentActivity {
         ToastUtil.showShortToast(getApplicationContext(), ident.getMessage());
         Log.e(TAG, ident.getMessage());
     }
+
+    protected abstract void toInitUI();
+
+    protected abstract void toUIOper();
 }
