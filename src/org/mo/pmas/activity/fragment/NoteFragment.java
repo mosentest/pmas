@@ -10,6 +10,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
 import org.mo.common.util.DateUtil;
+import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.pmas.bmob.entity.MyUser;
@@ -28,7 +29,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     private XListView mXListView;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNoteLists;
-//    private LoadingView mLoadingView;
+    //    private LoadingView mLoadingView;
     private Handler mHandler;
     private int currentPage = 1;
     private int size = 10;
@@ -90,7 +91,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
 
             @Override
             public void onError(int i, String s) {
-                showErrorIms(i);
+                ToastUtil.showLongToast(mContext, i + s);
             }
         });
     }

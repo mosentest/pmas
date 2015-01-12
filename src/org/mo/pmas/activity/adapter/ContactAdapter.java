@@ -97,19 +97,9 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     }
 
     private void showOneContactInThis(Contact mContact) {
-        //TODO 显示联系人信息
-        Toast.makeText(mContext, mContact.getPhoneNumber(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mContext, ContactEidtActivity.class);
         Bundle mbundle = new Bundle();
-        mbundle.putLong("id", mContact.getId());
-        mbundle.putString("name", mContact.getName());
-        mbundle.putString("birthday", mContact.getBirthday());
-        mbundle.putString("email", mContact.getEmail());
-        mbundle.putString("address", mContact.getAddress());
-        mbundle.putString("phoneNumber", mContact.getPhoneNumber());
-        mbundle.putString("contactGroup", mContact.getContactGroup());
-        Bitmap contactPhoto = mContact.getContactPhoto();
-        mbundle.putParcelable("contactPhoto", contactPhoto);
+        mbundle.putInt("id", mContact.getId());
         intent.putExtras(mbundle);
         mContext.startActivity(intent);
     }

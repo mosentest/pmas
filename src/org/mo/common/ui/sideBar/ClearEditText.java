@@ -2,6 +2,7 @@ package org.mo.common.ui.sideBar;
 
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,7 +45,7 @@ public class ClearEditText extends EditText implements
             mClearDrawable = getResources()
                     .getDrawable(R.drawable.emotionstore_progresscancelbtn);
         }
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
+        mClearDrawable.setBounds(-5, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
         setClearIconVisible(false);
         setOnFocusChangeListener(this);
         addTextChangedListener(this);
@@ -87,6 +88,7 @@ public class ClearEditText extends EditText implements
 
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
+     *
      * @param visible
      */
     protected void setClearIconVisible(boolean visible) {
@@ -120,17 +122,18 @@ public class ClearEditText extends EditText implements
     /**
      * 设置晃动动画
      */
-    public void setShakeAnimation(){
+    public void setShakeAnimation() {
         this.setAnimation(shakeAnimation(5));
     }
 
 
     /**
      * 晃动动画
+     *
      * @param counts 1秒钟晃动多少下
      * @return
      */
-    public static Animation shakeAnimation(int counts){
+    public static Animation shakeAnimation(int counts) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
         translateAnimation.setDuration(1000);

@@ -18,6 +18,7 @@ import org.mo.common.ui.sideBar.SideBar;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.adapter.ContactAdapter;
 import org.mo.pmas.entity.Contact;
+import org.mo.pmas.resolver.ContactResolver;
 import org.mo.pmas.util.AsyncTaskBase;
 import org.mo.pmas.util.CharacterParser;
 import org.mo.pmas.util.ConstactUtil;
@@ -121,10 +122,11 @@ public class ContactFragment extends BaseFragment {
 
         @Override
         protected Integer doInBackground(Integer... params) {
-            int result = -1;
+            int result = 1;
             //TODO 获取联系人数据
-            callRecords = ConstactUtil.getAllCallRecords(mContext);
-            result = 1;
+            ContactResolver contactResolver = new ContactResolver(mContext);
+//            callRecords = ConstactUtil.getAllCallRecords(mContext);
+            callRecords = contactResolver.findAll();
             return result;
         }
 

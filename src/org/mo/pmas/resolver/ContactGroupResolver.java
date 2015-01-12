@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -171,6 +172,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         }
         cursor.close();
         return groups;
+    }
+
+    @Override
+    public ContactGroup findOneById(Serializable id) {
+        return null;
     }
 
     public List<Contact> getAllContactsByGroupId(int groupId) {

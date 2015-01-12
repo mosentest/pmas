@@ -41,12 +41,18 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
         initUI();
     }
 
-    private void initUI() {
-        mSwipeListView = (SwipeListView) findViewById(R.id.lv_contact_group);
+    @Override
+    protected void onResume() {
+        super.onResume();
         ContactGroupResolver contactGroupResolver = new ContactGroupResolver(ContactGroupActivity.this);
         List<ContactGroup> all = contactGroupResolver.findAll();
         contactGroupAdapter = new ContactGroupAdapter(ContactGroupActivity.this, all);
         mSwipeListView.setAdapter(contactGroupAdapter);
+        contactGroupAdapter.notifyDataSetChanged();
+    }
+
+    private void initUI() {
+        mSwipeListView = (SwipeListView) findViewById(R.id.lv_contact_group);
         mSwipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

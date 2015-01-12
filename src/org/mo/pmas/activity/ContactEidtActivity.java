@@ -11,29 +11,142 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.StringUtil;
+import org.mo.pmas.entity.Contact;
+import org.mo.pmas.entity.ContactGroup;
+import org.mo.pmas.resolver.ContactGroupResolver;
+import org.mo.pmas.resolver.ContactResolver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by moziqi on 2014/12/26 0026.
  */
-public class ContactEidtActivity extends BaseFramgmentActivity {
-    private ViewHolder viewHolder;
+public class ContactEidtActivity extends BaseFramgmentActivity implements View.OnClickListener {
     private String mImgPath;
     private Bitmap head;//头像Bitmap
     private FileOutputStream b = null;
+    private List<ContactGroup> contactGroups;
+    //对应xml的id
+    private ImageView imageView_head;
+    private EditText et_contact_edit_name;
+    private EditText et_contact_edit_birthday;
+    private LinearLayout ll_edit_phone1;
+    private LinearLayout ll_edit_phone2;
+    private LinearLayout ll_edit_phone3;
+    private LinearLayout ll_edit_phone4;
+    private LinearLayout ll_edit_phone5;
+    private EditText et_contact_edit_phone1;
+    private EditText et_contact_edit_phone2;
+    private EditText et_contact_edit_phone3;
+    private EditText et_contact_edit_phone4;
+    private EditText et_contact_edit_phone5;
+    private EditText et_contact_edit_email;
+    private EditText et_contact_edit_address;
+    private EditText et_contact_edit_contact_group;
+    private Button button_detete;
+    private String[] group;
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imageView_head:
+                imgAlertDialog();
+                break;
+            case R.id.et_contact_edit_name:
+                break;
+            case R.id.et_contact_edit_birthday:
+                datePickerDialog();
+                break;
+            case R.id.ll_edit_phone1:
+                break;
+            case R.id.ll_edit_phone2:
+                break;
+            case R.id.ll_edit_phone3:
+                break;
+            case R.id.ll_edit_phone4:
+                break;
+            case R.id.ll_edit_phone5:
+                break;
+            case R.id.et_contact_edit_phone1:
+                String trim1 = et_contact_edit_phone1.getText().toString().trim();
+                if (trim1.length() == 0) {
+                    ll_edit_phone2.setVisibility(View.GONE);
+                    ll_edit_phone3.setVisibility(View.GONE);
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                } else {
+                    ll_edit_phone2.setVisibility(View.VISIBLE);
+                    ll_edit_phone3.setVisibility(View.GONE);
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.et_contact_edit_phone2:
+                String trim2 = et_contact_edit_phone2.getText().toString().trim();
+                if (trim2.length() == 0) {
+                    ll_edit_phone3.setVisibility(View.GONE);
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                } else {
+                    ll_edit_phone2.setVisibility(View.VISIBLE);
+                    ll_edit_phone3.setVisibility(View.VISIBLE);
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.et_contact_edit_phone3:
+                String trim3 = et_contact_edit_phone3.getText().toString().trim();
+                if (trim3.length() == 0) {
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                } else {
+                    ll_edit_phone2.setVisibility(View.VISIBLE);
+                    ll_edit_phone3.setVisibility(View.VISIBLE);
+                    ll_edit_phone4.setVisibility(View.VISIBLE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.et_contact_edit_phone4:
+                String trim4 = et_contact_edit_phone4.getText().toString().trim();
+                if (trim4.length() == 0) {
+                    ll_edit_phone5.setVisibility(View.GONE);
+                } else {
+                    ll_edit_phone2.setVisibility(View.VISIBLE);
+                    ll_edit_phone3.setVisibility(View.VISIBLE);
+                    ll_edit_phone4.setVisibility(View.VISIBLE);
+                    ll_edit_phone5.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.et_contact_edit_phone5:
+                ll_edit_phone5.setVisibility(View.VISIBLE);
+                break;
+            case R.id.et_contact_edit_email:
+                break;
+            case R.id.et_contact_edit_address:
+                break;
+            case R.id.et_contact_edit_contact_group:
+                groupAlertDialog(group);
+                break;
+            case R.id.button_detete:
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,72 +163,108 @@ public class ContactEidtActivity extends BaseFramgmentActivity {
      */
     void init(Intent intent) {
 //===============================================================================================
-        viewHolder = new ViewHolder();
-        viewHolder.mEditText_group = (EditText) findViewById(R.id.editText_group);
-        viewHolder.mEditText_name = (EditText) findViewById(R.id.editText_name);
-        viewHolder.mEditText_phoneNumber1 = (EditText) findViewById(R.id.editText_phoneNumber1);
-        viewHolder.mEditText_phoneNumber2 = (EditText) findViewById(R.id.editText_phoneNumber2);
-        viewHolder.mEditText_phoneNumber3 = (EditText) findViewById(R.id.editText_phoneNumber3);
-        viewHolder.mEditText_phoneNumber4 = (EditText) findViewById(R.id.editText_phoneNumber4);
-        viewHolder.mEditText_phoneNumber5 = (EditText) findViewById(R.id.editText_phoneNumber5);
-        String phoneNumber1 = viewHolder.mEditText_phoneNumber1.getText().toString();
-        if (StringUtil.notEmpty(phoneNumber1)) {
-
-        }
-        viewHolder.mEditText_birthday = (EditText) findViewById(R.id.editText_birthday);
-        viewHolder.mImageView_head = (ImageView) findViewById(R.id.imageView_head);
+        imageView_head = (ImageView) findViewById(R.id.imageView_head);
+        et_contact_edit_name = (EditText) findViewById(R.id.et_contact_edit_name);
+        et_contact_edit_birthday = (EditText) findViewById(R.id.et_contact_edit_birthday);
+        ll_edit_phone1 = (LinearLayout) findViewById(R.id.ll_edit_phone1);
+        ll_edit_phone2 = (LinearLayout) findViewById(R.id.ll_edit_phone2);
+        ll_edit_phone3 = (LinearLayout) findViewById(R.id.ll_edit_phone3);
+        ll_edit_phone4 = (LinearLayout) findViewById(R.id.ll_edit_phone4);
+        ll_edit_phone5 = (LinearLayout) findViewById(R.id.ll_edit_phone5);
+        et_contact_edit_phone1 = (EditText) findViewById(R.id.et_contact_edit_phone1);
+        et_contact_edit_phone2 = (EditText) findViewById(R.id.et_contact_edit_phone2);
+        et_contact_edit_phone3 = (EditText) findViewById(R.id.et_contact_edit_phone3);
+        et_contact_edit_phone4 = (EditText) findViewById(R.id.et_contact_edit_phone4);
+        et_contact_edit_phone5 = (EditText) findViewById(R.id.et_contact_edit_phone5);
+        et_contact_edit_email = (EditText) findViewById(R.id.et_contact_edit_email);
+        et_contact_edit_address = (EditText) findViewById(R.id.et_contact_edit_address);
+        et_contact_edit_contact_group = (EditText) findViewById(R.id.et_contact_edit_contact_group);
+        button_detete = (Button) findViewById(R.id.button_detete);
+        et_contact_edit_name.setOnClickListener(this);
+        et_contact_edit_phone1.addTextChangedListener(new TextWatcherListener1());
+        et_contact_edit_phone2.addTextChangedListener(new TextWatcherListener2());
+        et_contact_edit_phone3.addTextChangedListener(new TextWatcherListener3());
+        et_contact_edit_phone4.addTextChangedListener(new TextWatcherListener4());
+        et_contact_edit_email.setOnClickListener(this);
+        et_contact_edit_address.setOnClickListener(this);
+        button_detete.setOnClickListener(this);
 //============================================================================================
-        viewHolder.mEditText_group.setInputType(InputType.TYPE_NULL);
+        et_contact_edit_contact_group.setInputType(InputType.TYPE_NULL);
         //TODO 群组列表
-        final String group[] = new String[]{"朋友", "同事"};
+        ContactGroupResolver contactGroupResolver = new ContactGroupResolver(ContactEidtActivity.this);
+        contactGroups = contactGroupResolver.findAll();
+        group = new String[contactGroups.size()];
+        for (int i = 0; i < contactGroups.size(); i++) {
+            group[i] = new String(contactGroups.get(i).getName());
+        }
         if (group != null) {
-            viewHolder.mEditText_group.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    groupAlertDialog(group);
-                }
-            });
+            et_contact_edit_contact_group.setOnClickListener(this);
         } else {
             Intent intent1 = new Intent();
         }
 //===========================================================================================================
         //TODO 日期选择
-        viewHolder.mEditText_birthday.setInputType(InputType.TYPE_NULL);
-        viewHolder.mEditText_birthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    datePickerDialog();
-
-                }
-            }
-        });
-        viewHolder.mEditText_birthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog();
-            }
-        });
+        et_contact_edit_birthday.setInputType(InputType.TYPE_NULL);
+        et_contact_edit_birthday.setOnClickListener(this);
 //============================================================================================================
         //TODO 显示用户信息
         Bundle bundle = intent.getExtras();
-        long id = bundle.getLong("id");
-        String name = bundle.getString("name");
-        String phoneNumber = bundle.getString("phoneNumber");
-        viewHolder.mEditText_name.setText(name);
-        viewHolder.mEditText_phoneNumber1.setText(phoneNumber);
-        Parcelable contactPhoto = bundle.getParcelable("contactPhoto");
-        Bitmap bitmap = (Bitmap) contactPhoto;
-        viewHolder.mImageView_head.setImageBitmap(bitmap);
-//============================================================================================================
-        viewHolder.mImageView_head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imgAlertDialog();
+        Integer id = bundle.getInt("id");
+        ContactResolver contactResolver = new ContactResolver(ContactEidtActivity.this);
+        Contact oneById = contactResolver.findOneById(id);
+        et_contact_edit_name.setText(oneById.getName());
+        et_contact_edit_birthday.setText(oneById.getBirthday());
+        ContactGroup contactGroup = oneById.getmContactGroup();
+        if (contactGroup != null) {
+            et_contact_edit_contact_group.setText(contactGroup.getName());
+        }
+        et_contact_edit_email.setText(oneById.getEmail());
+        et_contact_edit_address.setText(oneById.getAddress());
+        if (oneById.getPhones() != null && oneById.getPhones().size() >= 1) {
+            switch (oneById.getPhones().size()) {
+                case 1:
+                    ll_edit_phone3.setVisibility(View.GONE);
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
+                    break;
+                case 2:
+                    ll_edit_phone4.setVisibility(View.GONE);
+                    ll_edit_phone5.setVisibility(View.GONE);
+                    et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
+                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
+                    break;
+                case 3:
+                    ll_edit_phone5.setVisibility(View.GONE);
+                    et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
+                    et_contact_edit_phone3.setText(oneById.getPhones().get(2).getPhoneNumber());
+                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
+                    break;
+                case 4:
+                    et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
+                    et_contact_edit_phone3.setText(oneById.getPhones().get(2).getPhoneNumber());
+                    et_contact_edit_phone4.setText(oneById.getPhones().get(3).getPhoneNumber());
+                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
+                    break;
+                case 5:
+                    et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
+                    et_contact_edit_phone3.setText(oneById.getPhones().get(2).getPhoneNumber());
+                    et_contact_edit_phone4.setText(oneById.getPhones().get(3).getPhoneNumber());
+                    et_contact_edit_phone5.setText(oneById.getPhones().get(4).getPhoneNumber());
+                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
+                    break;
+                default:
+                    break;
             }
-        });
-        //异步加载图片
-//        new ImgAsyncTask();
+        } else {
+            ll_edit_phone2.setVisibility(View.GONE);
+            ll_edit_phone3.setVisibility(View.GONE);
+            ll_edit_phone4.setVisibility(View.GONE);
+            ll_edit_phone5.setVisibility(View.GONE);
+        }
+        imageView_head.setImageBitmap(oneById.getContactPhoto());
+//============================================================================================================
+        imageView_head.setOnClickListener(this);
     }
 
     private void imgAlertDialog() {
@@ -148,7 +297,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                viewHolder.mEditText_birthday.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                et_contact_edit_birthday.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -160,7 +309,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                viewHolder.mEditText_group.setText(group[which]);
+                                et_contact_edit_contact_group.setText(group[which]);
                             }
                         }).setNegativeButton("取消", null).show();
     }
@@ -191,7 +340,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity {
                          * 上传服务器代码
                          */
                         setPicToView(head);//保存在SD卡中
-                        viewHolder.mImageView_head.setImageBitmap(head);//用ImageView显示出来
+                        imageView_head.setImageBitmap(head);//用ImageView显示出来
                     }
                 }
                 break;
@@ -201,8 +350,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-    ;
 
     /**
      * 调用系统的裁剪
@@ -264,40 +411,126 @@ public class ContactEidtActivity extends BaseFramgmentActivity {
                 ContactEidtActivity.this.finish();
                 return true;
             case R.id.save:
-                intent.setClass(ContactEidtActivity.this, ScheduleEditActivity.class);
-                startActivity(intent);
+//                intent.setClass(ContactEidtActivity.this, ScheduleEditActivity.class);
+//                startActivity(intent);
                 return true;
             default:
                 return false;
         }
     }
 
+    private class TextWatcherListener1 implements TextWatcher {
 
-    final static class ViewHolder {
-        EditText mEditText_group;
-        EditText mEditText_name;
-        EditText mEditText_phoneNumber1;
-        EditText mEditText_phoneNumber2;
-        EditText mEditText_phoneNumber3;
-        EditText mEditText_phoneNumber4;
-        EditText mEditText_phoneNumber5;
-        EditText mEditText_birthday;
-        EditText mEditText_email;
-        EditText mEditText_address;
-        ImageView mImageView_head;
-        Button mButton_detete;
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String trim1 = et_contact_edit_phone1.getText().toString().trim();
+            if (trim1.length() == 0) {
+                ll_edit_phone2.setVisibility(View.GONE);
+                ll_edit_phone3.setVisibility(View.GONE);
+                ll_edit_phone4.setVisibility(View.GONE);
+                ll_edit_phone5.setVisibility(View.GONE);
+            } else {
+                ll_edit_phone2.setVisibility(View.VISIBLE);
+                ll_edit_phone3.setVisibility(View.GONE);
+                ll_edit_phone4.setVisibility(View.GONE);
+                ll_edit_phone5.setVisibility(View.GONE);
+            }
+            et_contact_edit_phone1.addTextChangedListener(this);
+        }
+
     }
 
-//    class ImgAsyncTask extends AsyncTask<Void, Integer, Boolean> {
-//
-//        @Override
-//        protected Boolean doInBackground(Void... params) {
-//            String path = Environment.getExternalStorageDirectory().toString();
-//            Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");//从Sd中找头像，转换成Bitmap
-//            if (bt != null) {
-//                viewHolder.mImageView_head.setImageBitmap(bt);//用ImageView显示出来
-//            }
-//            return true;
-//        }
-//    }
+    private class TextWatcherListener2 implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String trim2 = et_contact_edit_phone2.getText().toString().trim();
+            if (trim2.length() == 0) {
+                ll_edit_phone3.setVisibility(View.GONE);
+                ll_edit_phone4.setVisibility(View.GONE);
+                ll_edit_phone5.setVisibility(View.GONE);
+            } else {
+                ll_edit_phone2.setVisibility(View.VISIBLE);
+                ll_edit_phone3.setVisibility(View.VISIBLE);
+                ll_edit_phone4.setVisibility(View.GONE);
+                ll_edit_phone5.setVisibility(View.GONE);
+            }
+            et_contact_edit_phone2.addTextChangedListener(this);
+        }
+    }
+
+    private class TextWatcherListener3 implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String trim3 = et_contact_edit_phone3.getText().toString().trim();
+            if (trim3.length() == 0) {
+                ll_edit_phone4.setVisibility(View.GONE);
+                ll_edit_phone5.setVisibility(View.GONE);
+            } else {
+                ll_edit_phone2.setVisibility(View.VISIBLE);
+                ll_edit_phone3.setVisibility(View.VISIBLE);
+                ll_edit_phone4.setVisibility(View.VISIBLE);
+                ll_edit_phone5.setVisibility(View.GONE);
+            }
+            et_contact_edit_phone3.addTextChangedListener(this);
+        }
+    }
+
+    private class TextWatcherListener4 implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String trim4 = et_contact_edit_phone4.getText().toString().trim();
+            if (trim4.length() == 0) {
+                ll_edit_phone5.setVisibility(View.GONE);
+            } else {
+                ll_edit_phone2.setVisibility(View.VISIBLE);
+                ll_edit_phone3.setVisibility(View.VISIBLE);
+                ll_edit_phone4.setVisibility(View.VISIBLE);
+                ll_edit_phone5.setVisibility(View.VISIBLE);
+            }
+            et_contact_edit_phone4.addTextChangedListener(this);
+        }
+    }
 }

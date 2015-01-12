@@ -85,6 +85,11 @@
     <string name="add">新增</string>
     <string name="name">名称</string>
     <string name="add_contact_group">新增群组</string>
+    <string name="contact_name">名字</string>
+    <string name="birthday">生日</string>
+    <string name="phone">电话</string>
+    <string name="email">邮箱</string>
+    <string name="address">地址</string>
 
 
     <string-array name="jazzy_effects">

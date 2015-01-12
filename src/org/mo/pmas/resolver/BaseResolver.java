@@ -15,4 +15,6 @@ public interface BaseResolver<T extends Serializable> {
     public boolean delete(T entity);
 
     public List<T> findAll();
+
+    public T findOneById(Serializable id);
 }

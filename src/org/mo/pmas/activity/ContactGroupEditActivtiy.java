@@ -85,9 +85,10 @@ public class ContactGroupEditActivtiy extends BaseFramgmentActivity implements V
     }
 
     private void gotoMain() {
-        PmasAppliaction.getInstance().exit();
-        Intent intent = new Intent(ContactGroupEditActivtiy.this, ContactGroupActivity.class);
-        startActivity(intent);
+//        PmasAppliaction.getInstance().exit();
+//        Intent intent = new Intent(ContactGroupEditActivtiy.this, ContactGroupActivity.class);
+//        startActivity(intent);
+        this.finish();
         overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
 //        this.setResult(2, intent);
     }

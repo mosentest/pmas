@@ -7,50 +7,45 @@
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:background="@drawable/acm_inputbox"
-                  android:layout_marginLeft="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginRight="5dp"
-                  android:layout_marginEnd="5dp"
-                  android:paddingBottom="10dp"
-                  android:paddingRight="10dp"
-                  android:paddingLeft="10dp"
-                  android:paddingTop="10dp">
+                  android:focusable="true"
+                  android:focusableInTouchMode="true">
+
         <RelativeLayout android:layout_width="fill_parent"
                         android:layout_height="fill_parent">
             <RelativeLayout android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:background="@drawable/acm_inputbox">
+                            android:background="@drawable/acm_inputbox"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp">
                 <ImageView
                         android:id="@+id/imageView_head"
-                        android:layout_width="80dip"
-                        android:layout_height="80dip"
+                        android:layout_width="100dip"
+                        android:layout_height="120dip"
                         android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="1dip"
-                        android:src="@drawable/ic_launcher"/>
+                        android:src="@drawable/ic_launcher" android:layout_alignParentBottom="true"/>
             </RelativeLayout>
+
             <RelativeLayout android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="120dp">
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="45dp"
-                          android:textColor="@color/mylove"
-                          android:textSize="18dp"
-                          android:text="名字："
-                          android:gravity="center"
-                          android:id="@+id/textView_name"/>
-                <org.mo.common.ui.sideBar.ClearEditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:inputType="textPersonName"
-                        android:ems="10"
-                        android:id="@+id/editText_name"
-                        android:hint="请输入名字"
-                        android:background="@drawable/acm_inputbox"
-                        android:singleLine="true"
-                        android:layout_toRightOf="@id/textView_name"/>
+                <LinearLayout style="@style/Register_Input">
+
+                    <TextView
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/mylove"
+                            android:text="@string/contact_name"
+                            android:paddingLeft="10dp"
+                            android:textStyle="bold"/>
+
+                    <org.mo.common.ui.sideBar.ClearEditText
+                            android:id="@+id/et_contact_edit_name"
+                            style="@style/Register_Edit"
+                            android:inputType="text"/>
+                </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout android:layout_width="fill_parent"
@@ -58,199 +53,158 @@
                             android:layout_marginTop="55dp"
                             android:layout_marginLeft="120dp">
 
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="45dp"
-                          android:gravity="center"
-                          android:textColor="@color/mylove"
-                          android:textSize="18dp"
-                          android:text="生日："
-                          android:id="@+id/textView_birthday"/>
-                <org.mo.common.ui.sideBar.ClearEditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:inputType="date"
-                        android:ems="10"
-                        android:hint="请输入日期"
-                        android:background="@drawable/acm_inputbox"
-                        android:id="@+id/editText_birthday"
-                        android:layout_toRightOf="@id/textView_birthday"/>
+                <LinearLayout style="@style/Register_Input">
+
+                    <TextView
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/mylove"
+                            android:text="@string/birthday"
+                            android:paddingLeft="10dp"
+                            android:textStyle="bold"/>
+
+                    <org.mo.common.ui.sideBar.ClearEditText
+                            android:id="@+id/et_contact_edit_birthday"
+                            style="@style/Register_Edit"
+                            android:inputType="text"/>
+                </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
 
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/phone1">
+        <LinearLayout style="@style/Register_Input"
+                      android:id="@+id/ll_edit_phone1">
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="电话："
-                      android:id="@+id/textView_phoneNumber1"/>
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/phone"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
+
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
+                    android:id="@+id/et_contact_edit_phone1"
                     android:inputType="phone"
-                    android:ems="10"
-                    android:hint="请输入电话"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_phoneNumber1"
-                    android:layout_toRightOf="@id/textView_phoneNumber1"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/phone2">
+                    style="@style/Register_Edit"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Register_Input"
+                      android:id="@+id/ll_edit_phone2">
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="电话："
-                      android:id="@+id/textView_phoneNumber2"/>
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/phone"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
+
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:hint="请输入电话"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_phoneNumber2"
-                    android:layout_toRightOf="@id/textView_phoneNumber2"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/phone3">
+                    android:id="@+id/et_contact_edit_phone2"
+                    style="@style/Register_Edit"
+                    android:inputType="phone"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Register_Input"
+                      android:id="@+id/ll_edit_phone3">
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="电话："
-                      android:id="@+id/textView_phoneNumber3"/>
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/phone"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
+
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:hint="请输入电话"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_phoneNumber3"
-                    android:layout_toRightOf="@id/textView_phoneNumber3"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/phone4">
+                    android:id="@+id/et_contact_edit_phone3"
+                    style="@style/Register_Edit"
+                    android:inputType="phone"/>
+        </LinearLayout>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="电话："
-                      android:id="@+id/textView_phoneNumber4"/>
+        <LinearLayout style="@style/Register_Input"
+                      android:id="@+id/ll_edit_phone4">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/phone"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
+
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:hint="请输入电话"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_phoneNumber4"
-                    android:layout_toRightOf="@id/textView_phoneNumber4"/>
-        </RelativeLayout>
+                    android:id="@+id/et_contact_edit_phone4"
+                    style="@style/Register_Edit"
+                    android:inputType="phone"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Register_Input"
+                      android:id="@+id/ll_edit_phone5">
 
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/phone5">
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/phone"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="电话："
-                      android:id="@+id/textView_phoneNumber5"/>
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:hint="请输入电话"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_phoneNumber5"
-                    android:layout_toRightOf="@id/textView_phoneNumber5"/>
-        </RelativeLayout>
+                    android:id="@+id/et_contact_edit_phone5"
+                    style="@style/Register_Edit"
+                    android:inputType="phone"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Register_Input">
 
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/email"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
 
-        <RelativeLayout android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="邮箱："
-                      android:id="@+id/textView_email"/>
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="textEmailAddress"
-                    android:ems="10"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_email"
-                    android:hint="123456@qq.com"
-                    android:layout_toRightOf="@id/textView_email"/>
-        </RelativeLayout>
+                    android:id="@+id/et_contact_edit_email"
+                    style="@style/Register_Edit"
+                    android:inputType="textEmailAddress"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Register_Input">
 
-        <RelativeLayout android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/address"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="地址："
-                      android:id="@+id/textView_address"/>
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:inputType="textPostalAddress"
-                    android:ems="10"
-                    android:id="@+id/editText_address"
-                    android:hint="广东"
-                    android:background="@drawable/acm_inputbox"
-                    android:layout_toRightOf="@id/textView_address"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                    android:id="@+id/et_contact_edit_address"
+                    style="@style/Register_Edit"
+                    android:inputType="text"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Register_Input">
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="45dp"
-                      android:gravity="center"
-                      android:textColor="@color/mylove"
-                      android:textSize="18dp"
-                      android:text="群组："
-                      android:id="@+id/textView_group"/>
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/mylove"
+                    android:text="@string/group"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"/>
+
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="45dp"
-                    android:background="@drawable/acm_inputbox"
-                    android:id="@+id/editText_group"
-                    android:layout_toRightOf="@id/textView_group"/>
-        </RelativeLayout>
+                    android:id="@+id/et_contact_edit_contact_group"
+                    style="@style/Register_Edit"/>
+        </LinearLayout>
 
         <org.mo.common.ui.button.FButton
                 android:layout_width="fill_parent"
@@ -260,6 +214,7 @@
                 android:text="删除"
                 android:id="@+id/button_detete"
                 fbutton:shadowEnabled="true"
+                android:layout_margin="@dimen/activity_vertical_margin"
                 android:layout_marginTop="20dp"/>
 
     </LinearLayout>
