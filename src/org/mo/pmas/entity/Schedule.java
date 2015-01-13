@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Schedule implements Serializable {
 
-    private int id;
+    private Integer id;
 
     private String title;
 

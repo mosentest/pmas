@@ -19,7 +19,6 @@ public class ContactGroup implements Serializable {
 
     private String name;
 
-    private String description;
 
     private MyUser myUser;
 
@@ -57,13 +56,6 @@ public class ContactGroup implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public MyUser getMyUser() {
         return myUser;
@@ -88,7 +80,6 @@ public class ContactGroup implements Serializable {
                 ", objectId='" + objectId + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
                 '}';
     }
 }

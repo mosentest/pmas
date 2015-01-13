@@ -3,10 +3,12 @@ package org.mo.pmas.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by moziqi on 2015/1/9 0009.
  */
-public class MyUser {
+public class MyUser implements Serializable {
     private Integer id;
     private String objectId;
     private String username;

@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class NoteGroup implements Serializable{
 
-    private int id;
+    private Integer id;
 
     private String name;
 
