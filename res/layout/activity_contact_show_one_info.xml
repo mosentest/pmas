@@ -22,7 +22,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true">
+                            android:layout_centerHorizontal="true" android:id="@+id/relativeLayout">
                 <ImageView
                         android:id="@+id/imageView_show_head"
                         android:layout_width="100dip"
@@ -38,12 +38,14 @@
                     android:layout_height="match_parent"
                     android:id="@+id/tv_contact_show_name"
                     android:gravity="bottom"
-                    android:textSize="23dp"
+                    android:textSize="18dp"
                     android:textColor="@color/fbutton_color_alizarin"
                     android:text="@string/contact_name"
+                    android:paddingTop="10dp"
                     android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:textStyle="bold" android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:textStyle="bold"
+                    android:layout_above="@+id/relativeLayout"
                     android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 

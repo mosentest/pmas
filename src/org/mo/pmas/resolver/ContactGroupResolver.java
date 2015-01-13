@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
+import org.mo.common.util.ToastUtil;
 import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
 
@@ -176,7 +178,21 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
 
     @Override
     public ContactGroup findOneById(Serializable id) {
-        return null;
+        ContactGroup contactGroup = null;
+        Cursor cursor = mContext.getContentResolver().query(ContactsContract.Groups.CONTENT_URI,
+                null,
+                ContactsContract.Groups._ID + "=?",
+                new String[]{id + ""},
+                null);
+        if (cursor.moveToFirst()) {
+            contactGroup = new ContactGroup();
+            int cgid = cursor.getInt(cursor.getColumnIndex(ContactsContract.Groups._ID));
+            String title = cursor.getString(cursor.getColumnIndex(ContactsContract.Groups.TITLE));
+            contactGroup.setId(cgid);
+            contactGroup.setName(title);
+        }
+        cursor.close();
+        return contactGroup;
     }
 
     public List<Contact> getAllContactsByGroupId(int groupId) {
@@ -221,5 +237,23 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         }
         cursor.close();
         return contacts;
+    }
+
+
+    public ContactGroup getContactGroupByConactId(Integer conactId) {
+        ContactGroup contactGroup = null;
+        Cursor query = mContext.getContentResolver().query(
+                ContactsContract.Data.CONTENT_URI,
+                null,
+                ContactsContract.CommonDataKinds.GroupMembership.RAW_CONTACT_ID + "=? and " + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "=?",
+                new String[]{"" + conactId, ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE},
+                null);
+        if (query.moveToFirst()) {
+            contactGroup = new ContactGroup();
+            int id = query.getInt(query.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID));
+            contactGroup = findOneById(id);
+        }
+        query.close();
+        return contactGroup;
     }
 }

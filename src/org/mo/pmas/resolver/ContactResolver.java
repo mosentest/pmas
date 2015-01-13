@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.entity.Contact;
+import org.mo.pmas.entity.ContactGroup;
 import org.mo.pmas.entity.Phone;
 
 import java.io.IOException;
@@ -226,6 +227,7 @@ public class ContactResolver implements BaseResolver<Contact> {
                 birthday = birthdayCursor.getString(birthdayCursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.DATA));
             }
             birthdayCursor.close();
+
             //得到联系人头像Bitamp
             Bitmap contactPhoto = null;
             //得到联系人头像ID
@@ -243,6 +245,7 @@ public class ContactResolver implements BaseResolver<Contact> {
             } else {
                 contactPhoto = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.h001);
             }
+
             // 获取该联系人邮箱
             //我这里只需要获取一个,没有遍历全部出来
             Cursor cursorEmail = mContext.getContentResolver().query(
@@ -257,6 +260,7 @@ public class ContactResolver implements BaseResolver<Contact> {
                                 ContactsContract.CommonDataKinds.Email.DATA));
             }
             cursorEmail.close();
+
             // 获取该联系人地址
             //我这里只需要获取一个,没有遍历全部出来
             Cursor cursorAddress = mContext.getContentResolver().query(
@@ -270,12 +274,18 @@ public class ContactResolver implements BaseResolver<Contact> {
                 address = cursorAddress.getString(cursorAddress.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.CITY));
             }
             cursorAddress.close();
+
             contact.setId(contactId);
             contact.setName(contactName);
             contact.setContactPhoto(contactPhoto);
             contact.setEmail(email);
             contact.setAddress(address);
             contact.setBirthday(birthday);
+
+            ContactGroupResolver contactGroupResolver = new ContactGroupResolver(mContext);
+            ContactGroup contactGroupByConactId = contactGroupResolver.getContactGroupByConactId(contactId);
+            contact.setmContactGroup(contactGroupByConactId);
+
             // 查看该联系人有多少个电话号码。如果没有这返回值为0
             int has_phone_number = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
             if (has_phone_number > 0) {
@@ -309,4 +319,5 @@ public class ContactResolver implements BaseResolver<Contact> {
         }
         return contact;
     }
+
 }
