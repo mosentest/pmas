@@ -9,7 +9,7 @@ import cn.bmob.v3.datatype.BmobPointer;
  */
 public class Schedule extends BmobObject {
     private String title;
-    private BmobDate remindDate;
+    private String remindDate;
     private String content;
     private BmobPointer scheduleGroup;
     private BmobPointer user;
@@ -22,11 +22,11 @@ public class Schedule extends BmobObject {
         this.title = title;
     }
 
-    public BmobDate getRemindDate() {
+    public String getRemindDate() {
         return remindDate;
     }
 
-    public void setRemindDate(BmobDate remindDate) {
+    public void setRemindDate(String remindDate) {
         this.remindDate = remindDate;
     }
 
@@ -52,5 +52,14 @@ public class Schedule extends BmobObject {
 
     public void setUser(BmobPointer user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "content='" + content + '\'' +
+                ", remindDate='" + remindDate + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

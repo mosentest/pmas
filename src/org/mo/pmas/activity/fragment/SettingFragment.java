@@ -31,7 +31,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private ImageView m_iv_open_vibrate;
     private ImageView m_iv_close_vibrate;
     private RelativeLayout m_layout_info;
-    private RelativeLayout m_layout_blacklist;
+//    private RelativeLayout m_layout_blacklist;
     private RelativeLayout m_layout_weather;
     private RelativeLayout m_layout_neighborhood;
     private RelativeLayout m_rl_switch_voice;
@@ -67,7 +67,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         super.onActivityCreated(savedInstanceState);
         m_btn_setting_nologin = (Button) findViewById(R.id.btn_setting_nologin);
         m_layout_info = (RelativeLayout) findViewById(R.id.layout_info);
-        m_layout_blacklist = (RelativeLayout) findViewById(R.id.layout_blacklist);
+//        m_layout_blacklist = (RelativeLayout) findViewById(R.id.layout_blacklist);
         m_layout_weather = (RelativeLayout) findViewById(R.id.layout_weather);
         m_layout_neighborhood = (RelativeLayout) findViewById(R.id.layout_neighborhood);
         m_rl_switch_voice = (RelativeLayout) findViewById(R.id.rl_switch_voice);
@@ -111,7 +111,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         //==============================================================
         m_btn_setting_nologin.setOnClickListener(this);
         m_layout_info.setOnClickListener(this);
-        m_layout_blacklist.setOnClickListener(this);
+//        m_layout_blacklist.setOnClickListener(this);
         m_layout_weather.setOnClickListener(this);
         m_layout_neighborhood.setOnClickListener(this);
         m_rl_switch_voice.setOnClickListener(this);

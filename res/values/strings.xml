@@ -24,7 +24,7 @@
     <string name="schedule_edit">编辑日程</string>
     <string name="saveContact">添加联系人</string>
     <string name="saveNote">添加记事</string>
-    <string name="addSchedule">添加日程</string>
+    <string name="calender">日历</string>
 
     <string name="login_username_hint">请输入用户名</string>
     <string name="login_password_hint">请输入密码</string>

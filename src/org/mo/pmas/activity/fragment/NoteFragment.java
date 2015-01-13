@@ -10,7 +10,6 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
 import org.mo.common.util.DateUtil;
-import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.pmas.bmob.entity.MyUser;
@@ -57,7 +56,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.framgment_note_list, container, false);
+        return inflater.inflate(R.layout.fragment_note_list, container, false);
     }
 
     @Override

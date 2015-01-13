@@ -6,14 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import org.mo.common.util.DateUtil;
-import org.mo.common.util.TimestampTool;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.bmob.entity.Note;
-import org.mo.pmas.entity.Contact;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,7 +59,7 @@ public class NoteAdapter extends BaseAdapter {
 
     private View initViewUI(int position, View convertView, ViewHolder mViewHolder) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.framgment_note_list_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_note_list_item, null);
             mViewHolder.m_tv_note_list_title = (TextView) convertView.findViewById(R.id.tv_note_list_title);
             mViewHolder.m_tv_note_list_time = (TextView) convertView.findViewById(R.id.tv_note_list_time);
             mViewHolder.m_tv_note_list_content = (TextView) convertView.findViewById(R.id.tv_note_list_content);

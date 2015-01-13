@@ -17,7 +17,7 @@ import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
 import org.mo.pmas.activity.application.PmasAppliaction;
-import org.mo.pmas.activity.fragment.CalenderFragment;
+import org.mo.pmas.activity.fragment.ScheduleFragment;
 import org.mo.pmas.activity.fragment.ContactFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
@@ -269,7 +269,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         list = new ArrayList<Fragment>();
         list.add(ContactFragment.newInstance(this));
         list.add(NoteFragment.getInstance(this));
-        list.add(CalenderFragment.getInstance(this));
+        list.add(ScheduleFragment.getInstance(this));
         list.add(SettingFragment.getInstance(this));
         jazzyPager.setTransitionEffect(effect);
         //TODO -------------卡顿

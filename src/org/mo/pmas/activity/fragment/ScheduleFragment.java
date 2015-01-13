@@ -10,19 +10,19 @@ import org.mo.pmas.activity.R;
 /**
  * Created by moziqi on 2015/1/5 0005.
  */
-public class CalenderFragment extends BaseFragment {
-    private static CalenderFragment mCalenderFragment;
+public class ScheduleFragment extends BaseFragment {
+    private static ScheduleFragment mCalenderFragment;
     private Context mContext;
     private View mRootView;
 
-    public static CalenderFragment getInstance(Context context) {
+    public static ScheduleFragment getInstance(Context context) {
         if (mCalenderFragment == null) {
-            mCalenderFragment = new CalenderFragment(context);
+            mCalenderFragment = new ScheduleFragment(context);
         }
         return mCalenderFragment;
     }
 
-    private CalenderFragment(Context context) {
+    private ScheduleFragment(Context context) {
         this.mContext = context;
     }
 
@@ -33,7 +33,7 @@ public class CalenderFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_calender, null);
+        mRootView = inflater.inflate(R.layout.fragment_schedule_list, null);
         return mRootView;
     }
 }

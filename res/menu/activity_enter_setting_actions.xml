@@ -14,7 +14,7 @@
             />
     <item
             android:id="@+id/save_schedule"
-            android:title="@string/addSchedule"
+            android:title="@string/calender"
             android:showAsAction="never"
             />
     <item

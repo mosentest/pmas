@@ -106,6 +106,7 @@
         <activity android:name=".ContactAddActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/contact_add"/>
+        <activity android:name=".CalendarActivity"/>
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
