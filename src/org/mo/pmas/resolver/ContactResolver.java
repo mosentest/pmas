@@ -75,8 +75,11 @@ public class ContactResolver implements BaseResolver<Contact> {
 //            resolver.insert(uri, values);
 //            values.clear();
             //保存联系人群组关系
-            ContactGroupResolver contactGroupResolver = new ContactGroupResolver(mContext);
-            contactGroupResolver.saveRelationship(entity.getmContactGroup().getId(), Integer.parseInt(String.valueOf(contactid)));
+            ContactGroup contactGroup = entity.getmContactGroup();
+            if (contactGroup != null) {
+                ContactGroupResolver contactGroupResolver = new ContactGroupResolver(mContext);
+                contactGroupResolver.saveRelationship(entity.getmContactGroup().getId(), Integer.parseInt(String.valueOf(contactid)));
+            }
 
             //添加地址
             values.put("raw_contact_id", contactid);

@@ -1,16 +1,9 @@
 package org.mo.pmas.activity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.GridView;
-import android.widget.ViewFlipper;
 import org.mo.common.activity.BaseFramgmentActivity;
-import org.mo.common.ui.borderText.BorderText;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by moziqi on 2015/1/13 0013.
