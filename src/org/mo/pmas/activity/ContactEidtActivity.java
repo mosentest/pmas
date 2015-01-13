@@ -201,7 +201,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         if (group != null) {
             et_contact_edit_contact_group.setOnClickListener(this);
         } else {
-            Intent intent1 = new Intent();
+            ShowToast("没有分组");
         }
 //===========================================================================================================
         //TODO 日期选择

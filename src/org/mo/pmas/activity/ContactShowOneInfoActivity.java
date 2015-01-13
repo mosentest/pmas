@@ -1,6 +1,8 @@
 package org.mo.pmas.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.widget.*;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
+import org.mo.pmas.resolver.ContactGroupResolver;
 import org.mo.pmas.resolver.ContactResolver;
 
 /**
@@ -40,6 +43,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
     private TextView tv_contact_show_contact_group;
     private final static String NOINFO = "无";
     private int id;
+    private Contact oneById;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("id");
         ContactResolver contactResolver = new ContactResolver(ContactShowOneInfoActivity.this);
-        Contact oneById = contactResolver.findOneById(id);
+        oneById = contactResolver.findOneById(id);
         tv_contact_show_name.setText(oneById.getName());
         tv_contact_show_birthday.setText(oneById.getBirthday());
         ContactGroup contactGroup = oneById.getmContactGroup();
@@ -174,6 +178,27 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
                 startActivity(intent);
                 return true;
             case R.id.item_delete_contact:
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactShowOneInfoActivity.this);
+                builder.setMessage("确认删除吗？");
+                builder.setTitle("温馨提示");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        ContactResolver contactResolver = new ContactResolver(ContactShowOneInfoActivity.this);
+                        contactResolver.delete(oneById);
+                        ContactShowOneInfoActivity.this.finish();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
                 return true;
             default:
                 return true;

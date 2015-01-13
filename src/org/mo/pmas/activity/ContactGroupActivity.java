@@ -76,9 +76,9 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                PmasAppliaction.getInstance().exit();
-                Intent intent2 = new Intent(ContactGroupActivity.this, EnterActivity.class);
-                startActivity(intent2);
+//                Intent intent2 = new Intent(ContactGroupActivity.this, EnterActivity.class);
+//                startActivity(intent2);
+                this.finish();
                 return true;
             case R.id.item_add_contact_group:
                 Intent intent = new Intent(ContactGroupActivity.this, ContactGroupAddActivtiy.class);
@@ -93,8 +93,8 @@ public class ContactGroupActivity extends BaseFramgmentActivity implements View.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        PmasAppliaction.getInstance().exit();
-        Intent intent2 = new Intent(ContactGroupActivity.this, EnterActivity.class);
-        startActivity(intent2);
+//        Intent intent2 = new Intent(ContactGroupActivity.this, EnterActivity.class);
+//        startActivity(intent2);
+        this.finish();
     }
 }

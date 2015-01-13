@@ -108,6 +108,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         return i;
     }
 
+    /**
+     * 保存群组
+     * @param entity
+     * @return
+     */
     @Override
     public boolean save(ContactGroup entity) {
         if (TextUtils.isEmpty(entity.getName())) {
@@ -125,6 +130,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         }
     }
 
+    /**
+     * 更新群组
+     * @param entity
+     * @return
+     */
     @Override
     public boolean update(ContactGroup entity) {
         long gId = getGroupByTitle(entity.getName());
@@ -140,6 +150,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
 
     }
 
+    /**
+     * 删除群组
+     * @param entity
+     * @return
+     */
     @Override
     public boolean delete(ContactGroup entity) {
         Uri uri = Uri.parse(ContactsContract.Groups.CONTENT_URI + "?" + ContactsContract.CALLER_IS_SYNCADAPTER + "=true");
@@ -154,6 +169,10 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         }
     }
 
+    /**
+     * 查找所有群组
+     * @return
+     */
     @Override
     public List<ContactGroup> findAll() {
         List<ContactGroup> groups = new ArrayList<ContactGroup>();
@@ -176,6 +195,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         return groups;
     }
 
+    /**
+     * 通过id查找群组
+     * @param id
+     * @return
+     */
     @Override
     public ContactGroup findOneById(Serializable id) {
         ContactGroup contactGroup = null;
@@ -195,6 +219,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         return contactGroup;
     }
 
+    /**
+     * 通过群组获取联系人列表
+     * @param groupId
+     * @return
+     */
     public List<Contact> getAllContactsByGroupId(int groupId) {
         List<Contact> contacts = new ArrayList<Contact>();
         String[] RAW_PROJECTION = new String[]{ContactsContract.Data.RAW_CONTACT_ID,};
@@ -239,7 +268,11 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         return contacts;
     }
 
-
+    /**
+     * 通过联系人获取群组
+     * @param conactId
+     * @return
+     */
     public ContactGroup getContactGroupByConactId(Integer conactId) {
         ContactGroup contactGroup = null;
         Cursor query = mContext.getContentResolver().query(
@@ -255,5 +288,37 @@ public class ContactGroupResolver implements BaseResolver<ContactGroup> {
         }
         query.close();
         return contactGroup;
+    }
+
+    /**
+     * 保存关系
+     * @param contactGroupId
+     * @param contactId
+     */
+    public void saveRelationship(Integer contactGroupId, Integer contactId) {
+        ContentValues values = new ContentValues();
+        values.put(ContactsContract.CommonDataKinds.GroupMembership.RAW_CONTACT_ID, contactId);
+        values.put(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID, contactGroupId);
+        values.put(ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE, ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE);
+        mContext.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+    }
+
+    /**
+     * 删除关系
+     * @param contactGroupId
+     * @param contactId
+     */
+    public void deleteRelationship(Integer contactGroupId, Integer contactId) {
+        mContext.getContentResolver().delete(
+                ContactsContract.Data.CONTENT_URI,
+                ContactsContract.CommonDataKinds.GroupMembership.RAW_CONTACT_ID
+                        + "=? and "
+                        + ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                        + "=? and "
+                        + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE
+                        + "=?",
+                new String[]{"" + contactId,
+                        "" + contactGroupId,
+                        ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE});
     }
 }

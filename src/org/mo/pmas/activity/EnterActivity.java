@@ -127,7 +127,6 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
             }
         });
         tabHost.setCurrentTab(0);
-        initJazzyPager(JazzyViewPager.TransitionEffect.Standard);
         //TODO 抽屉实现
         mListView_left_drawer = (ListView) findViewById(R.id.listView_left_drawer);
         String[] stringArray = getResources().getStringArray(R.array.effects);
@@ -158,7 +157,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
 
     @Override
     protected void toUIOper() {
-
+        initJazzyPager(JazzyViewPager.TransitionEffect.Standard);
     }
 
     /**
@@ -309,7 +308,6 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.synchronous_contact).setVisible(false);
                         menu.findItem(R.id.synchronous_note).setVisible(true);
                         menu.findItem(R.id.synchronous_schedule).setVisible(false);
-
                         break;
                     case 2:
                         menu.findItem(R.id.save_contact).setVisible(false);
@@ -363,7 +361,8 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_contact:
-                ShowToast("添加联系人");
+                Intent intent3 = new Intent(EnterActivity.this, ContactAddActivity.class);
+                startActivity(intent3);
                 return true;
             case R.id.save_note:
 //                String currentUserName = PmasAppliaction.getInstance().getCurrentUserName();

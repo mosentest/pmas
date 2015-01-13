@@ -103,6 +103,9 @@
         <activity android:name=".ContactShowOneInfoActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/contact_showInfo"/>
+        <activity android:name=".ContactAddActivity"
+                  android:screenOrientation="portrait"
+                  android:label="@string/contact_add"/>
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
