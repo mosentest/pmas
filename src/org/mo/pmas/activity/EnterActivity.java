@@ -21,10 +21,6 @@ import org.mo.pmas.activity.fragment.CalenderFragment;
 import org.mo.pmas.activity.fragment.ContactFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
-import org.mo.pmas.entity.Contact;
-import org.mo.pmas.entity.ContactGroup;
-import org.mo.pmas.resolver.ContactGroupResolver;
-import org.mo.pmas.resolver.ContactResolver;
 import org.mo.pmas.service.NetService;
 
 import java.util.ArrayList;
@@ -304,7 +300,6 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.synchronous_contact).setVisible(true);
                         menu.findItem(R.id.synchronous_note).setVisible(false);
                         menu.findItem(R.id.synchronous_schedule).setVisible(false);
-
                         break;
                     case 1:
                         menu.findItem(R.id.save_contact).setVisible(false);
@@ -371,16 +366,17 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                 ShowToast("添加联系人");
                 return true;
             case R.id.save_note:
-                String currentUserName = PmasAppliaction.getInstance().getCurrentUserName();
-                if ("请登录".equals(currentUserName)) {
-                    ShowToast("请登录");
-                } else {
-                    Intent intent = new Intent(EnterActivity.this, NoteAddActivity.class);
-                    startActivity(intent);
-                }
+//                String currentUserName = PmasAppliaction.getInstance().getCurrentUserName();
+//                if ("请登录".equals(currentUserName)) {
+//                    ShowToast("请登录");
+//                } else {
+                Intent intent = new Intent(EnterActivity.this, NoteAddActivity.class);
+                startActivity(intent);
+//                }
                 return true;
             case R.id.save_schedule:
-                ShowToast("添加日程");
+                Intent intent2 = new Intent(EnterActivity.this, ScheduleAddActivity.class);
+                startActivity(intent2);
                 return true;
             case R.id.code:
                 ShowToast("二维码");

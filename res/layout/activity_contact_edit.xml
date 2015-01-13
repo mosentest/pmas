@@ -205,17 +205,5 @@
                     android:id="@+id/et_contact_edit_contact_group"
                     style="@style/Register_Edit"/>
         </LinearLayout>
-
-        <org.mo.common.ui.button.FButton
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                fbutton:buttonColor="@color/fbutton_color_alizarin"
-                android:text="删除"
-                android:id="@+id/button_detete"
-                fbutton:shadowEnabled="true"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:layout_marginTop="20dp"/>
-
     </LinearLayout>
 </ScrollView>

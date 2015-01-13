@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:fbutton="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true">
 
         <LinearLayout style="@style/Register_Input">
 
@@ -19,12 +18,12 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:textColor="@color/mylove"
-                    android:text="@string/title"
+                    android:text="@string/schedule_title"
                     android:inputType="text"
                     android:textStyle="bold"/>
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_note_add_title"
+                    android:id="@+id/et_schedule_add_title"
                     style="@style/Register_Edit"/>
         </LinearLayout>
 
@@ -36,15 +35,31 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:textColor="@color/mylove"
-                    android:text="@string/note_type"
+                    android:text="@string/schedule_type"
                     android:inputType="text"
                     android:textStyle="bold"/>
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_note_add_group"
+                    android:id="@+id/et_schedule_add_group"
                     style="@style/Register_Edit"/>
         </LinearLayout>
 
+        <LinearLayout style="@style/Register_Input">
+
+            <TextView
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/mylove"
+                    android:text="@string/schedule_time"
+                    android:inputType="text"
+                    android:textStyle="bold"/>
+
+            <org.mo.common.ui.sideBar.ClearEditText
+                    android:id="@+id/et_schedule_add_time"
+                    style="@style/Register_Edit"/>
+        </LinearLayout>
         <LinearLayout style="@style/Register_Input"
                       android:layout_height="match_parent">
 
@@ -55,7 +70,7 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="10dp"
                     android:textColor="@color/mylove"
-                    android:text="@string/note_content"
+                    android:text="@string/schedule_content"
                     android:inputType="text"
                     android:textStyle="bold"/>
 
@@ -65,7 +80,7 @@
                     android:inputType="textMultiLine"
                     android:gravity="left|top"
                     android:minLines="6"
-                    android:id="@+id/et_note_add_content"
+                    android:id="@+id/et_schedule_add_content"
                     android:padding="5dp"
                     android:layout_margin="5dp"
                     android:background="@drawable/acm_inputbox"
@@ -80,7 +95,7 @@
                 android:text="@string/save"
                 android:textSize="@dimen/text_size_large"
                 android:layout_margin="@dimen/activity_vertical_margin"
-                android:id="@+id/btn_note_add_save"
+                android:id="@+id/btn_schedule_add_save"
                 fbutton:shadowEnabled="true"
                 />
     </LinearLayout>

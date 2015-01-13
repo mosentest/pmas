@@ -90,6 +90,14 @@
     <string name="phone">电话</string>
     <string name="email">邮箱</string>
     <string name="address">地址</string>
+    <string name="contact_showInfo">显示个人信息</string>
+    <string name="contact_group_edit">编辑群组</string>
+    <string name="upate">修改</string>
+    <string name="schedule_add">添加日程</string>
+    <string name="schedule_title">标题</string>
+    <string name="schedule_type">类型</string>
+    <string name="schedule_content">内容</string>
+    <string name="schedule_time">提醒日期</string>
 
 
     <string-array name="jazzy_effects">

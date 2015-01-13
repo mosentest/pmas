@@ -58,7 +58,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     private EditText et_contact_edit_email;
     private EditText et_contact_edit_address;
     private EditText et_contact_edit_contact_group;
-    private Button button_detete;
     private String[] group;
 
 
@@ -143,8 +142,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
             case R.id.et_contact_edit_contact_group:
                 groupAlertDialog(group);
                 break;
-            case R.id.button_detete:
-                break;
         }
     }
 
@@ -173,7 +170,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         et_contact_edit_email = (EditText) findViewById(R.id.et_contact_edit_email);
         et_contact_edit_address = (EditText) findViewById(R.id.et_contact_edit_address);
         et_contact_edit_contact_group = (EditText) findViewById(R.id.et_contact_edit_contact_group);
-        button_detete = (Button) findViewById(R.id.button_detete);
         et_contact_edit_name.setOnClickListener(this);
         et_contact_edit_phone1.addTextChangedListener(new TextWatcherListener1());
         et_contact_edit_phone2.addTextChangedListener(new TextWatcherListener2());
@@ -181,7 +177,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         et_contact_edit_phone4.addTextChangedListener(new TextWatcherListener4());
         et_contact_edit_email.setOnClickListener(this);
         et_contact_edit_address.setOnClickListener(this);
-        button_detete.setOnClickListener(this);
     }
 
     @Override
@@ -214,8 +209,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         et_contact_edit_birthday.setOnClickListener(this);
 //============================================================================================================
         //TODO 显示用户信息
-        Bundle bundle = intent.getExtras();
-        Integer id = bundle.getInt("id");
+        Integer id = intent.getIntExtra("id", 0);
         ContactResolver contactResolver = new ContactResolver(ContactEidtActivity.this);
         Contact oneById = contactResolver.findOneById(id);
         et_contact_edit_name.setText(oneById.getName());

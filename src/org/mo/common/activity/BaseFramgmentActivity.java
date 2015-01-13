@@ -43,6 +43,11 @@ public abstract class BaseFramgmentActivity extends FragmentActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         mScreenWidth = metric.widthPixels;
         mScreenHeight = metric.heightPixels;
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
         toInitUI();
     }
 

@@ -44,6 +44,11 @@ public class ContactResolver implements BaseResolver<Contact> {
         return false;
     }
 
+    public Contact findByName(String name) {
+        Contact contact = new Contact();
+        return contact;
+    }
+
     @Override
     public List<Contact> findAll() {
         List<Contact> contacts = new ArrayList<Contact>();

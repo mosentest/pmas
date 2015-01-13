@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:background="@color/base_color_text_white">
 
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:focusable="true"
-                  android:focusableInTouchMode="true">
+                  android:focusableInTouchMode="true"
+                  android:background="@color/base_color_text_white">
 
         <RelativeLayout android:layout_width="fill_parent"
                         android:layout_height="200dp"
@@ -41,7 +43,8 @@
                     android:text="@string/contact_name"
                     android:paddingLeft="10dp"
                     android:paddingBottom="10dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 
         <ScrollView android:layout_width="match_parent"
@@ -64,12 +67,12 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_birthday"
-                            style="@style/Register_Edit"
-                            android:inputType="text"
-                            android:editable="false"
-                            android:enabled="false"
+                    <TextView
+                            android:id="@+id/tv_contact_show_birthday"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
                             />
                 </LinearLayout>
 
@@ -91,15 +94,16 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_phone1"
-                            android:inputType="phone"
-                            android:editable="false"
-                            android:enabled="false"
-                            style="@style/Register_Edit"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_phone1"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
+                      android:id="@+id/view_show_phone1"
                       android:layout_height="1dp"
                       android:background="@color/light_gray"
                       android:layout_marginLeft="15dp"
@@ -115,17 +119,18 @@
                             android:textColor="@color/mylove"
                             android:text="@string/phone"
                             android:paddingLeft="10dp"
-                            android:editable="false"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_phone2"
-                            style="@style/Register_Edit"
-                            android:inputType="phone"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_phone2"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
+                      android:id="@+id/view_show_phone2"
                       android:layout_height="1dp"
                       android:background="@color/light_gray"
                       android:layout_marginLeft="15dp"
@@ -143,15 +148,16 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_phone3"
-                            style="@style/Register_Edit"
-                            android:inputType="phone"
-                            android:editable="false"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_phone3"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
+                      android:id="@+id/view_show_phone3"
                       android:layout_height="1dp"
                       android:background="@color/light_gray"
                       android:layout_marginLeft="15dp"
@@ -169,15 +175,16 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_phone4"
-                            style="@style/Register_Edit"
-                            android:inputType="phone"
-                            android:editable="false"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_phone4"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
+                      android:id="@+id/view_show_phone4"
                       android:layout_height="1dp"
                       android:background="@color/light_gray"
                       android:layout_marginLeft="15dp"
@@ -195,15 +202,16 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_phone5"
-                            style="@style/Register_Edit"
-                            android:inputType="phone"
-                            android:editable="false"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_phone5"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
+                      android:id="@+id/view_show_phone5"
                       android:layout_height="1dp"
                       android:background="@color/light_gray"
                       android:layout_marginLeft="15dp"
@@ -220,12 +228,12 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_email"
-                            style="@style/Register_Edit"
-                            android:inputType="textEmailAddress"
-                            android:editable="false"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_email"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
@@ -245,12 +253,12 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_address"
-                            style="@style/Register_Edit"
-                            android:inputType="text"
-                            android:editable="false"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_address"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="fill_parent"
@@ -270,12 +278,20 @@
                             android:paddingLeft="10dp"
                             android:textStyle="bold"/>
 
-                    <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_show_contact_group"
-                            style="@style/Register_Edit"
-                            android:editable="false"
-                            android:enabled="false"/>
+                    <TextView
+                            android:id="@+id/tv_contact_show_contact_group"
+                            style="@style/Smile.TextView._Black"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"/>
                 </LinearLayout>
+
+                <View android:layout_width="fill_parent"
+                      android:layout_height="1dp"
+                      android:background="@color/light_gray"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginRight="15dp"/>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

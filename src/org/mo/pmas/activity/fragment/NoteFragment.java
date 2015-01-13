@@ -91,7 +91,8 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
 
             @Override
             public void onError(int i, String s) {
-                ToastUtil.showLongToast(mContext, i + s);
+                showErrorIms(i);
+//                ToastUtil.showLongToast(mContext, i + s);
             }
         });
     }

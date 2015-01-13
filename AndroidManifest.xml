@@ -75,8 +75,8 @@
                   android:label="@string/note_edit"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ScheduleEditActivity"
-                  android:label="@string/schedule_edit"
+        <activity android:name=".ScheduleAddActivity"
+                  android:label="@string/schedule_add"
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name=".NoteAddActivity"
@@ -97,8 +97,12 @@
                   android:label="@string/add_contact_group"
                   android:screenOrientation="portrait"
                 />
-        <activity android:name=".ContactGroupEditActivtiy"/>
-        <activity android:name=".ContactShowOneInfoActivity"/>
+        <activity android:name=".ContactGroupEditActivtiy"
+                  android:screenOrientation="portrait"
+                  android:label="@string/contact_group_edit"/>
+        <activity android:name=".ContactShowOneInfoActivity"
+                  android:screenOrientation="portrait"
+                  android:label="@string/contact_showInfo"/>
 
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
