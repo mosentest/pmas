@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/base_color_text_white">
     <org.mo.pmas.activity.fragment.listview.XListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/note_list"
-            android:cacheColorHint="#00000000">
+            android:divider="#00000000"
+            android:cacheColorHint="#00000000"
+            android:background="@color/whites">
 
     </org.mo.pmas.activity.fragment.listview.XListView>
 
     <!--<org.mo.common.ui.sideBar.LoadingView-->
-            <!--android:id="@+id/note_loading"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
+    <!--android:id="@+id/note_loading"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
 </RelativeLayout>

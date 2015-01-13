@@ -214,4 +214,6 @@ public class ContactFragment extends BaseFragment {
         Collections.sort(filterDateList, pinyinComparator);
         adapter.updateListView(filterDateList);
     }
+
+
 }

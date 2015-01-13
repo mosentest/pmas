@@ -1,6 +1,8 @@
 package org.mo.pmas.activity.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,7 @@ public class ContactGroupAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mContactGroupLists.get(position);
     }
 
     @Override
@@ -72,8 +74,29 @@ public class ContactGroupAdapter extends BaseAdapter {
         mViewHolder.bt_contact_group_list_item_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showLongToast(mContext, contactGroup.getName() + "将给我delete");
-                notifyDataSetChanged();
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("确认删除吗？");
+                builder.setTitle("温馨提示");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        ContactGroupResolver contactGroupResolver1 = new ContactGroupResolver(mContext);
+                        contactGroupResolver1.delete(contactGroup);
+                        //数据源更改,才会改变
+                        mContactGroupLists.remove(contactGroup);
+                        notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
             }
         });
         mViewHolder.bt_contact_group_list_item_update.setOnClickListener(new View.OnClickListener() {
