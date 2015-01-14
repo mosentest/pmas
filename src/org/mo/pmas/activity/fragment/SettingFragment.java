@@ -131,6 +131,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 Intent intent2 = new Intent(getActivity(), AboutActivity.class);
                 getActivity().startActivity(intent2);
                 break;
+            case R.id.layout_neighborhood:
+                Intent intent3 = new Intent(getActivity(), PeripheryActivity.class);
+                getActivity().startActivity(intent3);
+                break;
             case R.id.rl_switch_voice:
                 if (m_iv_open_voice.getVisibility() == View.VISIBLE) {
                     m_iv_open_voice.setVisibility(View.INVISIBLE);

@@ -8,6 +8,7 @@
       <root url="jar://$PROJECT_DIR$/libs/BmobSDK_V3.2.7_1209.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/BmobPush_V0.5beta_1027.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/achartengine-1.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/locSDK_5.01.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
