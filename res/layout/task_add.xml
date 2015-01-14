@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zengyan="http://schemas.android.com/apk/res/org.mo.taskmanager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+            android:layout_margin="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/et_taskcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/content"
+                android:maxLength="20"
+                android:hint="请输入待办事项..." />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/iv_rc"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/xuhuan" />
+
+                <Spinner
+                    android:id="@+id/sp_cycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@id/iv_rc"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/iv_rc" 
+                     android:gravity="bottom"/>
+             
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/iv_type"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/type" />
+
+                <Spinner
+                  android:id="@+id/sp_stype"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@id/iv_type"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/iv_type" 
+                     android:gravity="bottom"/>
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/iv_1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/date" />
+
+                <EditText
+                    android:id="@+id/et_tastDate"
+                    style="@style/task_add_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/iv_1"
+                    android:layout_toRightOf="@id/iv_1"
+                    android:text="2014-12-24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/iv_2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/timer" />
+
+                <EditText
+                    android:id="@+id/et_startTimer"
+                    style="@style/task_add_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/iv_2"
+                    android:layout_toRightOf="@id/iv_2"
+                    android:text="8:00" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/iv_3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/timer" />
+
+                <EditText
+                    android:id="@+id/et_endTimer"
+                    style="@style/task_add_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/iv_3"
+                    android:layout_toRightOf="@id/iv_3"
+                    android:text="17:00" />
+            </RelativeLayout>
+
+     
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <ImageView
+                    android:id="@+id/iv_4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_affair_detail_alert" />
+
+                <Spinner
+                    android:id="@+id/sp_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@id/iv_4"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/iv_4" 
+                    android:gravity="bottom"/>"
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_shape"
+                android:text="添    加" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

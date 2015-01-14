@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp" >
+
+    <RelativeLayout
+        android:id="@+id/tl_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" >
+
+        <ImageView
+            android:id="@+id/tl_iv_datedot"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/timedot_r4" />
+
+        <TextView
+            android:id="@+id/tl_tv_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="2014-12"
+            android:textColor="#588E34"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_title" >
+
+        <ImageView
+            android:id="@+id/tl_iv_timedot"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/timedot_r3" />
+
+        <LinearLayout
+            android:id="@+id/tl_ll_contenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tl_iv_timedot"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/tl_ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/record_item_bg_r3"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/tl_tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="看书"
+                    android:textSize="20sp"
+                    android:textColor="#000000" />
+
+                <View
+                    android:id="@+id/tl_line_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#20000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/tl_iv_task_time"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/timer" />
+
+                    <TextView
+                        android:id="@+id/tl_task_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="3"
+                        android:text="8:00-9:00"
+                        android:textColor="#60000000" />
+
+                    <ImageView
+                        android:id="@+id/tl_iv_cycle"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/xuhuan" />
+
+                    <TextView
+                        android:id="@+id/tl_cycle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="每天"
+                        android:textColor="#60000000" />
+
+                    <TextView
+                        android:id="@+id/tl_space"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:visibility="invisible"
+                           android:layout_weight="1"
+                        android:textColor="#60000000" />
+                    <ImageView
+                        android:id="@+id/tl_iv_alarm_time"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                       
+                        android:background="@drawable/icon_affair_detail_alert" />
+
+                    <TextView
+                        android:id="@+id/tl_alarm_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="8:15"
+                        android:textColor="#60000000" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

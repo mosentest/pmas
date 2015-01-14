@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_gaget_body"
+        android:orientation="horizontal"
+          android:gravity="center_vertical"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/query_iv1"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:background="@drawable/img_leftselector" />
+
+        <Spinner
+            android:id="@+id/sp_condition"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <TextView
+              android:id="@+id/tv_conditon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="2015" />
+
+        <ImageView
+            android:id="@+id/query_iv2"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="@drawable/img_rightselector" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/query_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+
+</LinearLayout>

@@ -100,7 +100,15 @@
     <string name="schedule_time">提醒日期</string>
     <string name="contact_add">添加联系人</string>
 
-
+    <string name="health">#339933</string>
+    <string name="family">#9966ff</string>
+    <string name="friend">#99cc00</string>
+    <string name="love">#cc3300</string>
+    <string name="work">#0000cc</string>
+    <string name="study">#cc0099</string>
+    <string name="interest">#ff9900</string>
+    <string name="maincolor">#13b3f2</string>
+    
     <string-array name="jazzy_effects">
         <item>Standard</item>
         <item>Tablet</item>

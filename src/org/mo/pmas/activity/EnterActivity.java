@@ -22,6 +22,9 @@ import org.mo.pmas.activity.fragment.ContactFragment;
 import org.mo.pmas.activity.fragment.NoteFragment;
 import org.mo.pmas.activity.fragment.SettingFragment;
 import org.mo.pmas.service.NetService;
+import org.mo.taskmanager.AddTaskActivity;
+import org.mo.taskmanager.QueryFragment;
+import org.mo.taskmanager.SecheduleActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -269,7 +272,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         list = new ArrayList<Fragment>();
         list.add(ContactFragment.newInstance(this));
         list.add(NoteFragment.getInstance(this));
-        list.add(ScheduleFragment.getInstance(this));
+        list.add(QueryFragment.getInstance(this));
         list.add(SettingFragment.getInstance(this));
         jazzyPager.setTransitionEffect(effect);
         //TODO -------------卡顿
@@ -380,6 +383,9 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
             case R.id.code:
                 ShowToast("二维码");
                 return true;
+            case R.id.synchronous_schedule:
+                Intent intent4 = new Intent(EnterActivity.this, AddTaskActivity.class);
+                startActivityForResult(intent4,0);
             default:
                 return true;
         }

@@ -72,4 +72,15 @@
         <attr name="swipeDrawableChecked" format="reference"/>
         <attr name="swipeDrawableUnchecked" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="myTitleBar">
+        <attr name="titletext" format="string" />
+        <attr name="desc_on" format="string" />
+        <attr name="desc_off" format="string" />
+        <attr name="leftivsrc" format="reference" />
+        <attr name="rightivsrc" format="reference" />
+        <attr name="leftivVisable" format="boolean" />
+        <attr name="rightivVisable" format="boolean" />
+    </declare-styleable>
+
 </resources>

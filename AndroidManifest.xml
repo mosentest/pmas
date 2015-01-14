@@ -108,6 +108,58 @@
                   android:label="@string/contact_add"/>
         <activity android:name=".CalendarActivity"/>
 
+        <activity android:name="org.mo.taskmanager.SecheduleActivity"
+                  android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name="org.mo.taskmanager.AddTaskActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="org.mo.taskmanager.AlarmActivity"
+                  android:screenOrientation="portrait"/>
+
+        <service android:name="org.mo.taskmanager.service.UpdateWidgetService">
+        </service>
+
+        <receiver android:name="org.mo.taskmanager.receiver.DailyWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="org.mo.taskmanager.refresh"/>
+                <action android:name="org.mo.taskmanager.additem"/>
+                <action android:name="org.mo.taskmanager.previous"/>
+                <action android:name="org.mo.taskmanager.next"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/process_widget_provider"/>
+        </receiver>
+
+        <service
+                android:name="org.mo.taskmanager.service.MyRemoteViewService"
+                android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <receiver
+                android:name="org.mo.taskmanager.receiver.CycleDataReceiver"
+                android:process=":remote"/>
+        <receiver android:name="org.mo.taskmanager.receiver.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED"/>
+                <data android:scheme="file">
+                </data>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="org.mo.taskmanager.receiver.CustomerUpdateWidgetReceiver">
+            <intent-filter>
+                <action android:name="org.mo.taskmanager.update.widget"/>
+            </intent-filter>
+        </receiver>
+
         <receiver
                 android:name="org.mo.pmas.resolver.ConnectionChangeReceiver"
                 android:label="NetworkConnection"/>
