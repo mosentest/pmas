@@ -117,6 +117,7 @@
         </activity>
         <activity android:name="org.mo.taskmanager.AlarmActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".AboutActivity"/>
 
         <service android:name="org.mo.taskmanager.service.UpdateWidgetService">
         </service>

@@ -9,10 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import cn.bmob.v3.BmobUser;
-import org.mo.pmas.activity.EnterActivity;
-import org.mo.pmas.activity.LoginActivity;
-import org.mo.pmas.activity.R;
-import org.mo.pmas.activity.SetMyInfoActivity;
+import org.mo.pmas.activity.*;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.util.SharePreferenceUtil;
@@ -31,7 +28,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private ImageView m_iv_open_vibrate;
     private ImageView m_iv_close_vibrate;
     private RelativeLayout m_layout_info;
-//    private RelativeLayout m_layout_blacklist;
+    //    private RelativeLayout m_layout_blacklist;
     private RelativeLayout m_layout_weather;
     private RelativeLayout m_layout_neighborhood;
     private RelativeLayout m_rl_switch_voice;
@@ -128,7 +125,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.layout_info:
                 Intent intent = new Intent(getActivity(), SetMyInfoActivity.class);
                 getActivity().startActivity(intent);
-                getActivity().finish();
+//                getActivity().finish();
+                break;
+            case R.id.layout_about:
+                Intent intent2 = new Intent(getActivity(), AboutActivity.class);
+                getActivity().startActivity(intent2);
                 break;
             case R.id.rl_switch_voice:
                 if (m_iv_open_voice.getVisibility() == View.VISIBLE) {

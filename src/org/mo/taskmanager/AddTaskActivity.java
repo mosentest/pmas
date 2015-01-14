@@ -152,7 +152,7 @@ public class AddTaskActivity extends Activity implements OnClickListener {
                 break;
             case R.id.btn_add:
                 if (TextUtils.isEmpty(et_content.getText())) {
-                    Toast.makeText(this, "�������ݱ�����д.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "内容不能为空", Toast.LENGTH_SHORT).show();
                     Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
                     et_content.startAnimation(shake);
                 } else {
@@ -160,9 +160,10 @@ public class AddTaskActivity extends Activity implements OnClickListener {
                         TaskDetails task = getMyTask();
                         if ("update".equals(oper)) {
                             dbOperator.update(task);
+                            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                         } else {
                             dbOperator.add(task);
-                            Toast.makeText(this, "��ӳɹ�!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
                         }
                         if (sp_reminder.getSelectedItemPosition() > 0) {
                             setAlarm(task);
@@ -171,7 +172,7 @@ public class AddTaskActivity extends Activity implements OnClickListener {
                         }
                         finish();
                     } catch (Exception e) {
-                        Toast.makeText(this, "���ʧ��!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

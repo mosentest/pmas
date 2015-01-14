@@ -21,12 +21,13 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_my_info);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         initUI();
     }
 
     @Override
     protected void toInitUI() {
-        
+
     }
 
     @Override
@@ -54,13 +55,19 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return true;
+        }
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(SetMyInfoActivity.this, EnterActivity.class);
-        SetMyInfoActivity.this.startActivity(intent);
+//        Intent intent = new Intent(SetMyInfoActivity.this, EnterActivity.class);
+//        SetMyInfoActivity.this.startActivity(intent);
         SetMyInfoActivity.this.finish();
     }
 
@@ -70,9 +77,9 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
         edit.putBoolean("autoLogin", false);
         edit.commit();
         if (PmasAppliaction.getInstance().isLogOut()) {
+            PmasAppliaction.getInstance().exit();
             Intent intent = new Intent(SetMyInfoActivity.this, EnterActivity.class);
             SetMyInfoActivity.this.startActivity(intent);
-            SetMyInfoActivity.this.finish();
         }
     }
 
