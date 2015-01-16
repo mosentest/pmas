@@ -377,15 +377,15 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
 //                }
                 return true;
             case R.id.save_schedule:
-                Intent intent2 = new Intent(EnterActivity.this, ScheduleAddActivity.class);
+                Intent intent2 = new Intent(EnterActivity.this, AddTaskActivity.class);
                 startActivity(intent2);
                 return true;
             case R.id.code:
                 ShowToast("二维码");
                 return true;
             case R.id.synchronous_schedule:
-                Intent intent4 = new Intent(EnterActivity.this, AddTaskActivity.class);
-                startActivityForResult(intent4,0);
+//                Intent intent4 = new Intent(EnterActivity.this, AddTaskActivity.class);
+//                startActivityForResult(intent4,0);
             default:
                 return true;
         }

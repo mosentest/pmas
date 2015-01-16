@@ -60,7 +60,7 @@
             </View>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="感谢东软公司"
+                      android:text="感谢东软睿道公司"
                       android:textColor="@color/mylove"
                       android:textSize="18dp"
                       android:padding="10dp"/>

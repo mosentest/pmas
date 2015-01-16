@@ -5,7 +5,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/list_yellow_single">
+        android:background="@drawable/list_yellow_single"
+        android:id="@+id/rl_note">
     <TextView
             android:id="@+id/tv_note_list_title"
             android:text="标题"

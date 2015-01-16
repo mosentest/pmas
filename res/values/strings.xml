@@ -24,7 +24,7 @@
     <string name="schedule_edit">编辑日程</string>
     <string name="saveContact">添加联系人</string>
     <string name="saveNote">添加记事</string>
-    <string name="calender">日历</string>
+    <string name="calender">添加日程</string>
 
     <string name="login_username_hint">请输入用户名</string>
     <string name="login_password_hint">请输入密码</string>
@@ -108,7 +108,8 @@
     <string name="study">#cc0099</string>
     <string name="interest">#ff9900</string>
     <string name="maincolor">#13b3f2</string>
-    
+    <string name="periphery">周边定位</string>
+
     <string-array name="jazzy_effects">
         <item>Standard</item>
         <item>Tablet</item>
@@ -126,7 +127,7 @@
 
     <string-array name="effects">
         <item>联系人群组</item>
-        <item>记事类型</item>
-        <item>日程类型</item>
+        <item>考勤查询</item>
+        <item>成绩查询</item>
     </string-array>
 </resources>
