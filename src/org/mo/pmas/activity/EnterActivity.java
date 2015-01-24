@@ -298,38 +298,38 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                         menu.findItem(R.id.save_contact).setVisible(true);
                         menu.findItem(R.id.save_note).setVisible(false);
                         menu.findItem(R.id.save_schedule).setVisible(false);
-                        menu.findItem(R.id.code).setVisible(false);
-                        menu.findItem(R.id.synchronous_contact).setVisible(true);
-                        menu.findItem(R.id.synchronous_note).setVisible(false);
-                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
+//                        menu.findItem(R.id.code).setVisible(false);
+//                        menu.findItem(R.id.synchronous_contact).setVisible(true);
+//                        menu.findItem(R.id.synchronous_note).setVisible(false);
+//                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
                         break;
                     case 1:
                         menu.findItem(R.id.save_contact).setVisible(false);
                         menu.findItem(R.id.save_note).setVisible(true);
                         menu.findItem(R.id.save_schedule).setVisible(false);
-                        menu.findItem(R.id.code).setVisible(false);
-                        menu.findItem(R.id.synchronous_contact).setVisible(false);
-                        menu.findItem(R.id.synchronous_note).setVisible(true);
-                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
+//                        menu.findItem(R.id.code).setVisible(false);
+//                        menu.findItem(R.id.synchronous_contact).setVisible(false);
+//                        menu.findItem(R.id.synchronous_note).setVisible(true);
+//                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
                         break;
                     case 2:
                         menu.findItem(R.id.save_contact).setVisible(false);
                         menu.findItem(R.id.save_note).setVisible(false);
                         menu.findItem(R.id.save_schedule).setVisible(true);
-                        menu.findItem(R.id.code).setVisible(false);
-                        menu.findItem(R.id.synchronous_contact).setVisible(false);
-                        menu.findItem(R.id.synchronous_note).setVisible(false);
-                        menu.findItem(R.id.synchronous_schedule).setVisible(true);
+//                        menu.findItem(R.id.code).setVisible(false);
+//                        menu.findItem(R.id.synchronous_contact).setVisible(false);
+//                        menu.findItem(R.id.synchronous_note).setVisible(false);
+//                        menu.findItem(R.id.synchronous_schedule).setVisible(true);
 
                         break;
                     case 3:
                         menu.findItem(R.id.save_contact).setVisible(false);
                         menu.findItem(R.id.save_note).setVisible(false);
                         menu.findItem(R.id.save_schedule).setVisible(false);
-                        menu.findItem(R.id.code).setVisible(true);
-                        menu.findItem(R.id.synchronous_contact).setVisible(false);
-                        menu.findItem(R.id.synchronous_note).setVisible(false);
-                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
+//                        menu.findItem(R.id.code).setVisible(true);
+//                        menu.findItem(R.id.synchronous_contact).setVisible(false);
+//                        menu.findItem(R.id.synchronous_note).setVisible(false);
+//                        menu.findItem(R.id.synchronous_schedule).setVisible(false);
                         break;
                 }
                 tabHost.setCurrentTab(position);
@@ -353,10 +353,10 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         this.menu.findItem(R.id.save_contact).setVisible(true);
         this.menu.findItem(R.id.save_note).setVisible(false);
         this.menu.findItem(R.id.save_schedule).setVisible(false);
-        this.menu.findItem(R.id.code).setVisible(false);
-        menu.findItem(R.id.synchronous_contact).setVisible(true);
-        menu.findItem(R.id.synchronous_note).setVisible(false);
-        menu.findItem(R.id.synchronous_schedule).setVisible(false);
+//        this.menu.findItem(R.id.code).setVisible(false);
+//        menu.findItem(R.id.synchronous_contact).setVisible(true);
+//        menu.findItem(R.id.synchronous_note).setVisible(false);
+//        menu.findItem(R.id.synchronous_schedule).setVisible(false);
         return true;
     }
 
@@ -380,10 +380,10 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
                 Intent intent2 = new Intent(EnterActivity.this, AddTaskActivity.class);
                 startActivity(intent2);
                 return true;
-            case R.id.code:
-                ShowToast("二维码");
-                return true;
-            case R.id.synchronous_schedule:
+//            case R.id.code:
+//                ShowToast("二维码");
+//                return true;
+//            case R.id.synchronous_schedule:
 //                Intent intent4 = new Intent(EnterActivity.this, AddTaskActivity.class);
 //                startActivityForResult(intent4,0);
             default:

@@ -7,34 +7,34 @@
             android:title="@string/saveContact"
             app:showAsAction="never"
             />
-    <item
-            android:id="@+id/synchronous_contact"
-            android:title="@string/synchronous"
-            app:showAsAction="never"
-            />
+    <!--<item-->
+            <!--android:id="@+id/synchronous_contact"-->
+            <!--android:title="@string/synchronous"-->
+            <!--app:showAsAction="never"-->
+            <!--/>-->
     <item
             android:id="@+id/save_schedule"
             android:title="@string/calender"
             android:showAsAction="never"
             />
-    <item
-            android:id="@+id/synchronous_schedule"
-            android:title="@string/synchronous"
-            app:showAsAction="never"
-            />
+    <!--<item-->
+            <!--android:id="@+id/synchronous_schedule"-->
+            <!--android:title="@string/synchronous"-->
+            <!--app:showAsAction="never"-->
+            <!--/>-->
     <item
             android:id="@+id/save_note"
             android:title="@string/saveNote"
             app:showAsAction="never"
             />
-    <item
-            android:id="@+id/synchronous_note"
-            android:title="@string/synchronous"
-            app:showAsAction="never"
-            />
-    <item
-            android:id="@+id/code"
-            android:title="@string/menu_code"
-            app:showAsAction="never"
-            />
+    <!--<item-->
+            <!--android:id="@+id/synchronous_note"-->
+            <!--android:title="@string/synchronous"-->
+            <!--app:showAsAction="never"-->
+            <!--/>-->
+    <!--<item-->
+            <!--android:id="@+id/code"-->
+            <!--android:title="@string/menu_code"-->
+            <!--app:showAsAction="never"-->
+            <!--/>-->
 </menu>
