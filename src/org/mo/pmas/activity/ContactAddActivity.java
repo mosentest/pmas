@@ -34,7 +34,7 @@ import java.util.List;
 public class ContactAddActivity extends BaseFramgmentActivity implements View.OnClickListener {
     private ImageView imageView_add_head;
     private EditText et_contact_add_name;
-    private EditText et_contact_add_birthday;
+//    private EditText et_contact_add_birthday;
     private LinearLayout ll_add_phone1;
     private LinearLayout ll_add_phone2;
     private LinearLayout ll_add_phone3;
@@ -63,7 +63,7 @@ public class ContactAddActivity extends BaseFramgmentActivity implements View.On
     protected void toInitUI() {
         imageView_add_head = (ImageView) findViewById(R.id.imageView_add_head);
         et_contact_add_name = (EditText) findViewById(R.id.et_contact_add_name);
-        et_contact_add_birthday = (EditText) findViewById(R.id.et_contact_add_birthday);
+//        et_contact_add_birthday = (EditText) findViewById(R.id.et_contact_add_birthday);
         ll_add_phone1 = (LinearLayout) findViewById(R.id.ll_add_phone1);
         ll_add_phone2 = (LinearLayout) findViewById(R.id.ll_add_phone2);
         ll_add_phone3 = (LinearLayout) findViewById(R.id.ll_add_phone3);
@@ -101,8 +101,8 @@ public class ContactAddActivity extends BaseFramgmentActivity implements View.On
         } else {
             ShowToast("没有分组");
         }
-        et_contact_add_birthday.setInputType(InputType.TYPE_NULL);
-        et_contact_add_birthday.setOnClickListener(this);
+//        et_contact_add_birthday.setInputType(InputType.TYPE_NULL);
+//        et_contact_add_birthday.setOnClickListener(this);
     }
 
     @Override
@@ -148,9 +148,9 @@ public class ContactAddActivity extends BaseFramgmentActivity implements View.On
                 if (!TextUtils.isEmpty(this.et_contact_add_address.getText())) {
                     contact.setAddress(this.et_contact_add_address.getText().toString());
                 }
-                if (!TextUtils.isEmpty(this.et_contact_add_birthday.getText())) {
-                    contact.setBirthday(this.et_contact_add_birthday.getText().toString());
-                }
+//                if (!TextUtils.isEmpty(this.et_contact_add_birthday.getText())) {
+//                    contact.setBirthday(this.et_contact_add_birthday.getText().toString());
+//                }
                 if (!TextUtils.isEmpty(this.et_contact_add_email.getText())) {
                     contact.setEmail(this.et_contact_add_email.getText().toString());
                 }
@@ -200,9 +200,9 @@ public class ContactAddActivity extends BaseFramgmentActivity implements View.On
                     ShowToast("保存失败");
                 }
                 break;
-            case R.id.et_contact_add_birthday:
-                datePickerDialog();
-                break;
+//            case R.id.et_contact_add_birthday:
+//                datePickerDialog();
+//                break;
             case R.id.et_contact_add_contact_group:
                 groupAlertDialog();
             default:
@@ -211,16 +211,16 @@ public class ContactAddActivity extends BaseFramgmentActivity implements View.On
     }
 
 
-    private void datePickerDialog() {
-        Calendar c = Calendar.getInstance();
-        new DatePickerDialog(this, 5, new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                et_contact_add_birthday.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-            }
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
-    }
+//    private void datePickerDialog() {
+//        Calendar c = Calendar.getInstance();
+//        new DatePickerDialog(this, 5, new DatePickerDialog.OnDateSetListener() {
+//
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                et_contact_add_birthday.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+//            }
+//        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+//    }
 
     private void groupAlertDialog() {
         new AlertDialog.Builder(this).setTitle("群组").

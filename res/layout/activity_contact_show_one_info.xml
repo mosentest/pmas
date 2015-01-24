@@ -1,298 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:background="@color/base_color_text_white">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/base_color_text_white">
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:focusable="true"
-                  android:focusableInTouchMode="true"
-                  android:background="@color/base_color_text_white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/base_color_text_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="200dp"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/info_background">
-            <RelativeLayout android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:background="@drawable/acm_inputbox"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true" android:id="@+id/relativeLayout">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/acm_inputbox"
+                android:gravity="center">
+
                 <ImageView
-                        android:id="@+id/imageView_show_head"
-                        android:layout_width="100dip"
-                        android:layout_height="100dip"
-                        android:gravity="center"
-                        android:src="@drawable/ic_launcher"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"/>
+                    android:id="@+id/imageView_show_head"
+                    android:layout_width="100dip"
+                    android:layout_height="100dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:src="@drawable/ic_launcher" />
             </RelativeLayout>
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_contact_show_name"
-                    android:gravity="bottom"
-                    android:textSize="18dp"
-                    android:textColor="@color/fbutton_color_alizarin"
-                    android:text="@string/contact_name"
-                    android:paddingTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="5dp"
-                    android:textStyle="bold"
-                    android:layout_above="@+id/relativeLayout"
-                    android:layout_centerHorizontal="true"/>
+                android:id="@+id/tv_contact_show_name"
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/relativeLayout"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="@string/contact_name"
+                android:textColor="@color/fbutton_color_alizarin"
+                android:textSize="18dp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
-        <ScrollView android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical"
-                          android:background="@color/base_color_text_white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/base_color_text_white"
+                android:orientation="vertical">
+
+                <!--<LinearLayout style="@style/show_Input">-->
+
+                <!--<TextView-->
+                <!--style="@style/Smile.TextView._Black"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:textColor="@color/mylove"-->
+                <!--android:text="@string/birthday"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:textStyle="bold"/>-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_contact_show_birthday"-->
+                <!--style="@style/Smile.TextView._Black"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--/>-->
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_marginRight="15dp"-->
+                <!--android:background="@color/light_gray" />-->
+
+                <LinearLayout
+                    android:id="@+id/ll_show_phone1"
+                    style="@style/show_Input">
+
+                    <TextView
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/phone"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_contact_show_phone1"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_show_phone1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
+
+                <LinearLayout
+                    android:id="@+id/ll_show_phone2"
+                    style="@style/show_Input">
+
+                    <TextView
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/phone"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_contact_show_phone2"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_show_phone2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
+
+                <LinearLayout
+                    android:id="@+id/ll_show_phone3"
+                    style="@style/show_Input">
+
+                    <TextView
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/phone"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_contact_show_phone3"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_show_phone3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
+
+                <LinearLayout
+                    android:id="@+id/ll_show_phone4"
+                    style="@style/show_Input">
+
+                    <TextView
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/phone"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_contact_show_phone4"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_show_phone4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
+
+                <LinearLayout
+                    android:id="@+id/ll_show_phone5"
+                    style="@style/show_Input">
+
+                    <TextView
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/phone"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_contact_show_phone5"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_show_phone5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
 
                 <LinearLayout style="@style/show_Input">
 
                     <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/birthday"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/email"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:id="@+id/tv_contact_show_birthday"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"
-                            />
+                        android:id="@+id/tv_contact_show_email"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
                 </LinearLayout>
 
-                <View android:layout_width="fill_parent"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
-
-                <LinearLayout style="@style/show_Input"
-                              android:id="@+id/ll_show_phone1">
-
-                    <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/phone"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:id="@+id/tv_contact_show_phone1"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
-                </LinearLayout>
-
-                <View android:layout_width="fill_parent"
-                      android:id="@+id/view_show_phone1"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
-
-                <LinearLayout style="@style/show_Input"
-                              android:id="@+id/ll_show_phone2">
-
-                    <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/phone"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:id="@+id/tv_contact_show_phone2"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
-                </LinearLayout>
-
-                <View android:layout_width="fill_parent"
-                      android:id="@+id/view_show_phone2"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
-
-                <LinearLayout style="@style/show_Input"
-                              android:id="@+id/ll_show_phone3">
-
-                    <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/phone"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:id="@+id/tv_contact_show_phone3"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
-                </LinearLayout>
-
-                <View android:layout_width="fill_parent"
-                      android:id="@+id/view_show_phone3"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
-
-                <LinearLayout style="@style/show_Input"
-                              android:id="@+id/ll_show_phone4">
-
-                    <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/phone"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:id="@+id/tv_contact_show_phone4"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
-                </LinearLayout>
-
-                <View android:layout_width="fill_parent"
-                      android:id="@+id/view_show_phone4"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
-
-                <LinearLayout style="@style/show_Input"
-                              android:id="@+id/ll_show_phone5">
-
-                    <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/phone"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:id="@+id/tv_contact_show_phone5"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
-                </LinearLayout>
-
-                <View android:layout_width="fill_parent"
-                      android:id="@+id/view_show_phone5"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
 
                 <LinearLayout style="@style/show_Input">
 
                     <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/email"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/address"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:id="@+id/tv_contact_show_email"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
+                        android:id="@+id/tv_contact_show_address"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
                 </LinearLayout>
 
-                <View android:layout_width="fill_parent"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
 
                 <LinearLayout style="@style/show_Input">
 
                     <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/address"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/group"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:id="@+id/tv_contact_show_address"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
+                        android:id="@+id/tv_contact_show_contact_group"
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp" />
                 </LinearLayout>
 
-                <View android:layout_width="fill_parent"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
-
-                <LinearLayout style="@style/show_Input">
-
-                    <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/group"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:id="@+id/tv_contact_show_contact_group"
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"/>
-                </LinearLayout>
-
-                <View android:layout_width="fill_parent"
-                      android:layout_height="1dp"
-                      android:background="@color/light_gray"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/light_gray" />
 
             </LinearLayout>
         </ScrollView>

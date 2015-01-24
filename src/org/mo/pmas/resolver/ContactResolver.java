@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
+
 import org.mo.common.util.Bitmap2Byte;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.entity.Contact;
@@ -96,11 +97,11 @@ public class ContactResolver implements BaseResolver<Contact> {
             values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
             //TODO 要保持自定义头像
 //            values.put("data1", Bitmap2Byte.Bitmap2Bytes(entity.getContactPhoto()));
-            values.put(ContactsContract.CommonDataKinds.Photo.PHOTO,
-                    Bitmap2Byte.Bitmap2Bytes(
-                            Bitmap2Byte.drawableToBitmap(
-                                    mContext.getResources().getDrawable(R.drawable.h001))));
-            resolver.insert(uri, values);
+//            values.put(ContactsContract.CommonDataKinds.Photo.PHOTO,
+//                    Bitmap2Byte.Bitmap2Bytes(
+//                            Bitmap2Byte.drawableToBitmap(
+//                                    mContext.getResources().getDrawable(R.drawable.h001))));
+//            resolver.insert(uri, values);
             return true;
         } else {
             return false;
@@ -109,7 +110,39 @@ public class ContactResolver implements BaseResolver<Contact> {
 
     @Override
     public boolean update(Contact entity) {
-        return false;
+        Uri uri = Uri.parse("content://com.android.contacts/data");//对data表的所有数据操作
+        ContentResolver resolver = mContext.getContentResolver();
+        ContentValues values = new ContentValues();
+        //更新号码
+        if (entity.getPhones() != null) {
+            for (int i = 0; i < entity.getPhones().size(); i++) {
+                values.put("data1", entity.getPhones().get(i).getPhoneNumber());
+                resolver.update(uri, values, "mimetype=? and raw_contact_id=?", new String[]{"vnd.android.cursor.item/phone_v2", entity.getId() + ""});
+                values.clear();
+            }
+        }
+        //更新姓名
+        values.put("data1", entity.getName());
+        resolver.update(uri, values, "mimetype=? and raw_contact_id=?", new String[]{"vnd.android.cursor.item/name", entity.getId() + ""});
+        values.clear();
+        //更新邮箱
+        values.put("data1", entity.getEmail());
+        resolver.update(uri, values, "mimetype=? and raw_contact_id=?", new String[]{"vnd.android.cursor.item/email_v2", entity.getId() + ""});
+        values.clear();
+
+        //更新地址
+        //TODO
+//        values.put("data1", entity.getAddress());
+//        resolver.update(uri, values, "mimetype=? and raw_contact_id=?", new String[]{"vnd.android.cursor.item/postal-address_v2", entity.getId() + ""});
+//        values.clear();
+
+        //更新群组
+//        ContactGroup contactGroup = entity.getmContactGroup();
+//        if (contactGroup != null) {
+//            ContactGroupResolver contactGroupResolver = new ContactGroupResolver(mContext);
+//            contactGroupResolver.saveRelationship(contactGroup.getId(), entity.getId());
+//        }
+        return true;
     }
 
     @Override
@@ -169,23 +202,23 @@ public class ContactResolver implements BaseResolver<Contact> {
                 int contactId = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 // 获得联系人姓名
                 String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                //得到联系人头像Bitamp
+//                //得到联系人头像Bitamp
                 Bitmap contactPhoto = null;
-                //得到联系人头像ID
-                int photoid = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-                //photoid 大于0 表示联系人有头像 如果没有给此人设置头像则给他一个默认的
-                if (photoid > 0) {
-                    Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, (long) contactId);
-                    InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContext.getContentResolver(), uri);
-                    contactPhoto = BitmapFactory.decodeStream(input);
-                    try {
-                        input.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
+//                //得到联系人头像ID
+//                int photoid = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
+//                //photoid 大于0 表示联系人有头像 如果没有给此人设置头像则给他一个默认的
+//                if (photoid > 0) {
+//                    Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, (long) contactId);
+//                    InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContext.getContentResolver(), uri);
+//                    contactPhoto = BitmapFactory.decodeStream(input);
+//                    try {
+//                        input.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
                     contactPhoto = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.h001);
-                }
+//                }
                 contact.setId(contactId);
                 contact.setName(contactName);
                 contact.setContactPhoto(contactPhoto);
@@ -213,48 +246,49 @@ public class ContactResolver implements BaseResolver<Contact> {
             // 获得联系人姓名
             String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
             //获取联系人生日
-            String[] projection = new String[]{ContactsContract.CommonDataKinds.Event.DATA1};
-            String selection = ContactsContract.Data.MIMETYPE
-                    + "='"
-                    + ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE
-                    + "'"
-                    + " and "
-                    + ContactsContract.CommonDataKinds.Event.TYPE
-                    + "='"
-                    + ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
-                    + "'"
-                    + " and "
-                    + ContactsContract.CommonDataKinds.Event.CONTACT_ID
-                    + " = " + contactId;
-            Cursor birthdayCursor = mContext.getContentResolver().query(
-                    ContactsContract.Data.CONTENT_URI,
-                    projection,
-                    selection,
-                    null,
-                    null);
-            String birthday = null;
-            if (birthdayCursor.moveToFirst()) {
-                birthday = birthdayCursor.getString(birthdayCursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.DATA));
-            }
-            birthdayCursor.close();
+            //todo 移除生日字段
+//            String[] projection = new String[]{ContactsContract.CommonDataKinds.Event.DATA1};
+//            String selection = ContactsContract.Data.MIMETYPE
+//                    + "='"
+//                    + ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE
+//                    + "'"
+//                    + " and "
+//                    + ContactsContract.CommonDataKinds.Event.TYPE
+//                    + "='"
+//                    + ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
+//                    + "'"
+//                    + " and "
+//                    + ContactsContract.CommonDataKinds.Event.CONTACT_ID
+//                    + " = " + contactId;
+//            Cursor birthdayCursor = mContext.getContentResolver().query(
+//                    ContactsContract.Data.CONTENT_URI,
+//                    projection,
+//                    selection,
+//                    null,
+//                    null);
+//            String birthday = null;
+//            if (birthdayCursor.moveToFirst()) {
+//                birthday = birthdayCursor.getString(birthdayCursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.DATA));
+//            }
+//            birthdayCursor.close();
 
             //得到联系人头像Bitamp
             Bitmap contactPhoto = null;
             //得到联系人头像ID
-            int photoid = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-            //photoid 大于0 表示联系人有头像 如果没有给此人设置头像则给他一个默认的
-            if (photoid > 0) {
-                Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, (long) contactId);
-                InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContext.getContentResolver(), uri);
-                contactPhoto = BitmapFactory.decodeStream(input);
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
+//            int photoid = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
+//            //photoid 大于0 表示联系人有头像 如果没有给此人设置头像则给他一个默认的
+//            if (photoid > 0) {
+//                Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, (long) contactId);
+//                InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContext.getContentResolver(), uri);
+//                contactPhoto = BitmapFactory.decodeStream(input);
+//                try {
+//                    input.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
                 contactPhoto = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.h001);
-            }
+//            }
 
             // 获取该联系人邮箱
             //我这里只需要获取一个,没有遍历全部出来
@@ -290,7 +324,8 @@ public class ContactResolver implements BaseResolver<Contact> {
             contact.setContactPhoto(contactPhoto);
             contact.setEmail(email);
             contact.setAddress(address);
-            contact.setBirthday(birthday);
+            //todo 移除生日字段
+//            contact.setBirthday(birthday);
 
             ContactGroupResolver contactGroupResolver = new ContactGroupResolver(mContext);
             ContactGroup contactGroupByConactId = contactGroupResolver.getContactGroupByConactId(contactId);
@@ -327,7 +362,7 @@ public class ContactResolver implements BaseResolver<Contact> {
                 contact.setPhones(phones);
             }
         }
+        cursor.close();
         return contact;
     }
-
 }

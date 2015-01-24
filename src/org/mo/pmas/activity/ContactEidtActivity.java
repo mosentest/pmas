@@ -9,20 +9,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.StringUtil;
 import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
+import org.mo.pmas.entity.Phone;
 import org.mo.pmas.resolver.ContactGroupResolver;
 import org.mo.pmas.resolver.ContactResolver;
 
@@ -30,6 +34,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -44,7 +49,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     //对应xml的id
     private ImageView imageView_head;
     private EditText et_contact_edit_name;
-    private EditText et_contact_edit_birthday;
+    //    private EditText et_contact_edit_birthday;
     private LinearLayout ll_edit_phone1;
     private LinearLayout ll_edit_phone2;
     private LinearLayout ll_edit_phone3;
@@ -58,7 +63,9 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     private EditText et_contact_edit_email;
     private EditText et_contact_edit_address;
     private EditText et_contact_edit_contact_group;
+    private Button btn_contact_edit_save;
     private String[] group;
+    private int contactId;
 
 
     @Override
@@ -69,9 +76,9 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                 break;
             case R.id.et_contact_edit_name:
                 break;
-            case R.id.et_contact_edit_birthday:
-                datePickerDialog();
-                break;
+//            case R.id.et_contact_edit_birthday:
+//                datePickerDialog();
+//                break;
             case R.id.ll_edit_phone1:
                 break;
             case R.id.ll_edit_phone2:
@@ -83,8 +90,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
             case R.id.ll_edit_phone5:
                 break;
             case R.id.et_contact_edit_phone1:
-                String trim1 = et_contact_edit_phone1.getText().toString().trim();
-                if (trim1.length() == 0) {
+                if (TextUtils.isEmpty(et_contact_edit_phone1.getText().toString().trim())) {
                     ll_edit_phone2.setVisibility(View.GONE);
                     ll_edit_phone3.setVisibility(View.GONE);
                     ll_edit_phone4.setVisibility(View.GONE);
@@ -97,8 +103,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                 }
                 break;
             case R.id.et_contact_edit_phone2:
-                String trim2 = et_contact_edit_phone2.getText().toString().trim();
-                if (trim2.length() == 0) {
+                if (TextUtils.isEmpty(et_contact_edit_phone2.getText().toString().trim())) {
                     ll_edit_phone3.setVisibility(View.GONE);
                     ll_edit_phone4.setVisibility(View.GONE);
                     ll_edit_phone5.setVisibility(View.GONE);
@@ -110,8 +115,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                 }
                 break;
             case R.id.et_contact_edit_phone3:
-                String trim3 = et_contact_edit_phone3.getText().toString().trim();
-                if (trim3.length() == 0) {
+                if (TextUtils.isEmpty(et_contact_edit_phone3.getText().toString().trim())) {
                     ll_edit_phone4.setVisibility(View.GONE);
                     ll_edit_phone5.setVisibility(View.GONE);
                 } else {
@@ -122,8 +126,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                 }
                 break;
             case R.id.et_contact_edit_phone4:
-                String trim4 = et_contact_edit_phone4.getText().toString().trim();
-                if (trim4.length() == 0) {
+                if (TextUtils.isEmpty(et_contact_edit_phone4.getText().toString().trim())) {
                     ll_edit_phone5.setVisibility(View.GONE);
                 } else {
                     ll_edit_phone2.setVisibility(View.VISIBLE);
@@ -142,6 +145,61 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
             case R.id.et_contact_edit_contact_group:
                 groupAlertDialog(group);
                 break;
+            case R.id.btn_contact_edit_save:
+                updateContact();
+                break;
+        }
+    }
+
+    private void updateContact() {
+        Contact contact = new Contact();
+        List<Phone> phones = new ArrayList<Phone>();
+        if (!TextUtils.isEmpty(et_contact_edit_phone1.getText().toString().trim())) {
+            //保存第一个
+            Phone phone1 = new Phone();
+            phone1.setPhoneNumber(et_contact_edit_phone1.getText().toString().trim());
+            phones.add(phone1);
+            //
+            if (!TextUtils.isEmpty(et_contact_edit_phone2.getText().toString().trim())) {
+                //保存第二个
+                Phone phone2 = new Phone();
+                phone2.setPhoneNumber(et_contact_edit_phone2.getText().toString().trim());
+                phones.add(phone2);
+                //
+                if (!TextUtils.isEmpty(et_contact_edit_phone3.getText().toString().trim())) {
+                    //保存第三个
+                    Phone phone3 = new Phone();
+                    phone3.setPhoneNumber(et_contact_edit_phone3.getText().toString().trim());
+                    phones.add(phone3);
+                    //
+                    if (!TextUtils.isEmpty(et_contact_edit_phone4.getText().toString().trim())) {
+                        //保存第四个
+                        Phone phone4 = new Phone();
+                        phone4.setPhoneNumber(et_contact_edit_phone4.getText().toString().trim());
+                        phones.add(phone4);
+                        //
+                        if (!TextUtils.isEmpty(et_contact_edit_phone5.getText().toString().trim())) {
+                            //保存第五个
+                            Phone phone5 = new Phone();
+                            phone5.setPhoneNumber(et_contact_edit_phone5.getText().toString().trim());
+                            phones.add(phone5);
+                        }
+                    }
+                }
+            }
+        }
+        contact.setPhones(phones);
+        contact.setName(et_contact_edit_name.getText().toString().trim());
+        contact.setEmail(et_contact_edit_email.getText().toString().trim());
+        contact.setId(contactId);
+        ContactResolver contactResolver = new ContactResolver(this);
+        contactResolver.update(contact);
+        ShowToast("修改成功");
+        try {
+            Thread.sleep(2000);
+            this.finish();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -156,7 +214,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     protected void toInitUI() {
         imageView_head = (ImageView) findViewById(R.id.imageView_head);
         et_contact_edit_name = (EditText) findViewById(R.id.et_contact_edit_name);
-        et_contact_edit_birthday = (EditText) findViewById(R.id.et_contact_edit_birthday);
+//        et_contact_edit_birthday = (EditText) findViewById(R.id.et_contact_edit_birthday);
         ll_edit_phone1 = (LinearLayout) findViewById(R.id.ll_edit_phone1);
         ll_edit_phone2 = (LinearLayout) findViewById(R.id.ll_edit_phone2);
         ll_edit_phone3 = (LinearLayout) findViewById(R.id.ll_edit_phone3);
@@ -170,13 +228,20 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         et_contact_edit_email = (EditText) findViewById(R.id.et_contact_edit_email);
         et_contact_edit_address = (EditText) findViewById(R.id.et_contact_edit_address);
         et_contact_edit_contact_group = (EditText) findViewById(R.id.et_contact_edit_contact_group);
+        btn_contact_edit_save = (Button) findViewById(R.id.btn_contact_edit_save);
         et_contact_edit_name.setOnClickListener(this);
+        et_contact_edit_phone1.setOnClickListener(this);
+        et_contact_edit_phone2.setOnClickListener(this);
+        et_contact_edit_phone3.setOnClickListener(this);
+        et_contact_edit_phone4.setOnClickListener(this);
+        et_contact_edit_phone5.setOnClickListener(this);
         et_contact_edit_phone1.addTextChangedListener(new TextWatcherListener1());
         et_contact_edit_phone2.addTextChangedListener(new TextWatcherListener2());
         et_contact_edit_phone3.addTextChangedListener(new TextWatcherListener3());
         et_contact_edit_phone4.addTextChangedListener(new TextWatcherListener4());
         et_contact_edit_email.setOnClickListener(this);
         et_contact_edit_address.setOnClickListener(this);
+        btn_contact_edit_save.setOnClickListener(this);
     }
 
     @Override
@@ -205,15 +270,15 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         }
 //===========================================================================================================
         //TODO 日期选择
-        et_contact_edit_birthday.setInputType(InputType.TYPE_NULL);
-        et_contact_edit_birthday.setOnClickListener(this);
+//        et_contact_edit_birthday.setInputType(InputType.TYPE_NULL);
+//        et_contact_edit_birthday.setOnClickListener(this);
 //============================================================================================================
         //TODO 显示用户信息
-        Integer id = intent.getIntExtra("id", 0);
+        contactId = intent.getIntExtra("id", 0);
         ContactResolver contactResolver = new ContactResolver(ContactEidtActivity.this);
-        Contact oneById = contactResolver.findOneById(id);
+        Contact oneById = contactResolver.findOneById(contactId);
         et_contact_edit_name.setText(oneById.getName());
-        et_contact_edit_birthday.setText(oneById.getBirthday());
+//        et_contact_edit_birthday.setText(oneById.getBirthday());
         ContactGroup contactGroup = oneById.getmContactGroup();
         if (contactGroup != null) {
             et_contact_edit_contact_group.setText(contactGroup.getName());
@@ -231,14 +296,16 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                 case 2:
                     ll_edit_phone4.setVisibility(View.GONE);
                     ll_edit_phone5.setVisibility(View.GONE);
+                    ll_edit_phone3.setVisibility(View.VISIBLE);
                     et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
                     et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
                     break;
                 case 3:
                     ll_edit_phone5.setVisibility(View.GONE);
+                    ll_edit_phone4.setVisibility(View.VISIBLE);
+                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
                     et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
                     et_contact_edit_phone3.setText(oneById.getPhones().get(2).getPhoneNumber());
-                    et_contact_edit_phone1.setText(oneById.getPhones().get(0).getPhoneNumber());
                     break;
                 case 4:
                     et_contact_edit_phone2.setText(oneById.getPhones().get(1).getPhoneNumber());
@@ -277,8 +344,10 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                                 switch (which) {
                                     case 0:
                                         Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                        intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
-                                                "head.jpg")));
+                                        intent2.putExtra(MediaStore.EXTRA_OUTPUT,
+                                                Uri.fromFile(
+                                                        new File(Environment.getExternalStorageDirectory(),
+                                                                "head.jpg")));
                                         startActivityForResult(intent2, 2);//采用ForResult打开
                                         break;
                                     case 1:
@@ -289,17 +358,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                                 }
                             }
                         }).setNegativeButton("取消", null).show();
-    }
-
-    private void datePickerDialog() {
-        Calendar c = Calendar.getInstance();
-        new DatePickerDialog(this, 5, new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                et_contact_edit_birthday.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-            }
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void groupAlertDialog(final String[] group) {
@@ -321,15 +379,18 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                 if (resultCode == RESULT_OK) {
                     cropPhoto(data.getData());//裁剪图片
                 }
-
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
-                    File temp = new File(Environment.getExternalStorageDirectory()
-                            + "/head.jpg");
-                    cropPhoto(Uri.fromFile(temp));//裁剪图片
+                    File temp = null;
+                    try {
+                        temp = new File(Environment.getExternalStorageDirectory() + "/head.jpg");
+                        cropPhoto(Uri.fromFile(temp));//裁剪图片
+                    } catch (Exception e) {
+                        ShowToast("读取文件失败");
+                    } finally {
+                    }
                 }
-
                 break;
             case 3:
                 if (data != null) {
@@ -340,7 +401,6 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
                          * 上传服务器代码
                          */
                         setPicToView(head);//保存在SD卡中
-                        imageView_head.setImageBitmap(head);//用ImageView显示出来
                     }
                 }
                 break;
@@ -373,33 +433,34 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     private void setPicToView(Bitmap mBitmap) {
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+            ShowToast("请插入SD卡");
             return;
         }
         b = null;
-        mImgPath = Environment.getExternalStorageDirectory().toString();
+        mImgPath = Environment.getExternalStorageDirectory().toString() + "/pmas/" + contactId;
         File file = new File(mImgPath);
         file.mkdirs();// 创建文件夹
-        String fileName = mImgPath + "head.jpg";//图片名字
+        String fileName = mImgPath + "/head.jpg";//图片名字
         try {
             b = new FileOutputStream(fileName);
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
-            //TODO 待处理1
-//            try {
-//                //关闭流
-//                b.flush();
-//                b.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+//            TODO 待处理
+            try {
+                //关闭流
+                b.flush();
+                b.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_contact_actions, menu);
+//        getMenuInflater().inflate(R.menu.activity_contact_actions, menu);
         return true;
     }
 
@@ -410,10 +471,10 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
             case android.R.id.home:
                 ContactEidtActivity.this.finish();
                 return true;
-            case R.id.save:
+//            case R.id.save:
 //                intent.setClass(ContactEidtActivity.this, ScheduleEditActivity.class);
 //                startActivity(intent);
-                return true;
+//                return true;
             default:
                 return false;
         }
@@ -465,7 +526,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
         @Override
         public void afterTextChanged(Editable s) {
             String trim2 = et_contact_edit_phone2.getText().toString().trim();
-            if (trim2.length() == 0) {
+            if (TextUtils.isEmpty(trim2)) {
                 ll_edit_phone3.setVisibility(View.GONE);
                 ll_edit_phone4.setVisibility(View.GONE);
                 ll_edit_phone5.setVisibility(View.GONE);

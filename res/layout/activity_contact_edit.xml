@@ -1,209 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:focusable="true"
-                  android:focusableInTouchMode="true">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/acm_inputbox">
 
-        <RelativeLayout android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
-            <RelativeLayout android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:background="@drawable/acm_inputbox"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp">
                 <ImageView
-                        android:id="@+id/imageView_head"
-                        android:layout_width="100dip"
-                        android:layout_height="120dip"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="1dip"
-                        android:src="@drawable/ic_launcher" android:layout_alignParentBottom="true"/>
+                    android:id="@+id/imageView_head"
+                    android:layout_width="100dip"
+                    android:layout_height="120dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="1dip"
+                    android:src="@drawable/ic_launcher" />
             </RelativeLayout>
 
-            <RelativeLayout android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="120dp">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp">
+
                 <LinearLayout style="@style/Register_Input">
 
                     <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/contact_name"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/contact_name"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
 
                     <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_edit_name"
-                            style="@style/Register_Edit"
-                            android:inputType="text"/>
+                        android:id="@+id/et_contact_edit_name"
+                        style="@style/Register_Edit"
+                        android:inputType="text" />
                 </LinearLayout>
             </RelativeLayout>
 
-            <RelativeLayout android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="55dp"
-                            android:layout_marginLeft="120dp">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="55dp">
 
                 <LinearLayout style="@style/Register_Input">
 
                     <TextView
-                            style="@style/Smile.TextView._Black"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/mylove"
-                            android:text="@string/birthday"
-                            android:paddingLeft="10dp"
-                            android:textStyle="bold"/>
+                        style="@style/Smile.TextView._Black"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/email"
+                        android:textColor="@color/mylove"
+                        android:textStyle="bold" />
 
                     <org.mo.common.ui.sideBar.ClearEditText
-                            android:id="@+id/et_contact_edit_birthday"
-                            style="@style/Register_Edit"
-                            android:inputType="text"/>
+                        android:id="@+id/et_contact_edit_email"
+                        style="@style/Register_Edit"
+                        android:inputType="textEmailAddress" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
 
-        <LinearLayout style="@style/Register_Input"
-                      android:id="@+id/ll_edit_phone1">
+        <LinearLayout
+            android:id="@+id/ll_edit_phone1"
+            style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/phone"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/phone"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_phone1"
-                    android:inputType="phone"
-                    style="@style/Register_Edit"/>
+                android:id="@+id/et_contact_edit_phone1"
+                style="@style/Register_Edit"
+                android:inputType="phone" />
         </LinearLayout>
-        <LinearLayout style="@style/Register_Input"
-                      android:id="@+id/ll_edit_phone2">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_phone2"
+            style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/phone"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/phone"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_phone2"
-                    style="@style/Register_Edit"
-                    android:inputType="phone"/>
+                android:id="@+id/et_contact_edit_phone2"
+                style="@style/Register_Edit"
+                android:inputType="phone" />
         </LinearLayout>
-        <LinearLayout style="@style/Register_Input"
-                      android:id="@+id/ll_edit_phone3">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_phone3"
+            style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/phone"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/phone"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_phone3"
-                    style="@style/Register_Edit"
-                    android:inputType="phone"/>
+                android:id="@+id/et_contact_edit_phone3"
+                style="@style/Register_Edit"
+                android:inputType="phone" />
         </LinearLayout>
 
-        <LinearLayout style="@style/Register_Input"
-                      android:id="@+id/ll_edit_phone4">
+        <LinearLayout
+            android:id="@+id/ll_edit_phone4"
+            style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/phone"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/phone"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_phone4"
-                    style="@style/Register_Edit"
-                    android:inputType="phone"/>
+                android:id="@+id/et_contact_edit_phone4"
+                style="@style/Register_Edit"
+                android:inputType="phone" />
         </LinearLayout>
-        <LinearLayout style="@style/Register_Input"
-                      android:id="@+id/ll_edit_phone5">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_phone5"
+            style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/phone"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/phone"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_phone5"
-                    style="@style/Register_Edit"
-                    android:inputType="phone"/>
+                android:id="@+id/et_contact_edit_phone5"
+                style="@style/Register_Edit"
+                android:inputType="phone" />
         </LinearLayout>
+        <!--<LinearLayout style="@style/Register_Input">-->
+
+        <!--<TextView-->
+        <!--style="@style/Smile.TextView._Black"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textColor="@color/mylove"-->
+        <!--android:text="@string/email"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:textStyle="bold"/>-->
+
+        <!--<org.mo.common.ui.sideBar.ClearEditText-->
+        <!--android:id="@+id/et_contact_edit_email"-->
+        <!--style="@style/Register_Edit"-->
+        <!--android:inputType="textEmailAddress"/>-->
+        <!--</LinearLayout>-->
         <LinearLayout style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/email"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/address"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_email"
-                    style="@style/Register_Edit"
-                    android:inputType="textEmailAddress"/>
+                android:id="@+id/et_contact_edit_address"
+                style="@style/Register_Edit"
+                android:inputType="text" />
         </LinearLayout>
+
         <LinearLayout style="@style/Register_Input">
 
             <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/address"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/group"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
 
             <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_address"
-                    style="@style/Register_Edit"
-                    android:inputType="text"/>
+                android:id="@+id/et_contact_edit_contact_group"
+                style="@style/Register_Edit" />
         </LinearLayout>
-        <LinearLayout style="@style/Register_Input">
 
-            <TextView
-                    style="@style/Smile.TextView._Black"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/mylove"
-                    android:text="@string/group"
-                    android:paddingLeft="10dp"
-                    android:textStyle="bold"/>
-
-            <org.mo.common.ui.sideBar.ClearEditText
-                    android:id="@+id/et_contact_edit_contact_group"
-                    style="@style/Register_Edit"/>
-        </LinearLayout>
+        <org.mo.common.ui.button.FButton
+            android:id="@+id/btn_contact_edit_save"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_large"
+            fbutton:buttonColor="@color/mylove"
+            fbutton:shadowEnabled="true" />
     </LinearLayout>
 </ScrollView>

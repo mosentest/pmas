@@ -25,8 +25,8 @@ public enum ErrorEnum {
     S9016(9016, "无网络连接，请检查您的手机网络"),
     S305(305, "帐号密码不能为空"),
     S100(100, "服务器太忙,请稍后..."),
-    S1(1, "错误提示");
-
+    S1(1, "未知错误"),
+    S101(101, "用户或密码不正确");
     private int code;
     private String message;
     private static final HashMap<Integer, ErrorEnum> map = new HashMap<Integer, ErrorEnum>();

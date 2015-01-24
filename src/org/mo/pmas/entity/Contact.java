@@ -16,7 +16,7 @@ public class Contact implements Serializable {
 
     private String name;//名字
 
-    private String birthday;//生日
+//    private String birthday;//生日
 
     private String email;//邮箱地址
 
@@ -97,13 +97,13 @@ public class Contact implements Serializable {
         this.name = name;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
+//    public String getBirthday() {
+//        return birthday;
+//    }
+//
+//    public void setBirthday(String birthday) {
+//        this.birthday = birthday;
+//    }
 
     public String getEmail() {
         return email;
@@ -158,7 +158,7 @@ public class Contact implements Serializable {
         return "Contact{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", birthday='" + birthday + '\'' +
+//                ", birthday='" + birthday + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", contactPhoto=" + contactPhoto +

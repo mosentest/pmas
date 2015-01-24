@@ -22,7 +22,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
 
     private ImageView imageView_show_head;
     private TextView tv_contact_show_name;
-    private TextView tv_contact_show_birthday;
+//    private TextView tv_contact_show_birthday;
     private LinearLayout ll_show_phone1;
     private LinearLayout ll_show_phone2;
     private LinearLayout ll_show_phone3;
@@ -41,7 +41,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
     private TextView tv_contact_show_email;
     private TextView tv_contact_show_address;
     private TextView tv_contact_show_contact_group;
-    private final static String NOINFO = "无";
+//    private final static String NOINFO = "无";
     private int id;
     private Contact oneById;
 
@@ -56,7 +56,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
     protected void toInitUI() {
         imageView_show_head = (ImageView) findViewById(R.id.imageView_show_head);
         tv_contact_show_name = (TextView) findViewById(R.id.tv_contact_show_name);
-        tv_contact_show_birthday = (TextView) findViewById(R.id.tv_contact_show_birthday);
+//        tv_contact_show_birthday = (TextView) findViewById(R.id.tv_contact_show_birthday);
         ll_show_phone1 = (LinearLayout) findViewById(R.id.ll_show_phone1);
         ll_show_phone2 = (LinearLayout) findViewById(R.id.ll_show_phone2);
         ll_show_phone3 = (LinearLayout) findViewById(R.id.ll_show_phone3);
@@ -84,7 +84,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
         ContactResolver contactResolver = new ContactResolver(ContactShowOneInfoActivity.this);
         oneById = contactResolver.findOneById(id);
         tv_contact_show_name.setText(oneById.getName());
-        tv_contact_show_birthday.setText(oneById.getBirthday());
+//        tv_contact_show_birthday.setText(oneById.getBirthday());
         ContactGroup contactGroup = oneById.getmContactGroup();
         if (contactGroup != null) {
             tv_contact_show_contact_group.setText(contactGroup.getName());
