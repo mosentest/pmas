@@ -6,7 +6,6 @@ import java.util.List;
 import org.mo.taskmanager.bean.TaskDetails;
 import org.mo.taskmanager.utils.CalendarUtils;
 
-import android.R.color;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,10 +14,10 @@ import android.text.TextUtils;
 
 public class TaskDBOperator {
 
-	private TaskDBHelper dbHelper;
+	private DBHelper dbHelper;
 
 	public TaskDBOperator(Context context) {
-		dbHelper = new TaskDBHelper(context);
+		dbHelper = new DBHelper(context);
 	}
 
 	public List<TaskDetails> findAll() {

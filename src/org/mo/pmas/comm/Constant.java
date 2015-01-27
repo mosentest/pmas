@@ -5,6 +5,15 @@ package org.mo.pmas.comm;
  */
 public class Constant {
 
+    /**
+     * 数据库操作常量
+     */
+    public interface MyDB {
+        public final static String DATABASE_NAME = "db_pmas.db";
+
+        public final static int DATABASE_VERSION = 1;
+    }
+
     public final static String SOFT_NAME = "pmas";
 
     public final static String DBNAME = "db_moziqi.db";//数据库名字

@@ -94,7 +94,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_show_phone1"
-                    style="@style/show_Input">
+                    style="@style/show_Input"
+                    android:background="@drawable/btn_selector">
 
                     <TextView
                         style="@style/Smile.TextView._Black"
@@ -123,7 +124,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_show_phone2"
-                    style="@style/show_Input">
+                    style="@style/show_Input"
+                    android:background="@drawable/btn_selector">
 
                     <TextView
                         style="@style/Smile.TextView._Black"
@@ -152,7 +154,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_show_phone3"
-                    style="@style/show_Input">
+                    style="@style/show_Input"
+                    android:background="@drawable/btn_selector">
 
                     <TextView
                         style="@style/Smile.TextView._Black"
@@ -181,7 +184,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_show_phone4"
-                    style="@style/show_Input">
+                    style="@style/show_Input"
+                    android:background="@drawable/btn_selector">
 
                     <TextView
                         style="@style/Smile.TextView._Black"
@@ -210,7 +214,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_show_phone5"
-                    style="@style/show_Input">
+                    style="@style/show_Input"
+                    android:background="@drawable/btn_selector">
 
                     <TextView
                         style="@style/Smile.TextView._Black"

@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.pmas.entity.Contact;
 import org.mo.pmas.entity.ContactGroup;
@@ -22,7 +24,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
 
     private ImageView imageView_show_head;
     private TextView tv_contact_show_name;
-//    private TextView tv_contact_show_birthday;
+    //    private TextView tv_contact_show_birthday;
     private LinearLayout ll_show_phone1;
     private LinearLayout ll_show_phone2;
     private LinearLayout ll_show_phone3;
@@ -41,7 +43,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
     private TextView tv_contact_show_email;
     private TextView tv_contact_show_address;
     private TextView tv_contact_show_contact_group;
-//    private final static String NOINFO = "无";
+    //    private final static String NOINFO = "无";
     private int id;
     private Contact oneById;
 
@@ -75,6 +77,11 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
         tv_contact_show_email = (TextView) findViewById(R.id.tv_contact_show_email);
         tv_contact_show_address = (TextView) findViewById(R.id.tv_contact_show_address);
         tv_contact_show_contact_group = (TextView) findViewById(R.id.tv_contact_show_contact_group);
+        ll_show_phone1.setOnClickListener(this);
+        ll_show_phone2.setOnClickListener(this);
+        ll_show_phone3.setOnClickListener(this);
+        ll_show_phone4.setOnClickListener(this);
+        ll_show_phone5.setOnClickListener(this);
     }
 
     @Override
@@ -156,7 +163,32 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
 
     @Override
     public void onClick(View v) {
-
+        String strMobile;
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        switch (v.getId()) {
+            case R.id.ll_show_phone1:
+                strMobile = tv_contact_show_phone1.getText().toString();
+                intent.setData(Uri.parse("tel:" + strMobile));
+                break;
+            case R.id.ll_show_phone2:
+                strMobile = tv_contact_show_phone1.getText().toString();
+                intent.setData(Uri.parse("tel:" + strMobile));
+                break;
+            case R.id.ll_show_phone3:
+                strMobile = tv_contact_show_phone1.getText().toString();
+                intent.setData(Uri.parse("tel:" + strMobile));
+                break;
+            case R.id.ll_show_phone4:
+                strMobile = tv_contact_show_phone1.getText().toString();
+                intent.setData(Uri.parse("tel:" + strMobile));
+                break;
+            case R.id.ll_show_phone5:
+                strMobile = tv_contact_show_phone1.getText().toString();
+                intent.setData(Uri.parse("tel:" + strMobile));
+                break;
+        }
+        startActivity(intent);
     }
 
     @Override

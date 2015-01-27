@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="gson-2.1-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/volley/gson-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/volley/volley.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/volley/gson-2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/volley/volley.jar!/" />
+    </SOURCES>
+  </library>
+</component>
