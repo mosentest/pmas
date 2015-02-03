@@ -84,7 +84,7 @@
     <string name="edit">编辑</string>
     <string name="add">新增</string>
     <string name="name">名称</string>
-    <string name="add_contact_group">新增群组</string>
+    <string name="add_contact_group">添加群组</string>
     <string name="contact_name">名字</string>
     <string name="birthday">生日</string>
     <string name="phone">电话</string>
@@ -109,6 +109,8 @@
     <string name="interest">#ff9900</string>
     <string name="maincolor">#13b3f2</string>
     <string name="periphery">周边定位</string>
+    <string name="score_search">成绩查询</string>
+    <string name="kaoqin_search">考勤查询</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

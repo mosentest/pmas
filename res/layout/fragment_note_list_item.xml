@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/list_yellow_single"
-        android:id="@+id/rl_note">
-    <TextView
-            android:id="@+id/tv_note_list_title"
-            android:text="标题"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/mylove"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_note"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/list_yellow_single"
+    android:orientation="vertical">
 
     <TextView
-            android:id="@+id/tv_note_list_time"
-            android:text="时间"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="@color/naming"
-            android:layout_alignTop="@+id/tv_note_list_title"
-            android:layout_alignRight="@+id/tv_note_list_content"/>
+        android:id="@+id/tv_note_list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="标题"
+        android:textColor="@color/mylove"
+        android:textSize="16sp" />
 
     <TextView
-            android:id="@+id/tv_note_list_content"
-            android:text="内容"
-            android:textColor="@color/naming"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:singleLine="true"
-            android:gravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/tv_note_list_title"/>
-</RelativeLayout>
+        android:id="@+id/tv_note_list_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:ellipsize="end"
+        android:gravity="top|left"
+        android:lines="2"
+        android:maxLines="2"
+        android:singleLine="false"
+        android:text="内容"
+        android:textColor="@color/naming"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_note_list_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tv_note_list_content"
+        android:text="时间"
+        android:textColor="@color/naming"
+        android:textSize="10sp" />
+
+</LinearLayout>

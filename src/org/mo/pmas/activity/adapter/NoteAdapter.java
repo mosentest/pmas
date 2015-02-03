@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.mo.common.util.ToastUtil;
+import org.mo.pmas.activity.NoteAddActivity;
 import org.mo.pmas.activity.R;
 import org.mo.pmas.entity.Note;
 import org.mo.pmas.service.NoteService;
@@ -72,7 +74,7 @@ public class NoteAdapter extends BaseAdapter {
             mViewHolder.m_tv_note_list_title = (TextView) convertView.findViewById(R.id.tv_note_list_title);
             mViewHolder.m_tv_note_list_time = (TextView) convertView.findViewById(R.id.tv_note_list_time);
             mViewHolder.m_tv_note_list_content = (TextView) convertView.findViewById(R.id.tv_note_list_content);
-            mViewHolder.mRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.rl_note);
+            mViewHolder.mRelativeLayout = (LinearLayout) convertView.findViewById(R.id.ll_note);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
@@ -102,11 +104,11 @@ public class NoteAdapter extends BaseAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (which == 0) {
-                                    Intent intent = new Intent(mContext, AddTaskActivity.class);
+                                    Intent intent = new Intent(mContext, NoteAddActivity.class);
                                     intent.putExtra("oper", "update");
                                     intent.putExtra("id", mNoteLists.get(position).getId());
 //                                    startActivityForResult(intent, 5);
-                                    ToastUtil.showLongToast(mContext, "修改记事");
+                                    mContext.startActivity(intent);
                                 } else {
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -140,6 +142,6 @@ public class NoteAdapter extends BaseAdapter {
         TextView m_tv_note_list_title;
         TextView m_tv_note_list_time;
         TextView m_tv_note_list_content;
-        RelativeLayout mRelativeLayout;
+        LinearLayout mRelativeLayout;
     }
 }

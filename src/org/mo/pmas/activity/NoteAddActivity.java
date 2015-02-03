@@ -1,5 +1,6 @@
 package org.mo.pmas.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -34,6 +35,8 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
     private Spinner mSpinner;
     private EditText m_et_note_add_content;
     private final static int MAX_COUNT = 300;
+    private long id;
+    private NoteService service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,16 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
                 m_et_note_add_content.addTextChangedListener(this);
             }
         });
+        Intent intent = getIntent();
+        String oper = intent.getStringExtra("oper");
+        if ("update".equals(oper)) {
+            id = intent.getLongExtra("id",0);
+            service = new NoteService(this);
+            Note oneById = service.getOneById(id);
+            m_et_note_add_title.setText(oneById.getTitle());
+            mSpinner.setSelection(oneById.getNoteType());
+            m_et_note_add_content.setText(oneById.getContent());
+        }
     }
 
     @Override
@@ -106,7 +119,13 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (!TextUtils.isEmpty(m_et_note_add_title.getText().toString())) {
-                    saveNote();
+                    Intent intent = getIntent();
+                    String oper = intent.getStringExtra("oper");
+                    if ("update".equals(oper)) {
+                        updateNote();
+                    } else {
+                        saveNote();
+                    }
                 }
                 this.finish();
                 return true;
@@ -125,12 +144,18 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
     public void onBackPressed() {
         super.onBackPressed();
         if (!TextUtils.isEmpty(m_et_note_add_title.getText().toString())) {
-            saveNote();
+            Intent intent = getIntent();
+            String oper = intent.getStringExtra("oper");
+            if ("update".equals(oper)) {
+                updateNote();
+            } else {
+                saveNote();
+            }
         }
     }
 
     private void saveNote() {
-        NoteService service = new NoteService(this);
+        service = new NoteService(this);
         Note note = new Note();
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -144,10 +169,16 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
     }
 
     private void updateNote() {
-        NoteService service = new NoteService(this);
+        service = new NoteService(this);
         Note note = new Note();
+        note.setId(id);
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String format = dateFormat.format(date);
         note.setTitle(m_et_note_add_title.getText().toString().trim());
         note.setContent(m_et_note_add_content.getText().toString().trim());
+        note.setNoteType(mSpinner.getSelectedItemPosition());
+        note.setUpdateDate(format);
         service.update(note);
     }
 

@@ -59,7 +59,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
             view = LayoutInflater.from(mContext).inflate(R.layout.fragment_phone_contacts_item, null);
             viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
             viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
-            viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
+//            viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
             viewHolder.m_ll_constact = (LinearLayout) view.findViewById(R.id.ll_constact);
             view.setTag(viewHolder);
         } else {
@@ -84,7 +84,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
         //初始化数据
         viewHolder.tvTitle.setText(mContact.getName());
         //TODO 设置图片
-        viewHolder.imageView.setImageBitmap(mContact.getContactPhoto());
+//        viewHolder.imageView.setImageBitmap(mContact.getContactPhoto());
 
         //TODO 跳转页面
         viewHolder.m_ll_constact.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +109,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
     final static class ViewHolder {
         TextView tvLetter;
         TextView tvTitle;
-        ImageView imageView;
+//        ImageView imageView;
         LinearLayout m_ll_constact;
     }
 

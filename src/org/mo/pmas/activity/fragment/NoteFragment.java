@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.listener.FindListener;
@@ -28,6 +30,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     private static NoteFragment mNoteFragment;
     private Context mContext;
     private XListView mXListView;
+    private GridView mGridView;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNoteLists;
     private Handler mHandler;
@@ -63,10 +66,10 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mXListView = (XListView) findViewById(R.id.note_list);
+        mGridView = (GridView) findViewById(R.id.gv_note_list);
         findAll();
-        mXListView.setXListViewListener(this);
-        mXListView.setPullLoadEnable(true);
+//        mXListView.setXListViewListener(this);
+//        mXListView.setPullLoadEnable(true);
     }
 
 //    private void findAllByLoadMore() {
@@ -98,9 +101,9 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     private void findAll() {
         NoteService noteService = new NoteService(mContext);
         List<org.mo.pmas.entity.Note> noteList = noteService.getAll();
-        Log.e("d",noteList.toString());
+//        Log.e("d",noteList.toString());
         mNoteAdapter = new NoteAdapter(noteList, mContext);
-        mXListView.setAdapter(mNoteAdapter);
+        mGridView.setAdapter(mNoteAdapter);
     }
 
     private void onLoad() {

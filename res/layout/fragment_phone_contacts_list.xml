@@ -31,7 +31,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-            <ListView
+            <org.mo.common.ui.ListView.ContactListView
                     android:id="@+id/country_lvcountry"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
