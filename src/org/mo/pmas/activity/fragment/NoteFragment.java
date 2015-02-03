@@ -3,6 +3,7 @@ package org.mo.pmas.activity.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.bmob.entity.Note;
 import org.mo.pmas.activity.adapter.NoteAdapter;
+import org.mo.pmas.service.NoteService;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,7 +30,6 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     private XListView mXListView;
     private NoteAdapter mNoteAdapter;
     private List<Note> mNoteLists;
-    //    private LoadingView mLoadingView;
     private Handler mHandler;
     private int currentPage = 1;
     private int size = 10;
@@ -63,63 +64,43 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mXListView = (XListView) findViewById(R.id.note_list);
-//        mLoadingView = (LoadingView) findViewById(R.id.note_loading);
         findAll();
         mXListView.setXListViewListener(this);
         mXListView.setPullLoadEnable(true);
     }
 
-    private void findAllByLoadMore() {
-        BmobQuery<Note> query = new BmobQuery<Note>();
-        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);// 先从缓存获取数据，如果没有，再从网络获取。
-        query.setLimit(size * currentPage);
-        if (myUser == null) {
-            return;
-        }
-        query.addWhereRelatedTo("notes", new BmobPointer(myUser));
-        query.order("-createdAt");
-        query.findObjects(mContext, new FindListener<Note>() {
-            @Override
-            public void onSuccess(List<Note> notes) {
-                mNoteLists = notes;
-                mNoteAdapter = new NoteAdapter(mNoteLists, mContext);
-                mXListView.setAdapter(mNoteAdapter);
-                mNoteAdapter.updateListView(mNoteLists);
-                currentPage++;
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                showErrorIms(i);
-//                ToastUtil.showLongToast(mContext, i + s);
-            }
-        });
-    }
+//    private void findAllByLoadMore() {
+//        BmobQuery<Note> query = new BmobQuery<Note>();
+//        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);// 先从缓存获取数据，如果没有，再从网络获取。
+//        query.setLimit(size * currentPage);
+//        if (myUser == null) {
+//            return;
+//        }
+//        query.addWhereRelatedTo("notes", new BmobPointer(myUser));
+//        query.order("-createdAt");
+//        query.findObjects(mContext, new FindListener<Note>() {
+//            @Override
+//            public void onSuccess(List<Note> notes) {
+//                mNoteLists = notes;
+//                mNoteAdapter = new NoteAdapter(mNoteLists, mContext);
+//                mXListView.setAdapter(mNoteAdapter);
+//                mNoteAdapter.updateListView(mNoteLists);
+//                currentPage++;
+//            }
+//
+//            @Override
+//            public void onError(int i, String s) {
+//                showErrorIms(i);
+//            }
+//        });
+//    }
 
     private void findAll() {
-        BmobQuery<Note> query = new BmobQuery<Note>();
-        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);// 先从缓存获取数据，如果没有，再从网络获取。
-        query.setLimit(size);
-        if (myUser == null) {
-            return;
-        }
-        query.addWhereRelatedTo("notes", new BmobPointer(myUser));
-        query.order("-createdAt");
-        query.findObjects(mContext, new FindListener<Note>() {
-            @Override
-            public void onSuccess(List<Note> notes) {
-                mNoteLists = notes;
-                mNoteAdapter = new NoteAdapter(mNoteLists, mContext);
-                mXListView.setAdapter(mNoteAdapter);
-                mNoteAdapter.updateListView(mNoteLists);
-                currentPage++;
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                showErrorIms(i);
-            }
-        });
+        NoteService noteService = new NoteService(mContext);
+        List<org.mo.pmas.entity.Note> noteList = noteService.getAll();
+        Log.e("d",noteList.toString());
+        mNoteAdapter = new NoteAdapter(noteList, mContext);
+        mXListView.setAdapter(mNoteAdapter);
     }
 
     private void onLoad() {
@@ -151,7 +132,7 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                findAllByLoadMore();
+//                findAllByLoadMore();
                 onLoad();
             }
         }, 2000);

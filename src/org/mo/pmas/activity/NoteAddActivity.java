@@ -1,8 +1,5 @@
 package org.mo.pmas.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -12,62 +9,49 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.datatype.BmobRelation;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
-import org.mo.common.activity.BaseFramgmentActivity;
-import org.mo.pmas.bmob.entity.MyUser;
-import org.mo.pmas.bmob.entity.Note;
-import org.mo.pmas.bmob.entity.NoteGroup;
+import android.widget.Spinner;
 
-import java.util.List;
+import org.mo.common.activity.BaseFramgmentActivity;
+import org.mo.pmas.entity.Note;
+import org.mo.pmas.service.INoteService;
+import org.mo.pmas.service.NoteService;
+import org.mo.taskmanager.db.DBHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by moziqi on 2015/1/6 0006.
  */
 public class NoteAddActivity extends BaseFramgmentActivity implements View.OnClickListener {
     private final static String TAG = NoteAddActivity.class.getSimpleName();
+    private final static String[] condition = new String[]{"学习", "工作", "生活", "其他"};
     private EditText m_et_note_add_title;
-    private EditText m_et_note_add_group;
+    private Spinner mSpinner;
     private EditText m_et_note_add_content;
-    private Button m_btn_note_add_save;
-    private final static int MAX_COUNT = 140;
-    private NoteGroup mNoteGroup;
-    private Note mNote;
-    private MyUser myUser;
+    private final static int MAX_COUNT = 300;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_add);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        myUser = MyUser.getCurrentUser(this, MyUser.class);
-        init();
     }
 
     @Override
     protected void toInitUI() {
-
-    }
-
-    @Override
-    protected void toUIOper() {
-
-    }
-
-    void init() {
         m_et_note_add_title = (EditText) findViewById(R.id.et_note_add_title);
-        m_et_note_add_group = (EditText) findViewById(R.id.et_note_add_group);
+        mSpinner = (Spinner) findViewById(R.id.sp_note_add_group);
         m_et_note_add_content = (EditText) findViewById(R.id.et_note_add_content);
-        m_btn_note_add_save = (Button) findViewById(R.id.btn_note_add_save);
-        m_et_note_add_group.setInputType(InputType.TYPE_NULL);
-        m_et_note_add_group.setOnClickListener(this);
-        m_btn_note_add_save.setOnClickListener(this);
+
+        ArrayAdapter adpt = new ArrayAdapter(this, android.R.layout.simple_spinner_item, condition);
+        adpt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adpt);
+
         //监听字数
         m_et_note_add_content.addTextChangedListener(new TextWatcher() {
 
@@ -107,6 +91,12 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
     }
 
     @Override
+    protected void toUIOper() {
+
+    }
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
@@ -115,6 +105,9 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if (!TextUtils.isEmpty(m_et_note_add_title.getText().toString())) {
+                    saveNote();
+                }
                 this.finish();
                 return true;
             default:
@@ -122,189 +115,40 @@ public class NoteAddActivity extends BaseFramgmentActivity implements View.OnCli
         }
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.et_note_add_group:
-                toNoteAddGroup();
-                break;
-            case R.id.btn_note_add_save:
-                findNoteInfoByTitle();
-                break;
         }
     }
 
-
-    //记事类型数组
-    String arrayNoteGroup[];
-
-    /**
-     * 添加记事类型
-     */
-    private void toNoteAddGroup() {
-        findNoteGroup();
-    }
-
-    /**
-     * 查找记事类型
-     */
-    private void findNoteGroup() {
-        BmobQuery<NoteGroup> query = new BmobQuery<NoteGroup>();
-        query.setLimit(1000);
-        query.order("createdAt");
-        query.addWhereEqualTo("user", myUser);//查询当前用户
-        Log.e(NoteAddActivity.this.getClass().getSimpleName(), myUser.getUsername());
-        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);// 先从缓存获取数据，如果没有，再从网络获取。
-        query.findObjects(NoteAddActivity.this, new FindListener<NoteGroup>() {
-            @Override
-            public void onSuccess(List<NoteGroup> noteGroups) {
-                showNoteGroupDialog(noteGroups);
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                //showErrorIms(i);
-            }
-        });
-    }
-
-    /**
-     * 显示记事类型对话框
-     *
-     * @param noteGroups
-     */
-    private void showNoteGroupDialog(List<NoteGroup> noteGroups) {
-        if (noteGroups.size() == 0) {
-            arrayNoteGroup = new String[]{"新增"};
-        } else {
-            arrayNoteGroup = new String[noteGroups.size() + 1];
-            for (int i = 0; i < noteGroups.size(); i++) {
-                arrayNoteGroup[i] = new String(noteGroups.get(i).getName());
-            }
-            arrayNoteGroup[noteGroups.size()] = "新增";
-        }
-        new AlertDialog.Builder(this).setTitle("记事类型").setItems(arrayNoteGroup, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if ("新增".equals(arrayNoteGroup[which])) {
-                    Intent intent = new Intent(NoteAddActivity.this, NoteGroupAddActivity.class);
-                    startActivity(intent);
-                } else {
-                    m_et_note_add_group.setText(arrayNoteGroup[which]);
-                }
-            }
-        }).show();
-    }
-
-    /**
-     * 查询是否存在已存在的Note名字
-     */
-    private void findNoteInfoByTitle() {
-        if (TextUtils.isEmpty(m_et_note_add_title.getText().toString().trim())) {
-            ShowToast("标题不能为空");
-            return;
-        }
-        if (TextUtils.isEmpty(m_et_note_add_content.getText().toString().trim())) {
-            ShowToast("内容不能为空");
-            return;
-        }
-        BmobQuery<Note> notes = new BmobQuery<Note>();
-        notes.addWhereRelatedTo("notes", new BmobPointer(myUser));
-        notes.addWhereEqualTo("title", m_et_note_add_title.getText().toString());
-        notes.findObjects(this, new FindListener<Note>() {
-            @Override
-            public void onSuccess(List<Note> notes) {
-                if (notes.size() == 0) {
-                    saveNoteInfo();
-                } else {
-                    ShowToast("已存在\"" + m_et_note_add_title.getText().toString() + "\"");
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                showErrorIms(i);
-            }
-        });
-    }
-
-    /**
-     * 保存记事
-     */
-    private void saveNoteInfo() {
-        String group = m_et_note_add_group.getText().toString();
-        if (TextUtils.isEmpty(group)) {
-            mNote = new Note();
-            mNote.setTitle(m_et_note_add_title.getText().toString().trim());
-            mNote.setContent(m_et_note_add_content.getText().toString().trim());
-            mNote.setUser(myUser);
-            mNote.save(this, new SaveListener() {
-                @Override
-                public void onSuccess() {
-                    addNoteToUser();
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-                    showErrorIms(i);
-                }
-            });
-        } else {
-            BmobQuery<NoteGroup> query = new BmobQuery<NoteGroup>();
-            query.setLimit(1000);
-            query.addWhereEqualTo("user", myUser);//查询当前用户
-            query.addWhereEqualTo("name", m_et_note_add_group.getText().toString().trim());
-            query.findObjects(NoteAddActivity.this, new FindListener<NoteGroup>() {
-                @Override
-                public void onSuccess(List<NoteGroup> noteGroups) {
-                    saveNoteWithNoteGroup(noteGroups);
-                }
-
-                @Override
-                public void onError(int i, String s) {
-                    showErrorIms(i);
-                }
-            });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (!TextUtils.isEmpty(m_et_note_add_title.getText().toString())) {
+            saveNote();
         }
     }
 
-    private void saveNoteWithNoteGroup(List<NoteGroup> noteGroups) {
-        mNoteGroup = noteGroups.get(0);
-        mNote = new Note();
-        mNote.setTitle(m_et_note_add_title.getText().toString().trim());
-        mNote.setContent(m_et_note_add_content.getText().toString().trim());
-        mNote.setNoteGroup(mNoteGroup);
-        mNote.setUser(myUser);
-        mNote.save(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                addNoteToUser();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
-            }
-        });
+    private void saveNote() {
+        NoteService service = new NoteService(this);
+        Note note = new Note();
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String format = dateFormat.format(date);
+        note.setTitle(m_et_note_add_title.getText().toString().trim());
+        note.setContent(m_et_note_add_content.getText().toString().trim());
+        note.setNoteType(mSpinner.getSelectedItemPosition());
+        note.setCreateDate(format);
+        note.setUpdateDate(format);
+        service.save(note);
     }
 
-    public void addNoteToUser() {
-        BmobRelation notes = new BmobRelation();
-        notes.add(mNote);
-        myUser.setNotes(notes);
-        myUser.update(this, new UpdateListener() {
-            @Override
-            public void onSuccess() {
-                BmobQuery.clearAllCachedResults(getApplicationContext());
-                ShowToast("保存\"" + m_et_note_add_title.getText().toString() + "\"成功");
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                showErrorIms(i);
-            }
-        });
+    private void updateNote() {
+        NoteService service = new NoteService(this);
+        Note note = new Note();
+        note.setTitle(m_et_note_add_title.getText().toString().trim());
+        note.setContent(m_et_note_add_content.getText().toString().trim());
+        service.update(note);
     }
 
     /**

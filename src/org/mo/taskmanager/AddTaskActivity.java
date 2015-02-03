@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -48,6 +49,16 @@ public class AddTaskActivity extends Activity implements OnClickListener {
     private OnDateSetListener changerListener;
     DatePickerDialog datePickerDialog;
     String timeString = "";
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +96,11 @@ public class AddTaskActivity extends Activity implements OnClickListener {
         if ("update".equals(oper)) {
             taskId = it.getIntExtra("id", 0);
             initTaskDetails(taskId);
-            btnAdd.setText("添加");
+            btnAdd.setText("修改");
+            setTitle("修改日程");
         }
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initTaskDetails(int id) {

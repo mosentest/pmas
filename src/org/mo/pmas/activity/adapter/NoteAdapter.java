@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.R;
-import org.mo.pmas.bmob.entity.Note;
+import org.mo.pmas.entity.Note;
+import org.mo.pmas.service.NoteService;
 import org.mo.taskmanager.AddTaskActivity;
 
 import java.util.List;
@@ -24,7 +26,6 @@ public class NoteAdapter extends BaseAdapter {
 
     private List<Note> mNoteLists;
     private Context mContext;
-    private Note mNote;
 
     public NoteAdapter(List<Note> mNoteLists, Context mContext) {
         this.mNoteLists = mNoteLists;
@@ -43,7 +44,9 @@ public class NoteAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mNoteLists.size();
+        if (mNoteLists != null)
+            return mNoteLists.size();
+        else return 0;
     }
 
     @Override
@@ -85,7 +88,7 @@ public class NoteAdapter extends BaseAdapter {
 //            Date date1 = DateUtil.str2Date(mNoteLists.get(position).getCreatedAt(), "yyyy-MM-dd");
 //            s = DateUtil.date2Str(date1, "yyyy-MM-dd");
 //        }
-        mViewHolder.m_tv_note_list_time.setText(mNoteLists.get(position).getCreatedAt());
+        mViewHolder.m_tv_note_list_time.setText(mNoteLists.get(position).getUpdateDate());
         mViewHolder.m_tv_note_list_content.setText(mNoteLists.get(position).getContent());
 
         mViewHolder.mRelativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
@@ -101,7 +104,7 @@ public class NoteAdapter extends BaseAdapter {
                                 if (which == 0) {
                                     Intent intent = new Intent(mContext, AddTaskActivity.class);
                                     intent.putExtra("oper", "update");
-                                    intent.putExtra("id", mNoteLists.get(position).getObjectId());
+                                    intent.putExtra("id", mNoteLists.get(position).getId());
 //                                    startActivityForResult(intent, 5);
                                     ToastUtil.showLongToast(mContext, "修改记事");
                                 } else {
@@ -113,9 +116,10 @@ public class NoteAdapter extends BaseAdapter {
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-//                                                    dbOperator.delete(String.valueOf(list.get(position).get_id()));
-//                                                    list.remove(position);
-//                                                    dapter.notifyDataSetChanged();
+                                                    NoteService noteService = new NoteService(mContext);
+                                                    noteService.deleteById(mNoteLists.get(position).getId());
+                                                    mNoteLists.remove(position);
+                                                    notifyDataSetChanged();
                                                     ToastUtil.showLongToast(mContext, "删除记事");
                                                 }
                                             });

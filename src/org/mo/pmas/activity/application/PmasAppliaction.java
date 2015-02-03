@@ -5,15 +5,21 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.TextView;
+
 import cn.bmob.v3.Bmob;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+
 import org.mo.common.util.FileUtil;
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.comm.Constant;
+import org.mo.pmas.entity.Note;
+import org.mo.pmas.repository.NoteRepository;
 import org.mo.pmas.util.SharePreferenceUtil;
+import org.mo.taskmanager.db.DBHelper;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -54,6 +60,8 @@ public class PmasAppliaction extends Application {
 
     // 遍历所有Activity并finish
     public void exit() {
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        dbHelper.close();
         for (Activity activity : activityList) {
             activity.finish();
         }
@@ -110,7 +118,7 @@ public class PmasAppliaction extends Application {
             sb.append(location.getLongitude());
             sb.append("\nradius : ");
             sb.append(location.getRadius());
-            if (location.getLocType() == BDLocation.TypeGpsLocation){
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {
                 sb.append("\nspeed : ");
                 sb.append(location.getSpeed());
                 sb.append("\nsatellite : ");
@@ -119,7 +127,7 @@ public class PmasAppliaction extends Application {
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());
                 sb.append(location.getDirection());
-            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());
                 //运营商信息

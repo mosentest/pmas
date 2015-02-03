@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp" >
+    android:paddingRight="5dp"
+    android:background="@color/base_color_text_white">
 
     <RelativeLayout
         android:id="@+id/tl_title"

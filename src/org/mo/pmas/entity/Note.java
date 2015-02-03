@@ -1,30 +1,27 @@
 package org.mo.pmas.entity;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by moziqi on 2014/12/25 0025.
  */
-public class Note implements Serializable {
+@DatabaseTable(tableName = "tb_note")
+public class Note extends BaseColumn {
 
-    private Integer id;
-
+    @DatabaseField(index = true, columnName = "title", unique = true, canBeNull = false)
     private String title;
 
-    private String createDate;
-
+    @DatabaseField(columnName = "content")
     private String content;
 
+    @DatabaseField(columnName = "note_type")
+    private int noteType;
+
     private NoteGroup noteGroup;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -32,14 +29,6 @@ public class Note implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
     }
 
     public String getContent() {
@@ -58,14 +47,20 @@ public class Note implements Serializable {
         this.noteGroup = noteGroup;
     }
 
+    public int getNoteType() {
+        return noteType;
+    }
+
+    public void setNoteType(int noteType) {
+        this.noteType = noteType;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", createDate='" + createDate + '\'' +
+                "title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", noteGroup=" + noteGroup.toString() +
+                ", noteType='" + noteType + '\'' +
                 '}';
     }
 }

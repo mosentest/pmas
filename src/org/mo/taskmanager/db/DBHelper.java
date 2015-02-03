@@ -11,6 +11,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import org.mo.pmas.comm.Constant;
+import org.mo.pmas.entity.Note;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -49,6 +50,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
                 "cycledate VARCHAR(20)," +
                 "cyclestatus VARCHAR(1)," +
                 "updatetime DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP,'localtime')))");
+        try {
+            TableUtils.createTable(connectionSource, Note.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
