@@ -111,6 +111,7 @@
     <string name="periphery">周边定位</string>
     <string name="score_search">成绩查询</string>
     <string name="kaoqin_search">考勤查询</string>
+    <string name="location_finish">启动完成</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

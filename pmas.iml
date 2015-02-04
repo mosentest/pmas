@@ -19,6 +19,7 @@
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="ormlite-android-4.48" level="project" />
     <orderEntry type="library" exported="" name="gson-2.1-sources" level="project" />
+    <orderEntry type="library" name="BaiduLBS_Android" level="project" />
   </component>
 </module>
 
