@@ -12,6 +12,9 @@ import com.j256.ormlite.table.TableUtils;
 
 import org.mo.pmas.comm.Constant;
 import org.mo.pmas.entity.Note;
+import org.mo.pmas.ext.entity.Attendance;
+import org.mo.pmas.ext.entity.Score;
+import org.mo.pmas.ext.entity.User;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -52,6 +55,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
                 "updatetime DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP,'localtime')))");
         try {
             TableUtils.createTable(connectionSource, Note.class);
+            TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, Score.class);
+            TableUtils.createTable(connectionSource, Attendance.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
