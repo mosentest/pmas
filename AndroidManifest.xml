@@ -93,7 +93,7 @@
 
         <activity
             android:name=".EnterActivity"
-            android:label="@string/home"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
 
         <activity
@@ -165,6 +165,10 @@
             android:name=".PeripheryActivity"
             android:label="@string/periphery"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ScoreActivity"
+            android:label="@string/score_search"
+            android:screenOrientation="portrait"/>
 
         <service android:name="org.mo.taskmanager.service.UpdateWidgetService"></service>
 

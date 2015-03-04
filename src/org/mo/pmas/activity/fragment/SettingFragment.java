@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
 import cn.bmob.v3.BmobUser;
+
 import org.mo.pmas.activity.*;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.bmob.entity.MyUser;
@@ -28,13 +30,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private ImageView m_iv_open_vibrate;
     private ImageView m_iv_close_vibrate;
     private RelativeLayout m_layout_info;
-    //    private RelativeLayout m_layout_blacklist;
-//    private RelativeLayout m_layout_weather;
+    private RelativeLayout layout_score_search;
+    private RelativeLayout layout_kaoqin_search;
     private RelativeLayout m_layout_neighborhood;
     private RelativeLayout m_rl_switch_voice;
     private RelativeLayout m_rl_switch_vibrate;
     private RelativeLayout m_layout_about;
     private LinearLayout m_ll_setting_loginned;
+    private LinearLayout ll_setting_loginned;
 
 
     public static SettingFragment getInstance(Context context) {
@@ -64,8 +67,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         super.onActivityCreated(savedInstanceState);
         m_btn_setting_nologin = (Button) findViewById(R.id.btn_setting_nologin);
         m_layout_info = (RelativeLayout) findViewById(R.id.layout_info);
-////        m_layout_blacklist = (RelativeLayout) findViewById(R.id.layout_blacklist);
-//        m_layout_weather = (RelativeLayout) findViewById(R.id.layout_weather);
+        layout_score_search = (RelativeLayout) findViewById(R.id.layout_score_search);
+        layout_kaoqin_search = (RelativeLayout) findViewById(R.id.layout_kaoqin_search);
         m_layout_neighborhood = (RelativeLayout) findViewById(R.id.layout_neighborhood);
         m_rl_switch_voice = (RelativeLayout) findViewById(R.id.rl_switch_voice);
         m_rl_switch_vibrate = (RelativeLayout) findViewById(R.id.rl_switch_vibrate);
@@ -108,8 +111,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         //==============================================================
         m_btn_setting_nologin.setOnClickListener(this);
         m_layout_info.setOnClickListener(this);
-//        m_layout_blacklist.setOnClickListener(this);
-//        m_layout_weather.setOnClickListener(this);
+        layout_score_search.setOnClickListener(this);
+        layout_kaoqin_search.setOnClickListener(this);
         m_layout_neighborhood.setOnClickListener(this);
         m_rl_switch_voice.setOnClickListener(this);
         m_rl_switch_vibrate.setOnClickListener(this);
@@ -118,22 +121,23 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.btn_setting_nologin:
                 login();
                 break;
             case R.id.layout_info:
-                Intent intent = new Intent(getActivity(), SetMyInfoActivity.class);
+                intent = new Intent(getActivity(), SetMyInfoActivity.class);
                 getActivity().startActivity(intent);
 //                getActivity().finish();
                 break;
             case R.id.layout_about:
-                Intent intent2 = new Intent(getActivity(), AboutActivity.class);
-                getActivity().startActivity(intent2);
+                intent = new Intent(getActivity(), AboutActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.layout_neighborhood:
-                Intent intent3 = new Intent(getActivity(), PeripheryActivity.class);
-                getActivity().startActivity(intent3);
+                intent = new Intent(getActivity(), PeripheryActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.rl_switch_voice:
                 if (m_iv_open_voice.getVisibility() == View.VISIBLE) {
@@ -157,6 +161,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                     mSharedUtil.setAllowVibrateEnable(true);
                 }
                 break;
+            case R.id.layout_score_search:
+                intent = new Intent(getActivity(), ScoreActivity.class);
+                getActivity().startActivity(intent);
         }
     }
 

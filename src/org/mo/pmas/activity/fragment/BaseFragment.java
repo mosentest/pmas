@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
+
 import org.mo.common.util.ToastUtil;
-import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.util.ErrorEnum;
 
 /**

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout style="@style/Register_Input">
+        <TextView
+            style="@style/Smile.TextView._Black"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/date"
+            android:textColor="@color/mylove"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_score_search_date"
+            style="@style/Register_Edit"
+            android:inputType="text" />
+    </LinearLayout>
+        <LinearLayout style="@style/Register_Input">
+
+            <TextView
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/date"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_score_search_date_up"
+                style="@style/Register_Edit"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="──" />
+
+            <EditText
+                android:id="@+id/et_score_search_date_down"
+                style="@style/Register_Edit"
+                android:inputType="text" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

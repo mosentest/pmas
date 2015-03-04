@@ -112,6 +112,10 @@
     <string name="score_search">成绩查询</string>
     <string name="kaoqin_search">考勤查询</string>
     <string name="location_finish">启动完成</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="date">日期</string>
+    <string name="search">查询</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

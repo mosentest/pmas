@@ -64,7 +64,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/base_line_width_2"
-                    android:background="@drawable/base_horizontal_line"></View>
+                    android:background="@drawable/base_horizontal_line">
+
+                    </View>
 
                 <RelativeLayout
                     android:id="@+id/layout_score_search"
