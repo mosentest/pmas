@@ -56,7 +56,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
 
     @Override
     protected void toInitUI() {
-        imageView_show_head = (ImageView) findViewById(R.id.imageView_show_head);
+//        imageView_show_head = (ImageView) findViewById(R.id.imageView_show_head);
         tv_contact_show_name = (TextView) findViewById(R.id.tv_contact_show_name);
 //        tv_contact_show_birthday = (TextView) findViewById(R.id.tv_contact_show_birthday);
         ll_show_phone1 = (LinearLayout) findViewById(R.id.ll_show_phone1);
@@ -158,7 +158,7 @@ public class ContactShowOneInfoActivity extends BaseFramgmentActivity implements
             view_show_phone4.setVisibility(View.GONE);
             view_show_phone5.setVisibility(View.GONE);
         }
-        imageView_show_head.setImageBitmap(oneById.getContactPhoto());
+//        imageView_show_head.setImageBitmap(oneById.getContactPhoto());
     }
 
     @Override

@@ -27,17 +27,16 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/acm_inputbox"
                 android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/imageView_show_head"
-                    android:layout_width="100dip"
-                    android:layout_height="100dip"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:src="@drawable/ic_launcher" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/imageView_show_head"-->
+                    <!--android:layout_width="100dip"-->
+                    <!--android:layout_height="100dip"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:gravity="center"-->
+                    <!--android:src="@drawable/ic_launcher" />-->
             </RelativeLayout>
 
             <TextView
@@ -50,7 +49,7 @@
                 android:paddingLeft="10dp"
                 android:text="@string/contact_name"
                 android:textColor="@color/fbutton_color_alizarin"
-                android:textSize="18dp"
+                android:textSize="28dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 

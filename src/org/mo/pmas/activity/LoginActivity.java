@@ -4,18 +4,26 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
+
+import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.bitmap.BitmapCallBack;
 import org.mo.common.activity.BaseFramgmentActivity;
+import org.mo.common.util.ClientUitl;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.bmob.entity.MyUser;
 import org.mo.pmas.util.ErrorEnum;
@@ -23,6 +31,7 @@ import org.mo.pmas.util.SharePreferenceUtil;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by moziqi on 2015/1/4 0004.
@@ -36,6 +45,9 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
     private CheckBox m_cb_auto_login;
     private TextView m_tv_forget_pwd;
     private ProgressDialog progress;
+    private EditText et_code;
+    private ImageView iv_code;
+    private KJBitmap kjb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +71,26 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
             mUsername.setText(username);
         }
 
+        et_code = (EditText) findViewById(R.id.et_code);
+        iv_code = (ImageView) findViewById(R.id.iv_code);
+
+        iv_code.setOnClickListener(this);
+
+        kjb = KJBitmap.create();
+        kjb.display(iv_code, ClientUitl.VCODE_URL);
+        kjb.setCallback(new BitmapCallBack() {
+            @Override
+            public void onSuccess(View view, Bitmap bitmap) {
+                super.onSuccess(view, bitmap);
+                iv_code.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onPreLoad(View view) {
+                super.onPreLoad(view);
+                iv_code.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -84,6 +116,23 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
             case R.id.cb_remember_pwd:
                 break;
             case R.id.tv_forget_pwd:
+                break;
+            case R.id.iv_code:
+                kjb.removeCacheAll();
+                kjb.display(iv_code, ClientUitl.VCODE_URL);
+                kjb.setCallback(new BitmapCallBack() {
+                    @Override
+                    public void onSuccess(View view, Bitmap bitmap) {
+                        super.onSuccess(view, bitmap);
+                        iv_code.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onPreLoad(View view) {
+                        super.onPreLoad(view);
+                        iv_code.setVisibility(View.GONE);
+                    }
+                });
                 break;
         }
     }
@@ -139,47 +188,20 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
 
         @Override
         protected Void doInBackground(Void... params) {
-
-            MyUser bmobUser = new MyUser();
-            bmobUser.setUsername(username);
-            bmobUser.setPassword(password);
-
-            bmobUser.login(context, new SaveListener() {
-                @Override
-                public void onSuccess() {
-                    SharedPreferences preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", MODE_PRIVATE);
-                    SharedPreferences.Editor edit = preferences.edit();
-                    edit.putString("username", username);
-                    if (rememberPwd == true) {
-                        edit.putString("password", password);
-                        edit.putBoolean("rememberPwd", true);
-                    } else {
-                        edit.putString("password", null);
-                        edit.putBoolean("rememberPwd", false);
-                    }
-                    edit.putBoolean("autoLogin", autoLogin);
-                    edit.commit();
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
-                            overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
-                        }
-                    }, 0);
-                    progress.dismiss();
+            try {
+                progress.dismiss();
+                Map<String, String> varValue = ClientUitl.getVarValue();
+                if (varValue == null) {
+                    ShowToast("获取失败");
                 }
-
-                @Override
-                public void onFailure(int code, String msg) {
-                    ErrorEnum ident = ErrorEnum.ident(code);
-                    ShowToast(ident.getMessage());
-                    progress.dismiss();
-                }
-            });
+                Log.v("strResult", varValue.get(ClientUitl.LOGIN_TICKET));
+                Log.v("strResult", varValue.get(ClientUitl.EXECUTION));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
+
+
         }
     }
 }
