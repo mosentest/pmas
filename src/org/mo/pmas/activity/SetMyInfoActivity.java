@@ -36,15 +36,16 @@ import org.mo.znyunxt.entity.UserDetail;
 public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnClickListener {
 
     private Button btn_set_my_info_logout;
-    private AsyncHttpClient instance;
-    private SharedPreferences preferences;
-    private String username;
 
     private TextView tv_username;
     private TextView tv_name;
     private TextView tv_depart_name;
     private TextView tv_sex;
     private TextView tv_role_name;
+
+    private AsyncHttpClient instance;
+    private SharedPreferences preferences;
+    private String username;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,6 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
                 String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
                 RequestParams params = new RequestParams();
                 params.put("loginname", encrypt3DES);
-                showErrorIms("加密后：" + encrypt3DES + "加密前:" + username);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -97,7 +97,6 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
 
                     @Override
                     public void onSuccess(int i, Header[] headers, String s) {
-//                        String s = new String(bytes);
                         Log.e(ConfigContract.CMD, s);
                         if (i == 200) {
                             try {

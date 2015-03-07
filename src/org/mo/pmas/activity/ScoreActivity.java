@@ -15,7 +15,7 @@ import org.mo.pmas.ext.entity.Score;
 /**
  * Created by moziqi on 2015/2/4 0004.
  */
-public class ScoreActivity extends BaseFramgmentActivity implements ScoreSearchFragment.OnScoreSearchListener {
+public class ScoreActivity extends BaseFramgmentActivity {
     private ScoreShowFragment scoreShowFragment;
     private ScoreSearchFragment scoreSearchFragment;
 
@@ -50,7 +50,7 @@ public class ScoreActivity extends BaseFramgmentActivity implements ScoreSearchF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_score_actions,menu);
+        getMenuInflater().inflate(R.menu.activity_score_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -60,12 +60,16 @@ public class ScoreActivity extends BaseFramgmentActivity implements ScoreSearchF
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.score_search_actions:
+                scoreSearchFragment.getEditText(new ScoreSearchFragment.OnScoreSearchListener() {
+                    @Override
+                    public void onScoreSearch(String beginDate, String endDate) {
+                        ShowToast(beginDate + "--" + endDate);
+                    }
+                });
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onScoreSearch(Score entity) {
-
-    }
 }

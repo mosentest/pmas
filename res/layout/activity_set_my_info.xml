@@ -68,7 +68,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tv_username"
@@ -106,7 +107,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -139,7 +141,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tv_depart_name"
@@ -173,7 +176,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tv_sex"
@@ -206,7 +210,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tv_role_name"

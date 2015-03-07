@@ -166,9 +166,15 @@
             android:label="@string/periphery"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ScoreActivity"
+        <activity
+            android:name=".ScoreActivity"
             android:label="@string/score_search"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".AttendanceActivity"
+            android:label="@string/kaoqin_search"
+            android:screenOrientation="portrait" />
 
         <service android:name="org.mo.taskmanager.service.UpdateWidgetService"></service>
 

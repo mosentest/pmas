@@ -32,6 +32,7 @@ import org.mo.common.util.ConfigContract;
 import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.AboutActivity;
+import org.mo.pmas.activity.AttendanceActivity;
 import org.mo.pmas.activity.LoginActivity;
 import org.mo.pmas.activity.PeripheryActivity;
 import org.mo.pmas.activity.R;
@@ -171,6 +172,13 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.layout_score_search:
                 intent = new Intent(getActivity(), ScoreActivity.class);
                 getActivity().startActivity(intent);
+                break;
+            case R.id.layout_kaoqin_search:
+                intent = new Intent(getActivity(), AttendanceActivity.class);
+                getActivity().startActivity(intent);
+                break;
+            default:
+                ShowToast("错误");
         }
     }
 

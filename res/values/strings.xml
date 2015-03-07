@@ -115,12 +115,18 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="date">日期</string>
-    <string name="search">查询</string>
+    <string name="search">个人查询</string>
     <string name="login_code_hint">验证码</string>
     <string name="realname">姓名</string>
     <string name="depart_name">部门</string>
     <string name="sex">性别</string>
     <string name="role_name">角色</string>
+    <string name="depart">子部门查询</string>
+    <string name="Io">进出类型查询</string>
+    <string name="AttendRecord">考勤汇总查询</string>
+    <string name="AttendCount">考勤汇总详情查询</string>
+    <string name="AttendCountController">考勤报表查询</string>
+    <string name="viewAttendCountController">考勤统计查询</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>
