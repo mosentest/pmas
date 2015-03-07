@@ -117,6 +117,10 @@
     <string name="date">日期</string>
     <string name="search">查询</string>
     <string name="login_code_hint">验证码</string>
+    <string name="realname">姓名</string>
+    <string name="depart_name">部门</string>
+    <string name="sex">性别</string>
+    <string name="role_name">角色</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

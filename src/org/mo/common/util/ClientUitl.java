@@ -3,6 +3,7 @@ package org.mo.common.util;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
@@ -19,6 +20,7 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,13 +35,13 @@ import java.util.regex.Pattern;
 public class ClientUitl {
     private static HttpParams httpParams;
     private static DefaultHttpClient httpClient;
-    private static String JSESSIONID; //定义一个静态的字段，保存sessionID
+    public static String JSESSIONID; //定义一个静态的字段，保存sessionID
     public final static String LOGIN_TICKET = "loginTicket";
     public final static String EXECUTION = "execution";
     private final static String LOGIN_TICKET_EXECUTION_URL = "http://www.znyunxt.cn/cas/login?service=http://www.znyunxt.cn/ep&get-lt=true";
-    public final static String VCODE_URL = "http://www.znyunxt.cn//cas/Kaptcha.jpg";
+    public final static String VCODE_URL = "http://www.znyunxt.cn/cas/Kaptcha.jpg";
 
-    public static HttpClient getHttpClient() throws Exception {
+    public static HttpClient getHttpClient() {
         // 创建 HttpParams 以用来设置 HTTP 参数（这一部分不是必需的）
         httpParams = new BasicHttpParams();
         // 设置连接超时和 Socket 超时，以及 Socket 缓存大小
@@ -89,6 +91,30 @@ public class ClientUitl {
         return strResult;
     }
 
+
+    public static HttpResponse userLogin(String url, Map params) throws IOException {
+        /* 建立HTTPGet对象 */
+        String paramStr = "";
+        if (params != null) {
+            Iterator iter = params.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                Object key = entry.getKey();
+                Object val = entry.getValue();
+                paramStr += paramStr = "&" + key + "=" + val;
+            }
+        }
+        if (!paramStr.equals("")) {
+            paramStr = paramStr.replaceFirst("&", "?");
+            url += paramStr;
+        }
+        HttpGet httpRequest = new HttpGet(url);
+//        httpRequest.getParams().setParameter("http.protocol.max-redirects",30);
+        HttpResponse httpResponse = getHttpClient().execute(httpRequest);
+        return httpResponse;
+    }
+
+
     public static String doPost(String url, List<NameValuePair> params) throws Exception {
         /* 建立HTTPPost对象 */
         HttpPost httpRequest = new HttpPost(url);
@@ -103,7 +129,7 @@ public class ClientUitl {
         /* 发送请求并等待响应 */
         HttpResponse httpResponse = getHttpClient().execute(httpRequest);
         /* 若状态码为200 ok */
-        if (httpResponse.getStatusLine().getStatusCode() == 200) {
+        if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             /* 读返回数据 */
             strResult = EntityUtils.toString(httpResponse.getEntity());
             /* 获取cookieStore */
@@ -135,8 +161,8 @@ public class ClientUitl {
             map = new HashMap<String, String>();
             String result = doPost(LOGIN_TICKET_EXECUTION_URL, null);
             String[] split = result.split(";");
-            String substring = split[0].substring(split[0].indexOf("\""), split[0].lastIndexOf("\""));
-            String substring1 = split[1].substring(split[1].indexOf("\""), split[1].lastIndexOf("\""));
+            String substring = split[0].substring(split[0].indexOf("\"") + 1, split[0].lastIndexOf("\""));
+            String substring1 = split[1].substring(split[1].indexOf("\"") + 1, split[1].lastIndexOf("\""));
             map.put(LOGIN_TICKET, substring);
             map.put(EXECUTION, substring1);
         } catch (Exception e) {

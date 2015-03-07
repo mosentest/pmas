@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import org.mo.common.util.ConfigContract;
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.util.ErrorEnum;
 
@@ -14,7 +15,7 @@ import org.mo.pmas.util.ErrorEnum;
  * Created by moziqi on 2015/1/4 0004.
  */
 public class BaseFragment extends Fragment {
-    private final static String TAG = "BaseFragment";
+    private final static String TAG = ConfigContract.CMD;
     public LayoutInflater mInflater;
     private Toast mToast;
 
@@ -42,5 +43,9 @@ public class BaseFragment extends Fragment {
         ErrorEnum ident = ErrorEnum.ident(i);
         ToastUtil.showShortToast(getActivity(), ident.getMessage());
         Log.e(TAG, ident.getMessage());
+    }
+
+    public void showErrorIms(String i) {
+        Log.e(TAG, i);
     }
 }

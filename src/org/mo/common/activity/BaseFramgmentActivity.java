@@ -10,6 +10,8 @@ import android.util.Log;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+
+import org.mo.common.util.ConfigContract;
 import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.comm.Constant;
@@ -20,7 +22,7 @@ import org.mo.pmas.util.ErrorEnum;
  */
 public abstract class BaseFramgmentActivity extends FragmentActivity {
 
-    private static final String TAG = "PMAS";
+    private static final String TAG = ConfigContract.CMD;
     private Toast mToast;
     protected int mScreenWidth;
     protected int mScreenHeight;
@@ -84,10 +86,8 @@ public abstract class BaseFramgmentActivity extends FragmentActivity {
         BmobUser currentUser = BmobUser.getCurrentUser(this); // 现在的currentUser是null了
     }
 
-    public void showErrorIms(int i) {
-        ErrorEnum ident = ErrorEnum.ident(i);
-        ToastUtil.showShortToast(getApplicationContext(), ident.getMessage());
-        Log.e(TAG, ident.getMessage());
+    public void showErrorIms(String i) {
+        Log.e(TAG, i);
     }
 
     protected abstract void toInitUI();

@@ -10,11 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nineoldandroids.view.ViewHelper;
+
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.ui.JazzyViewPager;
+import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.adapter.EnterFragmentPageAdapter;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.activity.fragment.ScheduleFragment;
@@ -86,6 +89,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
             }
         }
     };
+    private SharedPreferences preferences;
 
     private void unBind() {
         if (conn != null) {
@@ -100,6 +104,11 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         unBind();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -131,26 +140,26 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
         });
         tabHost.setCurrentTab(0);
         //TODO 抽屉实现
-        mListView_left_drawer = (ListView) findViewById(R.id.listView_left_drawer);
-        String[] stringArray = getResources().getStringArray(R.array.effects);
-        mListView_left_drawer.setAdapter(new DrawableAdapter(this, stringArray));
-        mListView_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        Intent intent1 = new Intent(EnterActivity.this, ContactGroupActivity.class);
-                        startActivity(intent1);
-                        break;
-                    case 1:
-                        Log.e("TAG", "stringArray[1]");
-                        break;
-                    case 2:
-                        Log.e("TAG", "stringArray[2]");
-                        break;
-                }
-            }
-        });
+//        mListView_left_drawer = (ListView) findViewById(R.id.listView_left_drawer);
+//        String[] stringArray = getResources().getStringArray(R.array.effects);
+//        mListView_left_drawer.setAdapter(new DrawableAdapter(this, stringArray));
+//        mListView_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                switch (position) {
+//                    case 0:
+//                        Intent intent1 = new Intent(EnterActivity.this, ContactGroupActivity.class);
+//                        startActivity(intent1);
+//                        break;
+//                    case 1:
+//                        Log.e("TAG", "stringArray[1]");
+//                        break;
+//                    case 2:
+//                        Log.e("TAG", "stringArray[2]");
+//                        break;
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -403,6 +412,7 @@ public class EnterActivity extends BaseFramgmentActivity implements View.OnClick
     public void onBackPressed() {
         if (firstTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
+            HttpURLTools.closeClient();
             PmasAppliaction.getInstance().exit();
         } else {
             ShowToast("再按一次退出程序");

@@ -22,6 +22,8 @@
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
     <orderEntry type="library" exported="" name="xercesImpl-2.6.2-jaxb-1.0.6" level="project" />
     <orderEntry type="library" exported="" name="KJFrameForAndroid_v2.134" level="project" />
+    <orderEntry type="library" exported="" name="android-async-http-1.4.6" level="project" />
+    <orderEntry type="library" exported="" name="jackson-all-1.7.6" level="project" />
   </component>
 </module>
 

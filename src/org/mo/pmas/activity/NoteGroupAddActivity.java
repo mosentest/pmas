@@ -71,7 +71,7 @@ public class NoteGroupAddActivity extends BaseFramgmentActivity implements View.
 
             @Override
             public void onError(int i, String s) {
-                showErrorIms(i);
+                showErrorIms(s);
             }
         });
     }
@@ -92,7 +92,7 @@ public class NoteGroupAddActivity extends BaseFramgmentActivity implements View.
 
             @Override
             public void onFailure(int i, String s) {
-                showErrorIms(i);
+                showErrorIms(s);
             }
         });
     }
@@ -113,7 +113,7 @@ public class NoteGroupAddActivity extends BaseFramgmentActivity implements View.
 
             @Override
             public void onFailure(int i, String s) {
-                showErrorIms(i);
+                showErrorIms(s);
             }
         });
     }

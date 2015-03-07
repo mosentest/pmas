@@ -85,38 +85,38 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="10dp">-->
 
-            <CheckBox
-                android:id="@+id/cb_remember_pwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/remember_pwd"
-                android:textColor="@color/mylove" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/cb_remember_pwd"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/remember_pwd"-->
+                <!--android:textColor="@color/mylove" />-->
 
-            <CheckBox
-                android:id="@+id/cb_auto_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="@string/auto_login"
-                android:textColor="@color/mylove" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/cb_auto_login"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:text="@string/auto_login"-->
+                <!--android:textColor="@color/mylove" />-->
 
-            <TextView
-                android:id="@+id/tv_forget_pwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="27dp"
-                android:gravity="center_vertical"
-                android:text="@string/forget_pwd"
-                android:textColor="@color/btn_tologin_selector" />
-        </RelativeLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_forget_pwd"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginRight="27dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="@string/forget_pwd"-->
+                <!--android:textColor="@color/btn_tologin_selector" />-->
+        <!--</RelativeLayout>-->
 
         <org.mo.common.ui.button.FButton
             android:id="@+id/btn_login"
@@ -130,31 +130,31 @@
             fbutton:buttonColor="@color/mylove" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:gravity="center_vertical"
-            android:text="@string/register_txt1"
-            android:textColor="@color/orange_yellow"
-            android:textSize="20sp" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/register_txt1"-->
+            <!--android:textColor="@color/orange_yellow"-->
+            <!--android:textSize="20sp" />-->
 
-        <TextView
-            android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:text="@string/register_txt2"
-            android:textColor="@color/btn_tologin_selector"
-            android:textSize="20sp" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/btn_register"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/register_txt2"-->
+            <!--android:textColor="@color/btn_tologin_selector"-->
+            <!--android:textSize="20sp" />-->
+    <!--</LinearLayout>-->
 
 </RelativeLayout>
