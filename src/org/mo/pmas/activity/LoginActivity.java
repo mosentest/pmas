@@ -91,8 +91,8 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         //TODO 设置默认值
 //        mUsername.setText(username);
 //        mPassword.setText(password);
-        mUsername.setText(ConfigContract.student_username);
-        mPassword.setText(ConfigContract.student_password);
+        mUsername.setText(ConfigContract.teacher_username);
+        mPassword.setText(ConfigContract.teacher_password);
 
         iv_code.setOnClickListener(this);
         iv_code.setTag("vocde");

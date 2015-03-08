@@ -44,6 +44,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
     private int page = 1;//当前页
     private int rows = 10;//每页多少条记录
     private String studentId;//学生id
+    private String departId;//部门id
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,23 +52,18 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
         setContentView(R.layout.activity_attendance);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        instance = HttpURLTools.getInstance();
-    }
 
-    @Override
-    protected void toInitUI() {
         list_attendance = (XListView) findViewById(R.id.list_attendance);
         et_attendance_search_date_up = (EditText) findViewById(R.id.et_attendance_search_date_up);
         et_attendance_search_date_down = (EditText) findViewById(R.id.et_attendance_search_date_down);
         list_attendance.setPullLoadEnable(true);
         list_attendance.setPullRefreshEnable(true);
         list_attendance.setXListViewListener(this);//给xListView设置监听  ******
-    }
 
-    @Override
-    protected void toUIOper() {
+        preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        instance = HttpURLTools.getInstance();
         username = preferences.getString(ConfigContract.USERNAME, null);
+
         if (username != null) {
             try {
                 String encrypt3DES = EncryptUtils.Encrypt3DES(username, ConfigContract.CODE);
@@ -91,6 +87,57 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                                 Log.e(ConfigContract.CMD, userDetail.toString());
                                 if (userDetail != null) {
                                     studentId = userDetail.getId();
+                                    departId = userDetail.getDepartid();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.e(ConfigContract.CMD, e.getMessage());
+                            }
+                        } else {
+                            showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            ShowToast(ConfigContract.GET_USER_INFO_ERROR);
+        }
+    }
+
+    @Override
+    protected void toInitUI() {
+
+    }
+
+    @Override
+    protected void toUIOper() {
+
+        if (username != null) {
+            try {
+                String encrypt3DES = EncryptUtils.Encrypt3DES(username, ConfigContract.CODE);
+                String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
+                RequestParams params = new RequestParams();
+                params.put("loginname", encrypt3DES);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                        showErrorIms(i + "--" + s);
+                    }
+
+                    @Override
+                    public void onSuccess(int i, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, s);
+                        if (i == 200) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                String attributes = jsonObject.getString("attributes");
+                                UserDetail userDetail = new UserDetail(attributes);
+                                Log.e(ConfigContract.CMD, userDetail.toString());
+                                if (userDetail != null) {
+                                    studentId = userDetail.getId();
+                                    departId = userDetail.getDepartid();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -117,51 +164,132 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        RequestParams params = null;
+        String url = null;
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
             case R.id.attendance_search_actions:
+                //学生考勤查询
                 if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
                     ShowToast("请输入查询时间（2014-12-15）");
                     return true;
                 }
-                String attend_count = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_COUNT_CONTROLLER_URL;
-                RequestParams params = new RequestParams();
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_COUNT_CONTROLLER_URL;
+                params = new RequestParams();
                 params.put(ConfigContract.STUDENT_ID, studentId);
                 params.put(ConfigContract.BEGIN_DATE, et_attendance_search_date_up.getText().toString());
                 params.put(ConfigContract.END_DATE, et_attendance_search_date_down.getText().toString());
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
-                instance.post(attend_count, params, new TextHttpResponseHandler() {
+                instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                        Log.e(ConfigContract.CMD, "出勤" + "失败");
                     }
 
                     @Override
                     public void onSuccess(int i, Header[] headers, String s) {
-                        Log.e(ConfigContract.CMD, "出勤" + i + s);
+                        Log.e(ConfigContract.CMD, "学生考勤" + i + s);
                     }
                 });
                 return true;
             case R.id.attendance_depart_actions:
                 //子部门
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.DEPART_CONTROLLER_URL;
+                params = new RequestParams();
+                params.put(ConfigContract.departid, departId);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int i, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "子部门" + i + s);
+                    }
+                });
                 return true;
             case R.id.attendance_Io_actions:
                 //进出类型
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
+                params = new RequestParams();
+                params.put(ConfigContract.STUDENT_ID, studentId);
+                params.put(ConfigContract.PAGE, page);
+                params.put(ConfigContract.ROWS, rows);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int i, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "进出类型" + i + s);
+                    }
+                });
                 return true;
             case R.id.attendance_AttendRecord_actions:
                 //考勤汇总
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_URL;
+                params = new RequestParams();
+                params.put(ConfigContract.departid, departId);
+                params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
+                params.put(ConfigContract.cpart, 1);
+                params.put(ConfigContract.PAGE, page);
+                params.put(ConfigContract.ROWS, rows);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int i, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "考勤汇总" + i + s);
+                    }
+                });
                 return true;
             case R.id.attendance_AttendCount_actions:
                 //考勤汇总详细
                 return true;
             case R.id.attendance_AttendCountController_actions:
                 //考勤报表
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_URL;
+                params = new RequestParams();
+                params.put(ConfigContract.departid, departId);
+                params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
+                params.put(ConfigContract.cpart, 1);
+                params.put(ConfigContract.PAGE, page);
+                params.put(ConfigContract.ROWS, rows);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int i, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "考勤汇总" + i + s);
+                    }
+                });
                 return true;
             case R.id.attendance_viewAttendCountController_actions:
                 //考勤统计
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.VIEW_ATTEND_COUNT_CONTROLLER_URL;
+                params = new RequestParams();
+                params.put(ConfigContract.userDid, departId);
+                params.put(ConfigContract.countDate_begin, et_attendance_search_date_up.getText().toString());
+                params.put(ConfigContract.countDate_end, et_attendance_search_date_down.getText().toString());
+                params.put(ConfigContract.PAGE, page);
+                params.put(ConfigContract.ROWS, rows);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int i, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "考勤统计" + i + s);
+                    }
+                });
                 return true;
         }
         return super.onOptionsItemSelected(item);
