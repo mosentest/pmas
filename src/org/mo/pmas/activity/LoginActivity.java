@@ -30,12 +30,15 @@ import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.ClientUitl;
 import org.mo.common.util.ConfigContract;
 import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.application.PmasAppliaction;
+import org.mo.znyunxt.entity.UserDetail;
 import org.mo.znyunxt.util.UriUtil;
 
 import java.io.File;
@@ -256,7 +259,40 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
                     LoginActivity.this.finish();
                     overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
                 }
+                try {
+                    String encrypt3DES = EncryptUtils.Encrypt3DES(username2, ConfigContract.CODE);
+                    String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
+                    RequestParams params = new RequestParams();
+                    params.put("loginname", encrypt3DES);
+                    instance.post(url, params, new TextHttpResponseHandler() {
+                        @Override
+                        public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                            showErrorIms(i + "--" + s);
+                        }
+
+                        @Override
+                        public void onSuccess(int i, Header[] headers, String s) {
+                            Log.e(ConfigContract.CMD, s);
+                            if (i == 200) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String attributes = jsonObject.getString("attributes");
+                                    UserDetail userDetail = new UserDetail(attributes);
+                                    Log.e(ConfigContract.CMD, userDetail.toString());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Log.e(ConfigContract.CMD, e.getMessage());
+                                }
+                            } else {
+                                showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
         });
         progress.dismiss();
     }

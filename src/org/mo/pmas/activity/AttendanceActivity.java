@@ -10,11 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
@@ -44,7 +46,8 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
     private int page = 1;//当前页
     private int rows = 10;//每页多少条记录
     private String studentId;//学生id
-    private String departId;//部门id
+    private String departId;//用户所在部门id
+    private String recordid;//考勤汇总id
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,47 +66,6 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
         preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         instance = HttpURLTools.getInstance();
         username = preferences.getString(ConfigContract.USERNAME, null);
-
-        if (username != null) {
-            try {
-                String encrypt3DES = EncryptUtils.Encrypt3DES(username, ConfigContract.CODE);
-                String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
-                RequestParams params = new RequestParams();
-                params.put("loginname", encrypt3DES);
-                instance.post(url, params, new TextHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                        showErrorIms(i + "--" + s);
-                    }
-
-                    @Override
-                    public void onSuccess(int i, Header[] headers, String s) {
-                        Log.e(ConfigContract.CMD, s);
-                        if (i == 200) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(s);
-                                String attributes = jsonObject.getString("attributes");
-                                UserDetail userDetail = new UserDetail(attributes);
-                                Log.e(ConfigContract.CMD, userDetail.toString());
-                                if (userDetail != null) {
-                                    studentId = userDetail.getId();
-                                    departId = userDetail.getDepartid();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.e(ConfigContract.CMD, e.getMessage());
-                            }
-                        } else {
-                            showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            ShowToast(ConfigContract.GET_USER_INFO_ERROR);
-        }
     }
 
     @Override
@@ -179,10 +141,12 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_COUNT_CONTROLLER_URL;
                 params = new RequestParams();
                 params.put(ConfigContract.STUDENT_ID, studentId);
+                params.put(ConfigContract.filed, "id,createTime,depart.departname,depart.id,student.name,part,realAttend,lastOccurtime,lastIo");
                 params.put(ConfigContract.BEGIN_DATE, et_attendance_search_date_up.getText().toString());
                 params.put(ConfigContract.END_DATE, et_attendance_search_date_down.getText().toString());
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
+                showErrorIms(params.toString());
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -214,7 +178,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 //进出类型
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                 params = new RequestParams();
-                params.put(ConfigContract.STUDENT_ID, studentId);
+                params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
                 instance.post(url, params, new TextHttpResponseHandler() {
@@ -232,8 +196,9 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 //考勤汇总
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_URL;
                 params = new RequestParams();
-                params.put(ConfigContract.departid, departId);
+                params.put(ConfigContract.userDid, departId);
                 params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
+                params.put(ConfigContract.filed, "id,createdate,part,cq,cd,qj,qq,dj,ts,depart.departname");
                 params.put(ConfigContract.cpart, 1);
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
@@ -243,18 +208,47 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                     }
 
                     @Override
-                    public void onSuccess(int i, Header[] headers, String s) {
-                        Log.e(ConfigContract.CMD, "考勤汇总" + i + s);
+                    public void onSuccess(int code, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "考勤汇总" + code + s);
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            JSONArray rows1 = jsonObject.getJSONArray("rows");
+                            for (int i = 0; i < rows1.length(); i++) {
+                                JSONObject jsonObject1 = rows1.getJSONObject(i);
+                                recordid = jsonObject1.getString("id");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 return true;
             case R.id.attendance_AttendCount_actions:
                 //考勤汇总详细
+                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_DATA_GRID_BY_RECORD_ID_URL;
+                params = new RequestParams();
+                params.put(ConfigContract.recordid, recordid);
+                params.put(ConfigContract.filed, "id,student.name,depart.departname,depart.id,part,attendName,realAttend,createTime,lastOccurtime,lastIo");
+                params.put(ConfigContract.PAGE, page);
+                params.put(ConfigContract.ROWS, rows);
+                instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Header[] headers, String s) {
+                        Log.e(ConfigContract.CMD, "考勤汇总详细" + code + s);
+                    }
+                });
                 return true;
             case R.id.attendance_AttendCountController_actions:
                 //考勤报表
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_URL;
                 params = new RequestParams();
+                params.put(ConfigContract.attendName, 0);//实际考勤代号
+                params.put(ConfigContract.userDid, departId);
+                params.put(ConfigContract.filed, "id,createTime,depart.departname,depart.id,student.name,part,realAttend,lastOccurtime,lastIo");
                 params.put(ConfigContract.departid, departId);
                 params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
                 params.put(ConfigContract.cpart, 1);
@@ -267,7 +261,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
 
                     @Override
                     public void onSuccess(int i, Header[] headers, String s) {
-                        Log.e(ConfigContract.CMD, "考勤汇总" + i + s);
+                        Log.e(ConfigContract.CMD, "考勤报表" + i + s);
                     }
                 });
                 return true;
@@ -276,6 +270,8 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.VIEW_ATTEND_COUNT_CONTROLLER_URL;
                 params = new RequestParams();
                 params.put(ConfigContract.userDid, departId);
+                params.put(ConfigContract.departid, departId);
+                params.put(ConfigContract.filed, "departname,departid,countDate,countDate_begin,countDate_end,studentid,stuname,cq,cd,qj,qq");
                 params.put(ConfigContract.countDate_begin, et_attendance_search_date_up.getText().toString());
                 params.put(ConfigContract.countDate_end, et_attendance_search_date_down.getText().toString());
                 params.put(ConfigContract.PAGE, page);

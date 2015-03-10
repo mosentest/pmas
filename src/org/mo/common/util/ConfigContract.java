@@ -30,7 +30,7 @@ public interface ConfigContract {
     /**
      * 8.单个学生考勤统计查询
      */
-    public final static String TB_ATTEND_COUNT_CONTROLLER_URL = "tbAttendCountController.do?studentAttendCountDatagrid&field";
+    public final static String TB_ATTEND_COUNT_CONTROLLER_URL = "tbAttendCountController.do?studentAttendCountDatagrid";
     /**
      * 2.获取子部门
      */
@@ -39,23 +39,23 @@ public interface ConfigContract {
     /**
      * 3.获取进出类型
      */
-    public final static String TB_IO_CONTROLLER_URL = "tbIoController.do?datagrid&field";
+    public final static String TB_IO_CONTROLLER_URL = "tbIoController.do?datagrid";
     /**
      * 4.考勤汇总
      */
-    public final static String TB_ATTEND_RECORD_CONTROLLER_URL = "tbAttendRecordController.do?datagrid&field";
+    public final static String TB_ATTEND_RECORD_CONTROLLER_URL = "tbAttendRecordController.do?datagrid";
     /**
      * 5.考勤汇总详情
      */
-    public final static String TB_ATTEND_RECORD_CONTROLLER_DATA_GRID_BY_RECORD_ID_URL = "tbAttendCountController.do?datagridByRecordid&field";
+    public final static String TB_ATTEND_RECORD_CONTROLLER_DATA_GRID_BY_RECORD_ID_URL = "tbAttendCountController.do?datagridByRecordid";
     /**
      * 6.考勤报表
      */
-    public final static String TB_ATTEND_RECORD_CONTROLLER_DATA_GRID_URL = "tbAttendCountController.do?datagrid&field";
+    public final static String TB_ATTEND_RECORD_CONTROLLER_DATA_GRID_URL = "tbAttendCountController.do?datagrid";
     /**
      * 7.考勤统计
      */
-    public final static String VIEW_ATTEND_COUNT_CONTROLLER_URL = "viewAttendCountController.do?datagrid&field";
+    public final static String VIEW_ATTEND_COUNT_CONTROLLER_URL = "viewAttendCountController.do?datagrid";
 
     /**
      * 8个人查询
@@ -90,6 +90,8 @@ public interface ConfigContract {
 
     public final static String PAGE = "page";
     public final static String ROWS = "rows";
+
+    public final static String filed="field";
 
 
 }
