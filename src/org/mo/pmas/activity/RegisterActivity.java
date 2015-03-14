@@ -1,23 +1,14 @@
 package org.mo.pmas.activity;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetListener;
-import cn.bmob.v3.listener.SaveListener;
+
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.ValidateUtil;
-import org.mo.pmas.util.ErrorEnum;
-
-import java.util.List;
 
 /**
  * Created by moziqi on 2015/1/4 0004.
@@ -111,53 +102,7 @@ public class RegisterActivity extends BaseFramgmentActivity implements View.OnCl
             ShowToast("邮箱格式不正确" + ValidateUtil.isEmail(email));
             return;
         }
-        BmobQuery<BmobUser> query = new BmobQuery<BmobUser>();
-        query.addWhereEqualTo("username", account);
-        query.findObjects(this, new FindListener<BmobUser>() {
-            @Override
-            public void onSuccess(List<BmobUser> bmobUsers) {
-                if (bmobUsers.size() > 0) {
-                    ShowToast(account + "已经存在");
-                    flag = false;
-                } else {
-                    registerUser(account, password, email);
-                }
-            }
 
-            @Override
-            public void onError(int i, String s) {
-                ErrorEnum ident = ErrorEnum.ident(i);
-                ShowToast(ident.getMessage());
-            }
-        });
-    }
-
-    void registerUser(String account, String password, String email) {
-        final ProgressDialog progress = new ProgressDialog(RegisterActivity.this);
-        progress.setMessage("正在注册...");
-        progress.setCanceledOnTouchOutside(false);
-        progress.show();
-        BmobUser bmobUser = new BmobUser();
-        bmobUser.setUsername(account);
-        bmobUser.setPassword(password);
-        bmobUser.setEmailVerified(true);
-        bmobUser.setEmail(email);
-        bmobUser.signUp(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                ShowToast("注册成功");
-                progress.dismiss();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                ErrorEnum ident = ErrorEnum.ident(i);
-                ShowToast(ident.getMessage());
-                progress.dismiss();
-            }
-        });
     }
 
 }

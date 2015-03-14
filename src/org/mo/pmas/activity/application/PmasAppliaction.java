@@ -2,26 +2,16 @@ package org.mo.pmas.activity.application;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.TextView;
-
-import cn.bmob.v3.Bmob;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 
-import org.mo.common.util.FileUtil;
-import org.mo.common.util.ToastUtil;
-import org.mo.pmas.bmob.entity.MyUser;
-import org.mo.pmas.comm.Constant;
-import org.mo.pmas.entity.Note;
-import org.mo.pmas.repository.NoteRepository;
 import org.mo.pmas.util.SharePreferenceUtil;
 import org.mo.taskmanager.db.DBHelper;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +37,6 @@ public class PmasAppliaction extends Application {
     public void onCreate() {
         super.onCreate();
         pmasAppliaction = this;
-        Bmob.initialize(this, Constant.BMOBNAME);
         mLocationClient = new LocationClient(this.getApplicationContext());
         mMyLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(mMyLocationListener);

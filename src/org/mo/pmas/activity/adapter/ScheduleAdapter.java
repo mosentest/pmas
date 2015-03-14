@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import org.mo.pmas.activity.R;
-import org.mo.pmas.bmob.entity.Schedule;
-import org.mo.pmas.entity.ContactGroup;
+import org.mo.pmas.entity.Schedule;
 
 import java.util.List;
 

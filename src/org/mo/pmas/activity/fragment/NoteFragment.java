@@ -3,21 +3,16 @@ package org.mo.pmas.activity.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.listener.FindListener;
 import org.mo.common.util.DateUtil;
 import org.mo.pmas.activity.R;
-import org.mo.pmas.activity.fragment.listview.XListView;
-import org.mo.pmas.bmob.entity.MyUser;
-import org.mo.pmas.bmob.entity.Note;
 import org.mo.pmas.activity.adapter.NoteAdapter;
+import org.mo.pmas.activity.fragment.listview.XListView;
+//import org.mo.pmas.bmob.entity.Note;
 import org.mo.pmas.service.NoteService;
 
 import java.util.Calendar;
@@ -32,12 +27,11 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
     private XListView mXListView;
     private GridView mGridView;
     private NoteAdapter mNoteAdapter;
-    private List<Note> mNoteLists;
+//    private List<Note> mNoteLists;
     private Handler mHandler;
     private int currentPage = 1;
     private int size = 10;
     private static Calendar mCalendar;
-    private MyUser myUser;
 
     public static NoteFragment getInstance(Context context) {
         if (mNoteFragment == null) {
@@ -55,7 +49,6 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
         super.onCreate(savedInstanceState);
         mCalendar = Calendar.getInstance();
         mHandler = new Handler();
-        myUser = MyUser.getCurrentUser(getActivity(), MyUser.class);
     }
 
     @Override
@@ -68,35 +61,9 @@ public class NoteFragment extends BaseFragment implements XListView.IXListViewLi
         super.onActivityCreated(savedInstanceState);
         mGridView = (GridView) findViewById(R.id.gv_note_list);
         findAll();
-//        mXListView.setXListViewListener(this);
-//        mXListView.setPullLoadEnable(true);
     }
 
-//    private void findAllByLoadMore() {
-//        BmobQuery<Note> query = new BmobQuery<Note>();
-//        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);// 先从缓存获取数据，如果没有，再从网络获取。
-//        query.setLimit(size * currentPage);
-//        if (myUser == null) {
-//            return;
-//        }
-//        query.addWhereRelatedTo("notes", new BmobPointer(myUser));
-//        query.order("-createdAt");
-//        query.findObjects(mContext, new FindListener<Note>() {
-//            @Override
-//            public void onSuccess(List<Note> notes) {
-//                mNoteLists = notes;
-//                mNoteAdapter = new NoteAdapter(mNoteLists, mContext);
-//                mXListView.setAdapter(mNoteAdapter);
-//                mNoteAdapter.updateListView(mNoteLists);
-//                currentPage++;
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//                showErrorIms(i);
-//            }
-//        });
-//    }
+
 
     private void findAll() {
         NoteService noteService = new NoteService(mContext);

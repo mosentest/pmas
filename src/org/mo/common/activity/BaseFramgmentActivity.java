@@ -1,6 +1,5 @@
 package org.mo.common.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -8,14 +7,9 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobUser;
 
 import org.mo.common.util.ConfigContract;
-import org.mo.common.util.ToastUtil;
 import org.mo.pmas.activity.application.PmasAppliaction;
-import org.mo.pmas.comm.Constant;
-import org.mo.pmas.util.ErrorEnum;
 
 /**
  * Created by moziqi on 2014/12/31 0031.
@@ -81,10 +75,6 @@ public abstract class BaseFramgmentActivity extends FragmentActivity {
         this.startActivity(intent);
     }
 
-    public void loginout() {
-        BmobUser.logOut(this);   //清除缓存用户对象
-        BmobUser currentUser = BmobUser.getCurrentUser(this); // 现在的currentUser是null了
-    }
 
     public void showErrorIms(String i) {
         Log.e(TAG, i);
