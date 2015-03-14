@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -24,12 +23,11 @@ import org.mo.common.util.ConfigContract;
 import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.application.PmasAppliaction;
-import org.mo.pmas.activity.fragment.listview.XListView;
-import org.mo.znyunxt.entity.StudentAttendance;
-import org.mo.znyunxt.entity.TbIo;
+import org.mo.znyunxt.activity.AttendCountActivity;
+import org.mo.znyunxt.activity.AttendFormActivity;
+import org.mo.znyunxt.activity.AttendRecordActivity;
+import org.mo.znyunxt.activity.AttendanceOneActivity;
 import org.mo.znyunxt.entity.UserDetail;
-
-import java.util.ArrayList;
 
 /**
  * Created by moziqi on 2015/3/7 0007.
@@ -44,7 +42,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements View.On
     private int page = 1;//当前页
     private int rows = 10;//每页多少条记录
     private String studentId = null;//学生id
-    private String departId;//用户所在部门id
+    private String departId = null;//用户所在部门id
     private String recordid;//考勤汇总id
     private String rolename;//角色名字
 
@@ -86,11 +84,22 @@ public class AttendanceActivity extends BaseFramgmentActivity implements View.On
         Intent intent = null;
         switch (v.getId()) {
             case R.id.layout_AttendRecord:
-
+                intent = new Intent(AttendanceActivity.this, AttendRecordActivity.class);
+                //TODO 把部门的id传过去
+                intent.putExtra("departId", departId);
+                intent.putExtra("rolename", rolename);
                 break;
             case R.id.layout_AttendCount:
+                intent = new Intent(AttendanceActivity.this, AttendCountActivity.class);
+                //TODO 把部门的id传过去,到了那边需要查询是否还有子部门
+                intent.putExtra("departId", departId);
+                intent.putExtra("rolename", rolename);
                 break;
             case R.id.layout_AttendForm:
+                intent = new Intent(AttendanceActivity.this, AttendFormActivity.class);
+                //TODO 把部门的id传过去,到了那边需要查询是否还有子部门
+                intent.putExtra("departId", departId);
+                intent.putExtra("rolename", rolename);
                 break;
             case R.id.layout_StudentAttendance:
                 intent = new Intent(AttendanceActivity.this, AttendanceOneActivity.class);

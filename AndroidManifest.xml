@@ -176,7 +176,30 @@
             android:name=".AttendanceActivity"
             android:label="@string/kaoqin_search"
             android:screenOrientation="portrait" />
-        <activity android:name=".AttendanceOneActivity" />
+        <activity
+            android:name="org.mo.znyunxt.activity.AttendanceOneActivity"
+            android:label="@string/gerenkaoqin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.mo.znyunxt.activity.AttendRecordActivity"
+            android:label="@string/kaoqinhuizong"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.mo.znyunxt.activity.AttendRecordDetailActivity"
+            android:label="@string/kaoqinhuizongxiangxi"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.mo.znyunxt.activity.AttendCountActivity"
+            android:label="@string/kaoqintongji"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.mo.znyunxt.activity.AttendFormActivity"
+            android:label="@string/kaoqinbaobiao"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.mo.znyunxt.activity.ScoreOneActivity"
+            android:label="@string/chengjichaxun"
+            android:screenOrientation="portrait" />
 
         <service android:name="org.mo.taskmanager.service.UpdateWidgetService"></service>
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Created by moziqi on 2015/3/10 0010.
  */
-public class AttendRecord  implements Serializable{
+public class AttendRecord implements Serializable {
     private String Id;//	主键id
     private String createdate;//	考勤日期
     private String part;//考勤时间段（早午晚代号）
@@ -28,16 +28,16 @@ public class AttendRecord  implements Serializable{
         if (jsonStr != null) {
             try {
                 jsonObject = new JSONObject(jsonStr);
-                this.Id = jsonObject.getString("Id");
+                this.Id = jsonObject.getString("id");
                 this.createdate = jsonObject.getString("createdate");
-                this.part = jsonObject.getString("part");
-                this.cq = jsonObject.getString("cq");
-                this.cd = jsonObject.getString("cd");
-                this.qj = jsonObject.getString("qj");
-                this.qq = jsonObject.getString("qq");
-                this.dj = jsonObject.getString("dj");
-                this.ts = jsonObject.getString("ts");
-                this.depart_departname = jsonObject.getString("depart.departname");
+                this.part = CodeUtil.getPart(Integer.parseInt(jsonObject.getString("part")));
+                this.cq = "出勤人数：" + jsonObject.getString("cq");
+                this.cd = "迟到人数：" + jsonObject.getString("cd");
+                this.qj = "请假人数：" + jsonObject.getString("qj");
+                this.qq = "缺勤人数：" + jsonObject.getString("qq");
+                this.dj = "冻结人数：" + jsonObject.getString("dj");
+                this.ts = "特殊不考勤：" + jsonObject.getString("ts");
+                this.depart_departname = jsonObject.getString("depart.departname") + "班";
             } catch (JSONException e) {
                 e.printStackTrace();
             }

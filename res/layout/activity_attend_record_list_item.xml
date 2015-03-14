@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/rl_arli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_selector"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_ar_depart_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="高一1班"
+                android:textColor="@color/mylove"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_ar_create_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="2014-12-15"
+                android:textColor="@color/mylove"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_ar_part"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="早上"
+                android:textColor="@color/mylove"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_cq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="出勤人数：30"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="迟到人数：30"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="缺勤人数：30"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_qj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="请假人数：30"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_dj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="冻结人数：30"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_ts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="特殊不考勤：30"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -128,6 +128,12 @@
     <string name="AttendForm">考勤报表</string>
     <string name="AttendCount">考勤统计</string>
     <string name="StudentAttendance">个人考勤</string>
+    <string name="gerenkaoqin">个人考勤</string>
+    <string name="kaoqinhuizong">考勤汇总</string>
+    <string name="kaoqinhuizongxiangxi">考勤汇总详细</string>
+    <string name="kaoqintongji">考勤统计</string>
+    <string name="kaoqinbaobiao">考勤报表</string>
+    <string name="chengjichaxun">成绩查询</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

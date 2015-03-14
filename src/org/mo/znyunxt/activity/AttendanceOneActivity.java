@@ -1,10 +1,8 @@
-package org.mo.pmas.activity;
+package org.mo.znyunxt.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +20,7 @@ import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.ConfigContract;
 import org.mo.common.util.HttpURLTools;
+import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.adapter.AttendanceOneAdapter;
 import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.znyunxt.entity.StudentAttendance;
@@ -118,6 +117,8 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                 finish();
                 return true;
             case R.id.attendance_one_actions:
+                page = 1;
+                rows = 10;
                 //学生考勤查询
                 if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
                     ShowToast("请输入查询时间 > 2014-12-15");
@@ -147,7 +148,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        //TODO 待开发
                         String url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                         RequestParams params = new RequestParams();
                         params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
@@ -270,7 +270,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
             @Override
             public void onFinish() {
                 super.onFinish();
-                //TODO 待开发
                 String url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                 RequestParams params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");

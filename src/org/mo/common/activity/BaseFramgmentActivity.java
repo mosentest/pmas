@@ -53,7 +53,6 @@ public abstract class BaseFramgmentActivity extends FragmentActivity {
 
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     if (mToast == null) {
                         mToast = Toast.makeText(getApplicationContext(), text,
                                 Toast.LENGTH_LONG);
