@@ -123,10 +123,11 @@
     <string name="role_name">角色</string>
     <string name="depart">子部门查询</string>
     <string name="Io">进出类型查询</string>
-    <string name="AttendRecord">考勤汇总查询</string>
-    <string name="AttendCount">考勤汇总详情查询</string>
-    <string name="AttendCountController">考勤报表查询</string>
-    <string name="viewAttendCountController">考勤统计查询</string>
+    <string name="AttendRecord">考勤汇总</string>
+    <string name="AttendRecordDetail">考勤汇总详情</string>
+    <string name="AttendForm">考勤报表</string>
+    <string name="AttendCount">考勤统计</string>
+    <string name="StudentAttendance">个人考勤</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

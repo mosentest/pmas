@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.BaseJsonHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.protocol.HttpContext;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.mo.common.util.ConfigContract;
-import org.mo.common.util.EncryptUtils;
-import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.AboutActivity;
 import org.mo.pmas.activity.AttendanceActivity;
 import org.mo.pmas.activity.LoginActivity;
@@ -40,9 +23,6 @@ import org.mo.pmas.activity.ScoreActivity;
 import org.mo.pmas.activity.SetMyInfoActivity;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.pmas.util.SharePreferenceUtil;
-import org.mo.znyunxt.entity.UserDetail;
-
-import java.io.IOException;
 
 /**
  * Created by moziqi on 2015/1/4 0004.
@@ -66,8 +46,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private RelativeLayout m_layout_about;
     private LinearLayout m_ll_setting_loginned;
     private LinearLayout ll_setting_loginned;
+
     private SharedPreferences preferences;
     private String username;
+    private AsyncHttpClient instance;
+    private String rolecode;//角色代号
 
 
     public synchronized static SettingFragment getInstance(Context context) {
@@ -85,8 +68,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedUtil = PmasAppliaction.getInstance().getSpUtil();
-        preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        username = preferences.getString("username", null);
+
     }
 
     @Override
@@ -116,6 +98,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        username = preferences.getString("username", null);
         if (username == null) {
             m_btn_setting_nologin.setVisibility(View.VISIBLE);
             m_ll_setting_loginned.setVisibility(View.GONE);
@@ -124,6 +108,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             m_btn_setting_nologin.setVisibility(View.GONE);
             //设置用户名
             m_tv_set_name.setText(username);
+            //获取用户信息
         }
     }
 
@@ -176,6 +161,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.layout_kaoqin_search:
                 intent = new Intent(getActivity(), AttendanceActivity.class);
                 getActivity().startActivity(intent);
+
                 break;
             default:
                 ShowToast("错误");
@@ -186,6 +172,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         Intent intent = new Intent(mContext, LoginActivity.class);
         getActivity().startActivity(intent);
         //TODO 这里销毁主界面，导致很多问题，暂时不知道怎么处理
-        getActivity().finish();
+//        getActivity().finish();
     }
 }

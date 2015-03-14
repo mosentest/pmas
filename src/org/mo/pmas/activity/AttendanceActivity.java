@@ -1,16 +1,16 @@
 package org.mo.pmas.activity;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
-import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -24,20 +24,18 @@ import org.mo.common.util.ConfigContract;
 import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.application.PmasAppliaction;
-import org.mo.pmas.activity.fragment.ScoreSearchFragment;
 import org.mo.pmas.activity.fragment.listview.XListView;
+import org.mo.znyunxt.entity.StudentAttendance;
+import org.mo.znyunxt.entity.TbIo;
 import org.mo.znyunxt.entity.UserDetail;
 
-import java.util.zip.Inflater;
+import java.util.ArrayList;
 
 /**
  * Created by moziqi on 2015/3/7 0007.
  */
-public class AttendanceActivity extends BaseFramgmentActivity implements XListView.IXListViewListener {
+public class AttendanceActivity extends BaseFramgmentActivity implements View.OnClickListener {
 
-    private XListView list_attendance;
-    private EditText et_attendance_search_date_up;
-    private EditText et_attendance_search_date_down;
 
     private AsyncHttpClient instance;
     private SharedPreferences preferences;
@@ -45,9 +43,19 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
 
     private int page = 1;//当前页
     private int rows = 10;//每页多少条记录
-    private String studentId;//学生id
+    private String studentId = null;//学生id
     private String departId;//用户所在部门id
     private String recordid;//考勤汇总id
+    private String rolename;//角色名字
+
+    private RelativeLayout layout_AttendRecord;
+    private RelativeLayout layout_AttendCount;
+    private RelativeLayout layout_AttendForm;
+    private RelativeLayout layout_StudentAttendance;
+    private View v1;
+    private View v2;
+    private View v3;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,17 +63,45 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
         setContentView(R.layout.activity_attendance);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        layout_AttendRecord = (RelativeLayout) findViewById(R.id.layout_AttendRecord);
+        layout_AttendCount = (RelativeLayout) findViewById(R.id.layout_AttendCount);
+        layout_AttendForm = (RelativeLayout) findViewById(R.id.layout_AttendForm);
+        layout_StudentAttendance = (RelativeLayout) findViewById(R.id.layout_StudentAttendance);
+        v1 = findViewById(R.id.v1);
+        v2 = findViewById(R.id.v2);
+        v3 = findViewById(R.id.v3);
 
-        list_attendance = (XListView) findViewById(R.id.list_attendance);
-        et_attendance_search_date_up = (EditText) findViewById(R.id.et_attendance_search_date_up);
-        et_attendance_search_date_down = (EditText) findViewById(R.id.et_attendance_search_date_down);
-        list_attendance.setPullLoadEnable(true);
-        list_attendance.setPullRefreshEnable(true);
-        list_attendance.setXListViewListener(this);//给xListView设置监听  ******
+        layout_AttendRecord.setOnClickListener(this);
+        layout_AttendCount.setOnClickListener(this);
+        layout_AttendForm.setOnClickListener(this);
+        layout_StudentAttendance.setOnClickListener(this);
 
         preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         instance = HttpURLTools.getInstance();
         username = preferences.getString(ConfigContract.USERNAME, null);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.layout_AttendRecord:
+
+                break;
+            case R.id.layout_AttendCount:
+                break;
+            case R.id.layout_AttendForm:
+                break;
+            case R.id.layout_StudentAttendance:
+                intent = new Intent(AttendanceActivity.this, AttendanceOneActivity.class);
+                //把学生的id传过去
+                intent.putExtra("studentId", studentId);
+                intent.putExtra("rolename", rolename);
+                break;
+        }
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -75,14 +111,27 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
 
     @Override
     protected void toUIOper() {
-
+        String url = null;
+        RequestParams params = null;
         if (username != null) {
             try {
                 String encrypt3DES = EncryptUtils.Encrypt3DES(username, ConfigContract.CODE);
-                String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
-                RequestParams params = new RequestParams();
+                url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
+                params = new RequestParams();
                 params.put("loginname", encrypt3DES);
                 instance.post(url, params, new TextHttpResponseHandler() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        layout_AttendRecord.setVisibility(View.GONE);
+                        layout_AttendCount.setVisibility(View.GONE);
+                        layout_AttendForm.setVisibility(View.GONE);
+                        layout_StudentAttendance.setVisibility(View.GONE);
+                        v1.setVisibility(View.GONE);
+                        v2.setVisibility(View.GONE);
+                        v3.setVisibility(View.GONE);
+                    }
+
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
                         showErrorIms(i + "--" + s);
@@ -100,6 +149,24 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                                 if (userDetail != null) {
                                     studentId = userDetail.getId();
                                     departId = userDetail.getDepartid();
+                                    rolename = userDetail.getRolename();
+                                    if ("学生".equals(rolename)) {
+                                        layout_AttendRecord.setVisibility(View.GONE);
+                                        layout_AttendCount.setVisibility(View.GONE);
+                                        layout_AttendForm.setVisibility(View.GONE);
+                                        layout_StudentAttendance.setVisibility(View.VISIBLE);
+                                        v1.setVisibility(View.GONE);
+                                        v2.setVisibility(View.GONE);
+                                        v3.setVisibility(View.GONE);
+                                    } else {
+                                        layout_AttendRecord.setVisibility(View.VISIBLE);
+                                        layout_AttendCount.setVisibility(View.VISIBLE);
+                                        layout_AttendForm.setVisibility(View.VISIBLE);
+                                        layout_StudentAttendance.setVisibility(View.GONE);
+                                        v1.setVisibility(View.VISIBLE);
+                                        v2.setVisibility(View.VISIBLE);
+                                        v3.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -134,16 +201,16 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 return true;
             case R.id.attendance_search_actions:
                 //学生考勤查询
-                if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
-                    ShowToast("请输入查询时间（2014-12-15）");
-                    return true;
-                }
+//                if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
+//                    ShowToast("请输入查询时间 > 2014-12-15");
+//                    return true;
+//                }
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_COUNT_CONTROLLER_URL;
                 params = new RequestParams();
                 params.put(ConfigContract.STUDENT_ID, studentId);
                 params.put(ConfigContract.filed, "id,createTime,depart.departname,depart.id,student.name,part,realAttend,lastOccurtime,lastIo");
-                params.put(ConfigContract.BEGIN_DATE, et_attendance_search_date_up.getText().toString());
-                params.put(ConfigContract.END_DATE, et_attendance_search_date_down.getText().toString());
+//                params.put(ConfigContract.BEGIN_DATE, et_attendance_search_date_up.getText().toString());
+//                params.put(ConfigContract.END_DATE, et_attendance_search_date_down.getText().toString());
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
                 showErrorIms(params.toString());
@@ -197,7 +264,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_URL;
                 params = new RequestParams();
                 params.put(ConfigContract.userDid, departId);
-                params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
+//                params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
                 params.put(ConfigContract.filed, "id,createdate,part,cq,cd,qj,qq,dj,ts,depart.departname");
                 params.put(ConfigContract.cpart, 1);
                 params.put(ConfigContract.PAGE, page);
@@ -250,7 +317,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 params.put(ConfigContract.userDid, departId);
                 params.put(ConfigContract.filed, "id,createTime,depart.departname,depart.id,student.name,part,realAttend,lastOccurtime,lastIo");
                 params.put(ConfigContract.departid, departId);
-                params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
+//                params.put(ConfigContract.createdate, et_attendance_search_date_up.getText().toString());
                 params.put(ConfigContract.cpart, 1);
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
@@ -272,8 +339,8 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
                 params.put(ConfigContract.userDid, departId);
                 params.put(ConfigContract.departid, departId);
                 params.put(ConfigContract.filed, "departname,departid,countDate,countDate_begin,countDate_end,studentid,stuname,cq,cd,qj,qq");
-                params.put(ConfigContract.countDate_begin, et_attendance_search_date_up.getText().toString());
-                params.put(ConfigContract.countDate_end, et_attendance_search_date_down.getText().toString());
+//                params.put(ConfigContract.countDate_begin, et_attendance_search_date_up.getText().toString());
+//                params.put(ConfigContract.countDate_end, et_attendance_search_date_down.getText().toString());
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
                 instance.post(url, params, new TextHttpResponseHandler() {
@@ -292,21 +359,4 @@ public class AttendanceActivity extends BaseFramgmentActivity implements XListVi
     }
 
 
-    //或的数据后一定要加onLoad()方法，否则刷新会一直进行，根本停不下来
-    private void onLoad() {
-        list_attendance.stopRefresh();
-        list_attendance.stopLoadMore();
-        list_attendance.setRefreshTime("刚刚");
-    }
-
-    @Override
-    public void onRefresh() {
-        onLoad();
-
-    }
-
-    @Override
-    public void onLoadMore() {
-        onLoad();
-    }
 }

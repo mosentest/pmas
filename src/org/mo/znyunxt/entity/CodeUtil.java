@@ -1,8 +1,8 @@
-package org.mo.znyunxt.util;
+package org.mo.znyunxt.entity;
 
 import java.util.HashMap;
 
-public final class UriUtil {
+public final class CodeUtil {
 
 
     private static HashMap<Integer, String> ATTEND_NAME = new HashMap<Integer, String>();// 考勤代号

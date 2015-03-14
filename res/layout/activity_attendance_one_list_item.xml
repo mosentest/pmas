@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_aoli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_selector"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_student_departname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高一1"
+            android:textColor="@color/mylove"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_student_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_student_departname"
+            android:layout_marginTop="10dp"
+            android:text="李英强"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tv_student_realAttend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="迟到"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tv_student_io"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_student_realAttend"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="北门出校"
+            android:textColor="@color/mylove"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_student_part"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_student_departname"
+            android:layout_marginTop="38dp"
+            android:text="早上"
+            android:textColor="@color/mylove"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_student_lastOccurtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_student_part"
+            android:layout_toRightOf="@+id/tv_student_name"
+            android:text="2014-12-15 06:18:54.0"
+            android:textColor="@color/mylove"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</LinearLayout>

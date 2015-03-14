@@ -81,4 +81,68 @@ public class TbIo implements Serializable{
         sb.append('}');
         return sb.toString();
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIo() {
+        return io;
+    }
+
+    public void setIo(String io) {
+        this.io = io;
+    }
+
+    public String getGate() {
+        return gate;
+    }
+
+    public void setGate(String gate) {
+        this.gate = gate;
+    }
+
+    public String getIoType() {
+        return ioType;
+    }
+
+    public void setIoType(String ioType) {
+        this.ioType = ioType;
+    }
+
+    public String getIoSortName() {
+        return ioSortName;
+    }
+
+    public void setIoSortName(String ioSortName) {
+        this.ioSortName = ioSortName;
+    }
+
+    public String getGateType() {
+        return gateType;
+    }
+
+    public void setGateType(String gateType) {
+        this.gateType = gateType;
+    }
+
+    public String getInschool() {
+        return inschool;
+    }
+
+    public void setInschool(String inschool) {
+        this.inschool = inschool;
+    }
+
+    public String getIoname() {
+        return ioname;
+    }
+
+    public void setIoname(String ioname) {
+        this.ioname = ioname;
+    }
 }

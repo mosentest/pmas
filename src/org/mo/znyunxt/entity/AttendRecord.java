@@ -2,7 +2,6 @@ package org.mo.znyunxt.entity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mo.znyunxt.util.UriUtil;
 
 import java.io.Serializable;
 

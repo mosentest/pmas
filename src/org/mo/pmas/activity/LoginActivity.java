@@ -1,12 +1,9 @@
 package org.mo.pmas.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,18 +14,10 @@ import android.widget.ImageView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,14 +28,11 @@ import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.application.PmasAppliaction;
 import org.mo.znyunxt.entity.UserDetail;
-import org.mo.znyunxt.util.UriUtil;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -249,13 +235,15 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
             public void onSuccess(int code, Header[] headers, String s) {
                 Log.e(ConfigContract.CMD, "onSuccess" + code + "" + s);
                 if (code == 200) {
-                    Date data = new Date();
                     SharedPreferences.Editor edit = preferences.edit();
                     edit.putString(ConfigContract.USERNAME, username2);
                     edit.putString(ConfigContract.PASSWORD, password2);
                     edit.commit();
-                    Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
-                    startActivity(intent);
+                    //PmasAppliaction.getInstance().exit();
+//                    Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+
                     LoginActivity.this.finish();
                     overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
                 }
