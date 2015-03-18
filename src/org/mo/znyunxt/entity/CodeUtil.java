@@ -8,6 +8,8 @@ public final class CodeUtil {
     private static HashMap<Integer, String> ATTEND_NAME = new HashMap<Integer, String>();// 考勤代号
     private static HashMap<Integer, String> PART = new HashMap<Integer, String>();// 早午晚代号
     private static HashMap<String, String> ROLE_CODE = new HashMap<String, String>();// 角色代号
+    private static HashMap<Integer, String> EXAM_TYPE = new HashMap<Integer, String>();// 考试类型代号
+    private static HashMap<Integer, String> WEN_LI = new HashMap<Integer, String>();//文理类型代号
 
     static {
 
@@ -33,6 +35,41 @@ public final class CodeUtil {
         ROLE_CODE.put("office", "办公后勤");
         ROLE_CODE.put("depmanager", "部门主管");
         ROLE_CODE.put("school", "行政领导");
+
+
+        EXAM_TYPE.put(0, "月考");
+        EXAM_TYPE.put(1, "期中考");
+        EXAM_TYPE.put(2, "期末考");
+        EXAM_TYPE.put(3, "高考");
+        EXAM_TYPE.put(4, "中考");
+        EXAM_TYPE.put(5, "模拟考试");
+        EXAM_TYPE.put(6, "总评成绩");
+
+        WEN_LI.put(0, "文科");
+        WEN_LI.put(1, "理科");
+        WEN_LI.put(2, "未分类");
+    }
+
+    public  static String getWenLi(int key){
+        String result = null;
+        boolean containsKey = WEN_LI.containsKey(key);
+        if (containsKey) {
+            result = WEN_LI.get(key);
+        }
+        return result;
+    }
+    /**
+     * 通过key获取对应的考试类型
+     * @param key
+     * @return
+     */
+    public static String getExamType(int key) {
+        String result = null;
+        boolean containsKey = EXAM_TYPE.containsKey(key);
+        if (containsKey) {
+            result = EXAM_TYPE.get(key);
+        }
+        return result;
     }
 
     /**

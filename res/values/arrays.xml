@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exam_type">
+        <item>月考</item>
+        <item>期中考</item>
+        <item>期末考</item>
+        <item>高考</item>
+        <item>中考</item>
+        <item>模拟考试</item>
+        <item>总评成绩</item>
+    </string-array>
+</resources>

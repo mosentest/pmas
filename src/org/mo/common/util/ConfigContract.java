@@ -57,6 +57,33 @@ public interface ConfigContract {
      */
     public final static String VIEW_ATTEND_COUNT_CONTROLLER_URL = "viewAttendCountController.do?datagrid";
 
+
+    /**
+     * 9.获取学期列表（1）
+     */
+    public final static String TB_SEMESTER_CONTROLLER_URL = "tbSemesterController.do?getSemesterComboList";
+
+    /**
+     * 10.获取学期列表（2）
+     */
+    public final static String TB_SEMESTER_CONTROLLER_URL2 = "tbSemesterController.do?datagrid";
+
+    /**
+     * 11.获取考试列表（1）
+     */
+    public final static String TB_EXAM_CONTROLLER_URL1 = "tbExamController.do?datagrid";
+
+    /**
+     * 12.获取考试列表（2）
+     */
+    public final static String TB_EXAM_CONTROLLER_URL2 = "tbExamController.do?getExamComboList";
+
+    /**
+     * 13.查询某个学生的成绩
+     */
+    public final static String TB_CJ_CONTROLLER_URL = "tbCjController.do?datagrid";
+
+
     /**
      * 8个人查询
      */
@@ -68,7 +95,7 @@ public interface ConfigContract {
      * 7.考勤统计
      */
     public final static String userDid = "userDid";//用户所在部门id
-    public final static String departid = "departid";//要查询的班级id
+    public final static String departid = "depart.id";//要查询的班级id
     public final static String countDate_begin = "countDate_begin";//统计起始日期
     public final static String countDate_end = "countDate_end";//统计结束日期
 
@@ -91,7 +118,14 @@ public interface ConfigContract {
     public final static String PAGE = "page";
     public final static String ROWS = "rows";
 
-    public final static String filed="field";
+    public final static String filed = "field";
 
 
+    public final static String EXAM_ID = "exam.id";
+
+    public final static String SEMESTER_ID = "semesterid";
+
+    public final static String EXAM_TYPE = "examType";
+
+    public final static String studentName = "studentName";
 }

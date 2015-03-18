@@ -206,7 +206,6 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         progress = new ProgressDialog(LoginActivity.this);
         progress.setMessage("正在登录...");
         progress.setCanceledOnTouchOutside(false);
-        progress.show();
         final String username2 = mUsername.getText().toString().trim();
         final String password2 = mPassword.getText().toString().trim();
         String loginUrl = service + "/cas/login";
@@ -226,63 +225,78 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         Log.e(ConfigContract.CMD, loginUrl + params.toString());
 
         instance.post(loginUrl, params, new TextHttpResponseHandler() {
+
             @Override
             public void onFailure(int code, Header[] headers, String s, Throwable throwable) {
-                Log.e(ConfigContract.CMD, "登录onFailure:" + code);
+                Log.e(ConfigContract.CMD, "登录onFailure:" + code + s);
             }
 
             @Override
             public void onSuccess(int code, Header[] headers, String s) {
                 Log.e(ConfigContract.CMD, "onSuccess" + code + "" + s);
                 if (code == 200) {
-                    SharedPreferences.Editor edit = preferences.edit();
-                    edit.putString(ConfigContract.USERNAME, username2);
-                    edit.putString(ConfigContract.PASSWORD, password2);
-                    edit.commit();
-                    //PmasAppliaction.getInstance().exit();
-//                    Intent intent = new Intent(LoginActivity.this, EnterActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
+                    try {
+                        String encrypt3DES = EncryptUtils.Encrypt3DES(username2, ConfigContract.CODE);
+                        String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
+                        RequestParams params = new RequestParams();
+                        params.put("loginname", encrypt3DES);
 
-                    LoginActivity.this.finish();
-                    overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
-                }
-                try {
-                    String encrypt3DES = EncryptUtils.Encrypt3DES(username2, ConfigContract.CODE);
-                    String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
-                    RequestParams params = new RequestParams();
-                    params.put("loginname", encrypt3DES);
-                    instance.post(url, params, new TextHttpResponseHandler() {
-                        @Override
-                        public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                            showErrorIms(i + "--" + s);
-                        }
-
-                        @Override
-                        public void onSuccess(int i, Header[] headers, String s) {
-                            Log.e(ConfigContract.CMD, s);
-                            if (i == 200) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(s);
-                                    String attributes = jsonObject.getString("attributes");
-                                    UserDetail userDetail = new UserDetail(attributes);
-                                    Log.e(ConfigContract.CMD, userDetail.toString());
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Log.e(ConfigContract.CMD, e.getMessage());
+                        //请求用户数据
+                        instance.post(url, params, new TextHttpResponseHandler() {
+                            @Override
+                            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                                showErrorIms(i + "--" + s);
+                                if (progress != null) {
+                                    progress.dismiss();
                                 }
-                            } else {
-                                showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
                             }
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                            @Override
+                            public void onSuccess(int i, Header[] headers, String s) {
+                                Log.e(ConfigContract.CMD, s);
+                                if (i == 200) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(s);
+                                        String attributes = jsonObject.getString("attributes");
+                                        UserDetail userDetail = new UserDetail(attributes);
+                                        Log.e(ConfigContract.CMD, userDetail.toString());
+                                        SharedPreferences.Editor edit = preferences.edit();
+                                        edit.putString(ConfigContract.USERNAME, username2);
+                                        edit.putString(ConfigContract.PASSWORD, password2);
+                                        edit.commit();
+                                        LoginActivity.this.finish();
+                                        overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Log.e(ConfigContract.CMD, e.getMessage());
+                                    }
+                                } else {
+                                    showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
+                                }
+                            }
+
+                            @Override
+                            public void onStart() {
+                                super.onStart();
+                                if (progress != null) {
+                                    progress.show();
+                                }
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                super.onFinish();
+                                if (progress != null) {
+                                    progress.dismiss();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
         });
-        progress.dismiss();
     }
 
 }

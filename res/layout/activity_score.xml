@@ -1,21 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/base_color_text_white">
 
-    <fragment
-        android:id="@+id/fl_score_search"
-        android:name="org.mo.pmas.activity.fragment.ScoreSearchFragment"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"></fragment>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/fl_score_content"
-        android:name="org.mo.pmas.activity.fragment.ScoreShowFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"></fragment>
+        <RelativeLayout
+            style="@style/Register_Input"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_semester"
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="学期"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/sp_semester"
+                style= "@style/Register_Edit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@id/tv_semester"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/tv_semester"
+                android:gravity="bottom" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/Register_Input"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:id="@+id/tv_exam_type"
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="考试"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/sp_exam_type"
+                style="@style/Register_Edit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@id/tv_exam_type"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/tv_exam_type"
+                android:entries="@array/exam_type"
+                android:gravity="bottom" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <org.mo.pmas.activity.fragment.listview.XListView
+        android:id="@+id/list_score"
+        style="@style/Register_Input"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header"
+        android:layout_margin="10dp"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:scrollingCache="false" />
+
+</RelativeLayout>

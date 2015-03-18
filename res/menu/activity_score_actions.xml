@@ -5,4 +5,41 @@
         android:icon="@drawable/search"
         android:showAsAction="always|withText"
         android:title="@string/search" />
+    <item
+        android:id="@+id/kaoshixinxi"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="考试信息" />
+    <item
+        android:id="@+id/xueshengchengji"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="学生成绩" />
+    <item
+        android:id="@+id/xueqiliebiao1"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="学期列表1" />
+
+    <item
+        android:id="@+id/xueqiliebiao2"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="学期列表2" />
+
+    <item
+        android:id="@+id/kaoshiliebiao1"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="考试列表1" />
+    <item
+        android:id="@+id/kaoshiliebiao2"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="考试列表2" />
+    <item
+        android:id="@+id/genjukaoshihuoquchengjibiebiao"
+        android:icon="@drawable/search"
+        android:showAsAction="never"
+        android:title="根据考试获取成绩列表" />
 </menu>

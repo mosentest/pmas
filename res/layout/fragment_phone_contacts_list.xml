@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@color/base_color_text_white"
-        >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/base_color_text_white"
+    android:orientation="vertical">
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <org.mo.common.ui.sideBar.ClearEditText
-                android:id="@+id/filter_edit"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dip"
-                android:background="@drawable/acm_inputbox"
-                android:drawableLeft="@drawable/search"
-                android:hint="请输入查询关键字"
-                android:singleLine="true"
-                android:textSize="15.0dip"/>
+            android:id="@+id/filter_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/acm_inputbox"
+            android:drawableLeft="@drawable/search"
+            android:hint="请输入查询关键字"
+            android:singleLine="true"
+            android:textSize="15.0dip" />
 
         <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
             <org.mo.common.ui.ListView.ContactListView
-                    android:id="@+id/country_lvcountry"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center"/>
+                android:id="@+id/country_lvcountry"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:overScrollMode="never" />
 
             <TextView
-                    android:id="@+id/dialog"
-                    android:layout_width="80.0dip"
-                    android:layout_height="80.0dip"
-                    android:layout_gravity="center"
-                    android:background="@drawable/number_base"
-                    android:gravity="center"
-                    android:textColor="#ffffffff"
-                    android:textSize="30.0dip"
-                    android:visibility="invisible"/>
+                android:id="@+id/dialog"
+                android:layout_width="80.0dip"
+                android:layout_height="80.0dip"
+                android:layout_gravity="center"
+                android:background="@drawable/number_base"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="30.0dip"
+                android:visibility="invisible" />
 
             <org.mo.common.ui.sideBar.SideBar
-                    android:id="@+id/sidrbar"
-                    android:layout_width="30.0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="right|center"/>
+                android:id="@+id/sidrbar"
+                android:layout_width="30.0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right|center" />
         </FrameLayout>
     </LinearLayout>
 
     <org.mo.common.ui.sideBar.LoadingView
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

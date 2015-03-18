@@ -1,10 +1,8 @@
 package org.mo.znyunxt.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +27,6 @@ import org.mo.pmas.activity.R;
 import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.znyunxt.adapter.AttendRecordAdapter;
 import org.mo.znyunxt.entity.AttendRecord;
-import org.mo.znyunxt.entity.TbIo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
