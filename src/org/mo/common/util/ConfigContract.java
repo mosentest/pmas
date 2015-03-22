@@ -123,7 +123,7 @@ public interface ConfigContract {
 
     public final static String EXAM_ID = "exam.id";
 
-    public final static String SEMESTER_ID = "semesterid";
+    public final static String SEMESTER_ID = "semester.id";
 
     public final static String EXAM_TYPE = "examType";
 

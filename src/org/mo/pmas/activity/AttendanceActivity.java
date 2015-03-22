@@ -53,6 +53,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements View.On
     private View v1;
     private View v2;
     private View v3;
+    private String departname;
 
 
     @Override
@@ -87,18 +88,21 @@ public class AttendanceActivity extends BaseFramgmentActivity implements View.On
                 intent = new Intent(AttendanceActivity.this, AttendRecordActivity.class);
                 //TODO 把部门的id传过去
                 intent.putExtra("departId", departId);
+                intent.putExtra("departname", departname);
                 intent.putExtra("rolename", rolename);
                 break;
             case R.id.layout_AttendCount:
                 intent = new Intent(AttendanceActivity.this, AttendCountActivity.class);
                 //TODO 把部门的id传过去,到了那边需要查询是否还有子部门
                 intent.putExtra("departId", departId);
+                intent.putExtra("departname", departname);
                 intent.putExtra("rolename", rolename);
                 break;
             case R.id.layout_AttendForm:
                 intent = new Intent(AttendanceActivity.this, AttendFormActivity.class);
                 //TODO 把部门的id传过去,到了那边需要查询是否还有子部门
                 intent.putExtra("departId", departId);
+                intent.putExtra("departname", departname);
                 intent.putExtra("rolename", rolename);
                 break;
             case R.id.layout_StudentAttendance:
@@ -158,6 +162,7 @@ public class AttendanceActivity extends BaseFramgmentActivity implements View.On
                                 if (userDetail != null) {
                                     studentId = userDetail.getId();
                                     departId = userDetail.getDepartid();
+                                    departname = userDetail.getDepartname();
                                     rolename = userDetail.getRolename();
                                     if ("学生".equals(rolename)) {
                                         layout_AttendRecord.setVisibility(View.GONE);

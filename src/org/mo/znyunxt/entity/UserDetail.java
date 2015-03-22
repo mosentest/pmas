@@ -146,7 +146,7 @@ public class UserDetail implements Serializable {
                 jsonObject = new JSONObject(jsonStr);
                 this.id = jsonObject.getString("id");
                 this.name = jsonObject.getString("name");
-                this.departname = jsonObject.getString("departname") + "班";
+                this.departname = jsonObject.getString("departname");
                 this.departid = jsonObject.getString("departid");
                 this.sex = jsonObject.getString("sex");
                 this.rolename = jsonObject.getString("rolename");

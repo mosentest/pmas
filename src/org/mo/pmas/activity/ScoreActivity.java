@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -30,6 +31,7 @@ import org.mo.pmas.activity.fragment.ScoreShowFragment;
 import org.mo.pmas.activity.fragment.listview.XListView;
 import org.mo.pmas.ext.entity.Score;
 import org.mo.znyunxt.entity.CodeUtil;
+import org.mo.znyunxt.entity.Exam;
 import org.mo.znyunxt.entity.JsonToObjectUtil;
 import org.mo.znyunxt.entity.Semester;
 import org.mo.znyunxt.entity.UserDetail;
@@ -54,10 +56,12 @@ public class ScoreActivity extends BaseFramgmentActivity {
     private String rolename;
     private String semesterId;
     private List<Semester> semesterList;
+    private List<Exam> examList;
 
     private Spinner sp_semester;
     private Spinner sp_exam_type;
     private XListView list_score;
+    private RelativeLayout rl_kaoshi;
 
 
     @Override
@@ -73,6 +77,8 @@ public class ScoreActivity extends BaseFramgmentActivity {
         sp_semester = (Spinner) findViewById(R.id.sp_semester);
         sp_exam_type = (Spinner) findViewById(R.id.sp_exam_type);
         list_score = (XListView) findViewById(R.id.list_score);
+        rl_kaoshi = (RelativeLayout) findViewById(R.id.rl_kaoshi);
+        rl_kaoshi.setVisibility(View.GONE);
     }
 
     @Override
@@ -227,10 +233,9 @@ public class ScoreActivity extends BaseFramgmentActivity {
                 Semester semester = semesterList.get(sp_semester.getSelectedItemPosition());
                 params.put(ConfigContract.filed, "id,semesterid,examType,name,createDatetime");
                 params.put(ConfigContract.SEMESTER_ID, semester.getId());
-//                params.put(ConfigContract.EXAM_TYPE, sp_exam_type.getSelectedItemPosition());
+                params.put(ConfigContract.EXAM_TYPE, "");
                 params.put(ConfigContract.PAGE, page);
                 params.put(ConfigContract.ROWS, rows);
-                showErrorIms("考试列表参数：" + params.toString());
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -240,12 +245,13 @@ public class ScoreActivity extends BaseFramgmentActivity {
                     @Override
                     public void onSuccess(int i, Header[] headers, String s) {
                         try {
+                            examList = new ArrayList<Exam>();
                             JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
-                            showErrorIms(s);
-//                            for (int j = 0; j < jsonArray.length(); j++) {
-//                                Semester semester = new Semester(jsonArray.getString(j));
-//                                showErrorIms(semester.toString());
-//                            }
+                            for (int j = 0; j < jsonArray.length(); j++) {
+                                Exam semester = new Exam(jsonArray.getString(j));
+                                examList.add(semester);
+                                showErrorIms(semester.toString());
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();

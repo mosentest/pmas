@@ -55,6 +55,19 @@ public class AttendRecordActivity extends BaseFramgmentActivity implements XList
     private String recordid;//汇总id
     private List<AttendRecord> list;
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sp_time = null;
+        et_attend_record_date_up = null;
+        attendRecordAdapter = null;
+        changerListener = null;
+        datePickerDialog = null;
+        instance = null;
+        departId = null;//部门id
+        recordid = null;//汇总id
+        list = null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +99,11 @@ public class AttendRecordActivity extends BaseFramgmentActivity implements XList
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AttendRecord attendRecord = list.get(position - 1);
-                ShowToast(attendRecord.toString());
+                String id1 = attendRecord.getId();
+                Intent intent1 = new Intent(AttendRecordActivity.this, AttendRecordDetailActivity.class);
+                intent1.putExtra("recordid", id1);
+                startActivity(intent1);
+//                ShowToast(attendRecord.toString());
             }
         });
     }

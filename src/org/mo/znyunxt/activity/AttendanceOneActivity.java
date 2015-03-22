@@ -151,8 +151,8 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                         String url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                         RequestParams params = new RequestParams();
                         params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
-                        params.put(ConfigContract.PAGE, page);
-                        params.put(ConfigContract.ROWS, rows);
+                        params.put(ConfigContract.PAGE, 1);
+                        params.put(ConfigContract.ROWS, 30);
                         instance.post(url, params, new TextHttpResponseHandler() {
                             @Override
                             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -273,8 +273,8 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                 String url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                 RequestParams params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
-                params.put(ConfigContract.PAGE, page);
-                params.put(ConfigContract.ROWS, rows);
+                params.put(ConfigContract.PAGE, 1);
+                params.put(ConfigContract.ROWS, 30);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -347,7 +347,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
     @Override
     public void onLoadMore() {
         onLoad();
-
         //学生考勤查询
         if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
             ShowToast("请输入查询时间 > 2014-12-15");
@@ -382,8 +381,8 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                 String url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                 RequestParams params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
-                params.put(ConfigContract.PAGE, page);
-                params.put(ConfigContract.ROWS, rows);
+                params.put(ConfigContract.PAGE, 1);
+                params.put(ConfigContract.ROWS, 30);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {

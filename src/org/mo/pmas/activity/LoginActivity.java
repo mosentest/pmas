@@ -278,7 +278,7 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
                             @Override
                             public void onStart() {
                                 super.onStart();
-                                if (progress != null) {
+                                if (!LoginActivity.this.isFinishing()) {
                                     progress.show();
                                 }
                             }

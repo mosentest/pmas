@@ -9,4 +9,22 @@
         <item>模拟考试</item>
         <item>总评成绩</item>
     </string-array>
+
+    <string-array name="part_type">
+        <item>--请选择--</item>
+        <item>早上</item>
+        <item>下午</item>
+        <item>晚上</item>
+    </string-array>
+
+    <string-array name="attend_name">
+        <item>--请选择--</item>
+        <item>出勤</item>
+        <item>迟到</item>
+        <item>缺勤</item>
+        <item>请假</item>
+        <item>冻结</item>
+        <item>特殊</item>
+    </string-array>
+
 </resources>

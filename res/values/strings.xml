@@ -118,7 +118,7 @@
     <string name="search">个人查询</string>
     <string name="login_code_hint">验证码</string>
     <string name="realname">姓名</string>
-    <string name="depart_name">部门</string>
+    <string name="depart_name">班级</string>
     <string name="sex">性别</string>
     <string name="role_name">角色</string>
     <string name="depart">子部门查询</string>
@@ -134,6 +134,8 @@
     <string name="kaoqintongji">考勤统计</string>
     <string name="kaoqinbaobiao">考勤报表</string>
     <string name="chengjichaxun">成绩查询</string>
+    <string name="time">早中晚</string>
+    <string name="attendName">实际考勤</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

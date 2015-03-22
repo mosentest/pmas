@@ -23,6 +23,7 @@ public class AttendCount implements Serializable {
 
     public AttendCount() {
     }
+
     public AttendCount(String jsonStr) {
         JSONObject jsonObject = null;
         if (jsonStr != null) {
@@ -35,10 +36,10 @@ public class AttendCount implements Serializable {
                 this.countDate_end = jsonObject.getString("countDate_end");
                 this.studentid = jsonObject.getString("studentid");
                 this.stuname = jsonObject.getString("stuname");
-                this.cq = jsonObject.getString("cq");
-                this.cd = jsonObject.getString("cd");
-                this.qj = jsonObject.getString("qj");
-                this.qq = jsonObject.getString("qq");
+                this.cq = "出勤次数 " + jsonObject.getString("cq");
+                this.cd = "迟到次数" + jsonObject.getString("cd");
+                this.qj = "请假次数 " + jsonObject.getString("qj");
+                this.qq = "缺勤次数 " + jsonObject.getString("qq");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

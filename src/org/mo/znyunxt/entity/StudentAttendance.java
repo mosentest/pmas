@@ -29,7 +29,7 @@ public class StudentAttendance implements Serializable {
                 jsonObject = new JSONObject(jsonStr);
                 this.id = jsonObject.getString("id");
                 this.createTime = jsonObject.getString("createTime");
-                this.depart_departname = jsonObject.getString("depart.departname") + "班";
+                this.depart_departname = jsonObject.getString("depart.departname");
                 this.depart_id = jsonObject.getString("depart.id");
                 this.student_name = jsonObject.getString("student.name");
                 this.part = CodeUtil.getPart(Integer.parseInt(jsonObject.getString("part")));
