@@ -92,7 +92,7 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
         params = new RequestParams();
         params.put("id", departId);
         params.put(ConfigContract.PAGE, page);
-        params.put(ConfigContract.ROWS, rows);
+        params.put(ConfigContract.ROWS, 30);
         //先拿部门
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override

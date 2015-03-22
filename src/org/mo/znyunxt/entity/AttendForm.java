@@ -35,7 +35,7 @@ public class AttendForm implements Serializable {
                 this.depart_departname = jsonObject.getString("depart.departname");
                 this.depart_id = jsonObject.getString("depart.id");
                 this.realAttend = jsonObject.getString("realAttend");
-                this.createTime = jsonObject.getString("dj");
+                this.createTime = jsonObject.getString("createTime");
                 this.lastOccurtime = jsonObject.getString("lastOccurtime");
                 this.lastIo = jsonObject.getString("lastIo");
             } catch (JSONException e) {
