@@ -1,15 +1,16 @@
 package org.mo.pmas.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -26,11 +27,9 @@ import org.mo.common.util.ConfigContract;
 import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.application.PmasAppliaction;
-import org.mo.pmas.activity.fragment.ScoreSearchFragment;
-import org.mo.pmas.activity.fragment.ScoreShowFragment;
 import org.mo.pmas.activity.fragment.listview.XListView;
-import org.mo.pmas.ext.entity.Score;
-import org.mo.znyunxt.entity.CodeUtil;
+import org.mo.znyunxt.activity.ScoreOneActivity;
+import org.mo.znyunxt.adapter.ExamAdapter;
 import org.mo.znyunxt.entity.Exam;
 import org.mo.znyunxt.entity.JsonToObjectUtil;
 import org.mo.znyunxt.entity.Semester;
@@ -62,6 +61,10 @@ public class ScoreActivity extends BaseFramgmentActivity {
     private Spinner sp_exam_type;
     private XListView list_score;
     private RelativeLayout rl_kaoshi;
+    private RelativeLayout rl_score;
+    private LinearLayout header;
+
+    private ExamAdapter examAdapter;
 
 
     @Override
@@ -78,7 +81,23 @@ public class ScoreActivity extends BaseFramgmentActivity {
         sp_exam_type = (Spinner) findViewById(R.id.sp_exam_type);
         list_score = (XListView) findViewById(R.id.list_score);
         rl_kaoshi = (RelativeLayout) findViewById(R.id.rl_kaoshi);
-        rl_kaoshi.setVisibility(View.GONE);
+        rl_score = (RelativeLayout) findViewById(R.id.rl_score);
+        header = (LinearLayout) findViewById(R.id.header);
+        rl_score.setVisibility(View.GONE);
+
+        list_score.setPullRefreshEnable(false);
+        list_score.setPullLoadEnable(false);
+        list_score.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Exam exam = examList.get(position - 1);
+                ShowToast(exam.toString());
+                Intent intent = new Intent(ScoreActivity.this, ScoreOneActivity.class);
+                intent.putExtra("semesterid", exam.getSemesterid());
+                intent.putExtra("exam.id", exam.getId());
+                intent.putExtra("departId", departId);
+            }
+        });
     }
 
     @Override
@@ -108,7 +127,6 @@ public class ScoreActivity extends BaseFramgmentActivity {
 
                     @Override
                     public void onSuccess(int i, Header[] headers, String s) {
-                        Log.e(ConfigContract.CMD, s);
                         if (i == 200) {
                             try {
                                 JSONObject jsonObject = new JSONObject(s);
@@ -120,9 +138,12 @@ public class ScoreActivity extends BaseFramgmentActivity {
                                     departId = userDetail.getDepartid();
                                     rolename = userDetail.getRolename();
                                     if ("学生".equals(rolename)) {
-
+                                        ShowToast("正在开发中。。。");
                                     } else {
-
+                                        rl_score.setVisibility(View.VISIBLE);
+                                        list_score.setVisibility(View.VISIBLE);
+                                        header.setVisibility(View.VISIBLE);
+                                        rl_kaoshi.setVisibility(View.GONE);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -196,6 +217,7 @@ public class ScoreActivity extends BaseFramgmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         RequestParams params = null;
         String url = null;
+        rows = 100;//每页多少条记录
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -250,12 +272,17 @@ public class ScoreActivity extends BaseFramgmentActivity {
                             for (int j = 0; j < jsonArray.length(); j++) {
                                 Exam semester = new Exam(jsonArray.getString(j));
                                 examList.add(semester);
-                                showErrorIms(semester.toString());
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        examAdapter = new ExamAdapter(ScoreActivity.this, examList);
+                        list_score.setAdapter(examAdapter);
                     }
                 });
                 return true;
@@ -269,7 +296,7 @@ public class ScoreActivity extends BaseFramgmentActivity {
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                        showErrorIms(i+s);
+                        showErrorIms(i + s);
                     }
 
                     @Override
