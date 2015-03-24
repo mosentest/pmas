@@ -96,6 +96,7 @@ public class ScoreActivity extends BaseFramgmentActivity {
                 intent.putExtra("semesterid", exam.getSemesterid());
                 intent.putExtra("exam.id", exam.getId());
                 intent.putExtra("departId", departId);
+                startActivity(intent);
             }
         });
     }
