@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_selector">
+
+        <TextView
+            android:id="@+id/tv_score_departname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="高一1"
+            android:textColor="@color/mylove"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_score_studentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="王淑强"
+            android:textColor="@color/mylove"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_score_wenli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="文理：文科"
+            android:textColor="@color/mylove"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_score_departname">
+
+            <TextView
+                android:id="@+id/tv_score_yuwen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="语文:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_score_shuxue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_yuwen"
+                android:text="数学:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_score_yingyu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_shuxue"
+                android:text="英语:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_score_kouyu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_yingyu"
+                android:text="口语:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_one">
+
+            <TextView
+                android:id="@+id/tv_score_zhenzhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="政治:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_score_lishi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_zhenzhi"
+                android:text="历史:100"
+                android:textColor="@color/mylove"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/tv_score_dili"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_lishi"
+                android:text="地理:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_two">
+
+            <TextView
+                android:id="@+id/tv_score_wuli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="物理:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_score_huaxue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_wuli"
+                android:text="化学:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/tv_score_shengwu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_huaxue"
+                android:text="生物:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_three">
+
+            <TextView
+                android:id="@+id/tv_score_zonghe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="综合:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_score_zongfen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_zonghe"
+                android:text="总分:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/tv_score_mingci"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_score_zongfen"
+                android:text="名次:100"
+                android:textColor="@color/mylove"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -92,6 +92,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
         departId = intent.getStringExtra("departId");
         departname = intent.getStringExtra("departname");
         instance = HttpURLTools.getInstance();
+
         url = ConfigContract.SERVICE_SCHOOL + ConfigContract.DEPART_CONTROLLER_URL;
         params = new RequestParams();
         params.put("id", departId);

@@ -27,4 +27,9 @@
         <item>特殊</item>
     </string-array>
 
+    <string-array name="wenli">
+        <item>未分类</item>
+        <item>文科</item>
+        <item>理科</item>
+    </string-array>
 </resources>

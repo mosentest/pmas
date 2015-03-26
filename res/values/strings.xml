@@ -136,6 +136,8 @@
     <string name="chengjichaxun">成绩查询</string>
     <string name="time">早中晚</string>
     <string name="attendName">实际考勤</string>
+    <string name="wenli">文理</string>
+    <string name="studen_name">姓名</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>

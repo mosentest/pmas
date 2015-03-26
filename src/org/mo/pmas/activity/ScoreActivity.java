@@ -52,18 +52,19 @@ public class ScoreActivity extends BaseFramgmentActivity {
 
     private String studentId = null;//学生id
     private String departId = null;//用户所在部门id
+    private String departname;
     private String rolename;
     private String semesterId;
     private List<Semester> semesterList;
-    private List<Exam> examList;
 
+    private List<Exam> examList;
     private Spinner sp_semester;
     private Spinner sp_exam_type;
     private XListView list_score;
     private RelativeLayout rl_kaoshi;
     private RelativeLayout rl_score;
-    private LinearLayout header;
 
+    private LinearLayout header;
     private ExamAdapter examAdapter;
 
 
@@ -91,11 +92,12 @@ public class ScoreActivity extends BaseFramgmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Exam exam = examList.get(position - 1);
-                ShowToast(exam.toString());
+//                ShowToast(exam.toString());
                 Intent intent = new Intent(ScoreActivity.this, ScoreOneActivity.class);
                 intent.putExtra("semesterid", exam.getSemesterid());
                 intent.putExtra("exam.id", exam.getId());
                 intent.putExtra("departId", departId);
+                intent.putExtra("departname", departname);
                 startActivity(intent);
             }
         });
@@ -137,6 +139,7 @@ public class ScoreActivity extends BaseFramgmentActivity {
                                 if (userDetail != null) {
                                     studentId = userDetail.getId();
                                     departId = userDetail.getDepartid();
+                                    departname = userDetail.getDepartname();
                                     rolename = userDetail.getRolename();
                                     if ("学生".equals(rolename)) {
                                         ShowToast("正在开发中。。。");

@@ -1,7 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/base_color_text_white">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                style="@style/Register_Input"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:id="@+id/tv_depart_name"
+                    style="@style/Smile.TextView._Black"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/depart_name"
+                    android:textColor="@color/mylove"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/sp_depart_name"
+                    style="@style/Register_Edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@id/tv_depart_name"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/tv_depart_name"
+                    android:gravity="bottom" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            style="@style/Register_Input"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:id="@+id/tv_student_name"
+                style="@style/Smile.TextView._Black"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/studen_name"
+                android:textColor="@color/mylove"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_student_name"
+                style="@style/Register_Edit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@id/tv_student_name"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/tv_student_name" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <org.mo.pmas.activity.fragment.listview.XListView
+        android:id="@+id/list_score"
+        style="@style/Register_Input"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header"
+        android:layout_margin="10dp"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:scrollingCache="false" />
+</RelativeLayout>
