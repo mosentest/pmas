@@ -264,7 +264,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
             @Override
             public void onStart() {
                 super.onStart();
-                ShowToast("正在加载...");
+//                ShowToast("正在加载...");
             }
 
             @Override
@@ -370,7 +370,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
             @Override
             public void onStart() {
                 super.onStart();
-                ShowToast("正在加载...");
+//                ShowToast("正在加载...");
             }
 
 
