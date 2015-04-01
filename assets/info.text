@@ -1,0 +1,223 @@
+ 2015-03-31
+handler 22:14:47
+我就晚上 有空
+詹少威 22:14:50
+恩
+handler 22:14:53
+今天调了一晚
+handler 22:14:55
+我都搞不懂
+詹少威 22:14:55
+知道了
+handler 22:14:56
+为什么
+handler 22:15:01
+之前的版本好好的
+handler 22:15:14
+7点半回校，弄到现在，，
+handler 22:15:22
+我一点效果都弄不出来。
+handler 22:15:52
+ 最好这样
+詹少威 22:15:55
+我们的项目不是为了你才有的，明白？根据需要变化改动不是很正常吗？
+handler 22:16:02
+我知道啊
+詹少威 22:16:13
+那就给你弄个原来的楼
+handler 22:16:17
+你们需求改，
+handler 22:16:37
+我可是我就知道接口。，好多事情，我没参与，我具体实现，我怎么知道
+handler 22:17:03
+我主要没参与，我不知道他们写的逻辑 怎么实现
+handler 22:17:59
+我都搞不懂，为什么非要用302为 登录成功
+詹少威 22:18:13
+这些就不用你关心了
+handler 22:18:28
+最好不用
+handler 22:18:49
+cas 你们单点登录
+handler 22:19:15
+那你明天联系他们，看可不可以
+handler 22:19:31
+谢谢了，我要冲凉先了。
+ 2015-04-01
+詹少威 18:09:24
+今天跟接口开发那边调试了
+詹少威 18:10:43
+统一身份验证之后，再访问一下http://www.znyunxt.cn:9080/school/cloudLoginController.do?applogin
+詹少威 18:11:04
+就可以了，其他接口不变，就这个登录的时候改一下就行
+詹少威 18:11:34
+即登录成功后，访问一下http://www.znyunxt.cn:9080/school/cloudLoginController.do?applogin
+詹少威 18:12:00
+这个调不通就你代码的问题了，我已经用代码调试通过
+詹少威 18:14:35
+public static Boolean login(Map<String,String> userMap){
+        try {
+        	String service2 = "http://www.znyunxt.cn:9080/school/cloudLoginController.do?applogin";
+           String _services = "service=" + URLEncoder.encode(service2, "utf-8");
+            String loginUrl = service+"/cas/login";
+            String ltUrl = loginUrl+"?"+_services+"&get-lt=true&n="+new Date().getTime()+"&randomNum="+new Random().nextDouble();
+            ltUrl+="&username="+userMap.get("username")+"&password="+userMap.get("password");
+            HttpGet httpGet = new HttpGet(ltUrl);
+            // 创建参数队列
+            HttpResponse response = client.execute(httpGet);
+
+            HttpEntity entity = response.getEntity();
+            String responseBodyAsString = EntityUtils.toString(entity);
+            String strs[] = responseBodyAsString.split("\n");
+            Pattern p = Pattern.compile("\"([^\"]+)\"");
+            Matcher m = null;
+            for(int i=0;i<strs.length;i++){
+                m = p.matcher(strs[i]);
+                if(m.find()){
+                    String group = m.group(1);
+                    strs[i]=group;
+                    //Log.w("group:",group);
+                }
+            }
+            System.out.println(strs[0]+":"+strs[1]);
+            HttpPost httppost = new HttpPost(loginUrl);
+            List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+            formparams = new ArrayList<NameValuePair>();
+            formparams.add(new BasicNameValuePair("service", URLEncoder.encode(service2, "utf-8")));
+            formparams.add(new BasicNameValuePair("username", userMap.get("username")));
+            formparams.add(new BasicNameValuePair("password", userMap.get("password")));
+            formparams.add(new BasicNameValuePair("lt",strs[0]));
+            formparams.add(new BasicNameValuePair("execution",strs[1]));
+            formparams.add(new BasicNameValuePair("_eventId","submit"));
+            formparams.add(new BasicNameValuePair("vcode",userMap.get("rand")));
+            UrlEncodedFormEntity uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
+            httppost.setEntity(uefEntity);
+            response = client.execute(httppost);
+            entity = response.getEntity();
+            System.out.println(response.getStatusLine().getStatusCode());
+            System.out.println(EntityUtils.toString(entity));
+
+HttpGet httpGet2 = new HttpGet(loginUrl+"?"+_services);
+System.out.println(loginUrl+"?"+_services);
+response = client.execute(httpGet2);
+entity = response.getEntity();
+System.out.println("applogin:"+EntityUtils.toString(entity));
+System.out.println(response.getStatusLine().getStatusCode());
+            //Log.w("login",response.getStatusLine().getStatusCode()+"");
+        } catch (UnsupportedEncodingException e) {
+            //Log.e("login",e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            //Log.e("login", e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+詹少威 18:14:56
+参考代码已给出
+handler 20:34:51
+现在可以了
+handler 20:34:58
+
+handler 20:35:05
+昨天就少给这个
+handler 20:36:50
+另一个问题
+handler 20:36:56
+学生帐号不行
+handler 20:37:00
+登录后
+handler 20:37:03
+拿不到数据
+handler 20:37:49
+学生帐号 登录后
+handler 20:37:56
+还是像 昨天的那样
+handler 20:37:59
+拿不出数据
+handler 20:38:03
+跳转不到
+詹少威 20:38:03
+不论谁登录，最后都是用开发账户去拿数据
+handler 20:38:06
+还是没做到？
+詹少威 20:38:26
+学生账户没权限
+handler 20:38:27
+ 现在我测试过了
+handler 20:38:35
+就 级长那个 能拿
+handler 20:38:40
+学生帐号拿不出
+handler 20:38:51
+
+詹少威 20:38:57
+
+handler 20:39:11
+那学生不做了？
+handler 20:39:22
+ 那学生端 不做了？
+詹少威 20:39:36
+看清楚我说的行不？
+handler 20:39:49
+没权限啊
+詹少威 20:40:14
+不论谁登录，最后都是用开发账户去拿数据
+handler 20:40:16
+学生帐号也要挂钩到开发帐号才能拿？
+詹少威 20:40:30
+这个一开始我就跟你说过了
+handler 20:41:08
+那学生这边不能登录进去？
+handler 20:41:12
+说直接点
+handler 20:41:50
+我都不知道你们设定 什么叫开发帐号
+handler 20:44:47
+？
+handler 20:44:57
+学生 不能登录 查询自己的信息？
+====================================================================2015-4-1 20:53
+詹少威  20:47:21
+普通用户，你只做两件事，1、登录，2、拿用户信息
+handler  20:47:55
+我现在学生那边 也不能拿到信息
+用户信息也拿不出来
+詹少威  20:48:04
+这两件事做完后，保存登录用户的信息
+等用户要查询其他数据的时候，用开发账户登录，用对应的接口查询
+handler  20:48:42
+什么开发帐号
+能说清楚？
+詹少威  20:48:50
+66259
+handler  20:48:52
+你又 给我？
+学生 那个 开发帐号吗
+我现在问的 是学生那边
+级长那个用户
+我测试了 功能
+都可以
+詹少威  20:49:27
+这个就是我不想鸟你的原因
+handler  20:49:49
+我现在 问的
+学生那个 不能做查询么？
+詹少威  20:50:24
+上面我已经回答了
+用66259查询
+给你的学生账号是gem
+handler  20:50:44
+
+是啊
+詹少威  20:50:58
+66259一早就跟你说了是开发账号
+handler  20:50:59
+gem也用662259？
+詹少威  20:51:08
+恩
+handler  20:51:28
+ 我gem 用户信息拿不出
+懂？
+handler  20:52:38
+我gem 帐号的 个人信息获取不到

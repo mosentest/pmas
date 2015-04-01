@@ -40,6 +40,7 @@ public class ClientUitl {
     public final static String EXECUTION = "execution";
     private final static String LOGIN_TICKET_EXECUTION_URL = "http://www.znyunxt.cn/cas/login?service=http://www.znyunxt.cn/ep&get-lt=true";
     public final static String VCODE_URL = "http://www.znyunxt.cn/cas/Kaptcha.jpg";
+    private static final String service = "http://www.znyunxt.cn";
 
     public static HttpClient getHttpClient() {
         // 创建 HttpParams 以用来设置 HTTP 参数（这一部分不是必需的）
@@ -56,7 +57,9 @@ public class ClientUitl {
         // 创建一个 HttpClient 实例
         // 注意 HttpClient httpClient = new HttpClient(); 是Commons HttpClient
         // 中的用法，在 Android 1.5 中我们需要使用 Apache 的缺省实现 DefaultHttpClient
-        httpClient = new DefaultHttpClient(httpParams);
+        if (httpClient == null) {
+            httpClient = new DefaultHttpClient(httpParams);
+        }
         return httpClient;
     }
 
@@ -92,29 +95,6 @@ public class ClientUitl {
     }
 
 
-    public static HttpResponse userLogin(String url, Map params) throws IOException {
-        /* 建立HTTPGet对象 */
-        String paramStr = "";
-        if (params != null) {
-            Iterator iter = params.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                Object key = entry.getKey();
-                Object val = entry.getValue();
-                paramStr += paramStr = "&" + key + "=" + val;
-            }
-        }
-        if (!paramStr.equals("")) {
-            paramStr = paramStr.replaceFirst("&", "?");
-            url += paramStr;
-        }
-        HttpGet httpRequest = new HttpGet(url);
-//        httpRequest.getParams().setParameter("http.protocol.max-redirects",30);
-        HttpResponse httpResponse = getHttpClient().execute(httpRequest);
-        return httpResponse;
-    }
-
-
     public static String doPost(String url, List<NameValuePair> params) throws Exception {
         /* 建立HTTPPost对象 */
         HttpPost httpRequest = new HttpPost(url);
@@ -123,53 +103,16 @@ public class ClientUitl {
         if (params != null && params.size() > 0) {
             httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
         }
-        if (null != JSESSIONID) {
-            httpRequest.setHeader("Cookie", "JSESSIONID=" + JSESSIONID);
-        }
         /* 发送请求并等待响应 */
         HttpResponse httpResponse = getHttpClient().execute(httpRequest);
         /* 若状态码为200 ok */
         if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             /* 读返回数据 */
             strResult = EntityUtils.toString(httpResponse.getEntity());
-            /* 获取cookieStore */
-            CookieStore cookieStore = httpClient.getCookieStore();
-            List<Cookie> cookies = cookieStore.getCookies();
-            for (int i = 0; i < cookies.size(); i++) {
-                if ("JSESSIONID".equals(cookies.get(i).getName())) {
-                    JSESSIONID = cookies.get(i).getValue();
-                    break;
-                }
-            }
         }
         Log.v("strResult", strResult);
         return strResult;
     }
 
-    /**
-     * (1)loginTicket跟execution用如下方法获取
-     * http://www.znyunxt.cn/cas/login?service=http://www.znyunxt.cn/ep&get-lt=true
-     * 会得到类似如下格式的字符串：
-     * var _loginTicket = "LT-578-DV1UMHE1rEi5Lp1geIkuElnl2uoh6o-cas.znyunxt.cn"; var _execution = "e1s1";
-     * 双引号中的字符串是变化的，其他不变，分析出双引号中的值，分别对应loginTicket\execution的值
-     *
-     * @return
-     */
-    public static Map<String, String> getVarValue() {
-        Map<String, String> map = null;
-        try {
-            map = new HashMap<String, String>();
-            String result = doPost(LOGIN_TICKET_EXECUTION_URL, null);
-            String[] split = result.split(";");
-            String substring = split[0].substring(split[0].indexOf("\"") + 1, split[0].lastIndexOf("\""));
-            String substring1 = split[1].substring(split[1].indexOf("\"") + 1, split[1].lastIndexOf("\""));
-            map.put(LOGIN_TICKET, substring);
-            map.put(EXECUTION, substring1);
-        } catch (Exception e) {
-            map = null;
-            e.printStackTrace();
-        }
-        return map;
-    }
-
+//    public static String
 }

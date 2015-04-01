@@ -31,6 +31,7 @@ import org.mo.znyunxt.entity.UserDetail;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Random;
@@ -97,17 +98,12 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         String loginUrl = service + "/cas/login";
         String _services = null;
         try {
-            _services = "service=" + URLEncoder.encode("http://" + service + "/ep", "utf-8");
+            _services = "service=" + URLEncoder.encode(ConfigContract.SERVICE_SCHOOL + "cloudLoginController.do?cloudlogin", "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         String ltUrl = loginUrl + "?" + _services + "&get-lt=true&n=" + new Date().getTime() + "&randomNum=" + new Random().nextDouble();
         ltUrl += "&username=" + mUsername.getText().toString().trim() + "&password=" + mPassword.getText().toString().trim();
-        if (instance == null) {
-            showErrorIms("对象为空" + ltUrl);
-        } else {
-            showErrorIms("对象" + ltUrl);
-        }
         instance.get(ltUrl, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int code, Header[] headers, byte[] bytes) {
@@ -212,7 +208,7 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         //这里才是登录模块主要功能
         RequestParams params = new RequestParams();
         try {
-            params.put("service", URLEncoder.encode(service + "/ep", "utf-8"));
+            params.put("service", URLEncoder.encode(ConfigContract.SERVICE_SCHOOL + "cloudLoginController.do?cloudlogin", "utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -223,78 +219,62 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
         params.put("_eventId", "submit");
         params.put("vcode", et_code.getText().toString().trim());
         Log.e(ConfigContract.CMD, loginUrl + params.toString());
-
+        instance.setEnableRedirects(false);
         instance.post(loginUrl, params, new TextHttpResponseHandler() {
 
             @Override
+            public void onStart() {
+                super.onStart();
+                if (!LoginActivity.this.isFinishing()) {
+                    try {
+                        progress.show();
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
             public void onFailure(int code, Header[] headers, String s, Throwable throwable) {
-                Log.e(ConfigContract.CMD, "登录onFailure:" + code + s);
+                Log.e(ConfigContract.CMD, "登录onFailure:" + code);
+                if (progress != null) {
+                    progress.dismiss();
+                }
+                if (code == 302) {
+                    //TODO 重新设置为可以重定向
+                    instance.setEnableRedirects(true);
+                    instance.post("http://www.znyunxt.cn:9080/school/cloudLoginController.do?applogin",null,new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                            showErrorIms(i+"");
+                        }
+
+                        @Override
+                        public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                            showErrorIms(i+"");
+                        }
+                    });
+                    SharedPreferences.Editor edit = preferences.edit();
+                    edit.putString(ConfigContract.USERNAME, username2);
+                    edit.putString(ConfigContract.PASSWORD, password2);
+                    edit.commit();
+                    LoginActivity.this.finish();
+                    overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                if (progress != null) {
+                    progress.dismiss();
+                }
             }
 
             @Override
             public void onSuccess(int code, Header[] headers, String s) {
                 Log.e(ConfigContract.CMD, "onSuccess" + code + "" + s);
-                if (code == 200) {
-                    try {
-                        String encrypt3DES = EncryptUtils.Encrypt3DES(username2, ConfigContract.CODE);
-                        String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
-                        RequestParams params = new RequestParams();
-                        params.put("loginname", encrypt3DES);
-
-                        //请求用户数据
-                        instance.post(url, params, new TextHttpResponseHandler() {
-                            @Override
-                            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                                showErrorIms(i + "--" + s);
-                                if (progress != null) {
-                                    progress.dismiss();
-                                }
-                            }
-
-                            @Override
-                            public void onSuccess(int i, Header[] headers, String s) {
-                                Log.e(ConfigContract.CMD, s);
-                                if (i == 200) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(s);
-                                        String attributes = jsonObject.getString("attributes");
-                                        UserDetail userDetail = new UserDetail(attributes);
-                                        Log.e(ConfigContract.CMD, userDetail.toString());
-                                        SharedPreferences.Editor edit = preferences.edit();
-                                        edit.putString(ConfigContract.USERNAME, username2);
-                                        edit.putString(ConfigContract.PASSWORD, password2);
-                                        edit.commit();
-                                        LoginActivity.this.finish();
-                                        overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Log.e(ConfigContract.CMD, e.getMessage());
-                                    }
-                                } else {
-                                    showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
-                                }
-                            }
-
-                            @Override
-                            public void onStart() {
-                                super.onStart();
-                                if (!LoginActivity.this.isFinishing()) {
-                                    progress.show();
-                                }
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                super.onFinish();
-                                if (progress != null) {
-                                    progress.dismiss();
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         });
     }
