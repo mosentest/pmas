@@ -46,7 +46,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
     private AsyncHttpClient instance;
 
     private static int page = 1;//当前页
-    private static int rows = 10;//每页多少条记录
+    private int rows = 10;//每页多少条记录
     private String total;
     private String studentId;//学生id
     private AttendanceOneAdapter attendanceOneAdapter;
@@ -118,7 +118,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                 return true;
             case R.id.attendance_one_actions:
                 page = 1;
-                rows = 10;
                 //学生考勤查询
                 if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
                     ShowToast("请输入查询时间 > 2014-12-15");
@@ -152,10 +151,11 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                         RequestParams params = new RequestParams();
                         params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                         params.put(ConfigContract.PAGE, 1);
-                        params.put(ConfigContract.ROWS, 30);
+                        params.put(ConfigContract.ROWS, 1000);
                         instance.post(url, params, new TextHttpResponseHandler() {
                             @Override
                             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                                ShowToast("1.检测网络 2.请重新登录");
                             }
 
                             @Override
@@ -199,6 +199,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
 
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -220,8 +221,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                         }
 
                     }
-
-
                 });
                 return true;
         }
@@ -240,7 +239,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
     public void onRefresh() {
         onLoad();
         page = 1;
-        rows = 10;
         //学生考勤查询
         if (et_attendance_search_date_up.getText().toString().equals("") || et_attendance_search_date_down.getText().toString().equals("")) {
             ShowToast("请输入查询时间 > 2014-12-15");
@@ -274,10 +272,11 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                 RequestParams params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, 1);
-                params.put(ConfigContract.ROWS, 30);
+                params.put(ConfigContract.ROWS, 1000);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -308,7 +307,6 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                                     }
                                 }
                             }
-
                             attendanceOneAdapter.update(studentAttendanceList);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -320,6 +318,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
 
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -362,7 +361,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
         params.put(ConfigContract.filed, "id,createTime,depart.departname,depart.id,student.name,part,realAttend,lastOccurtime,lastIo");
         params.put(ConfigContract.BEGIN_DATE, et_attendance_search_date_up.getText().toString());
         params.put(ConfigContract.END_DATE, et_attendance_search_date_down.getText().toString());
-        params.put(ConfigContract.PAGE, page);
+        params.put(ConfigContract.PAGE, ++page);
         params.put(ConfigContract.ROWS, rows);
 //        showErrorIms(params.toString());
         instance.post(url, params, new TextHttpResponseHandler() {
@@ -427,6 +426,7 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
 
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -437,17 +437,18 @@ public class AttendanceOneActivity extends BaseFramgmentActivity implements XLis
                     String rows1 = jsonObject.getString("rows");
                     JSONArray jsonArray = new JSONArray(rows1);
                     total = jsonObject.getString("total");
-                    rows = rows + 10;
-                    if (Integer.parseInt(total) < rows) {
-                        ShowToast("无数据可以加载啦");
-                        rows = Integer.parseInt(total);
-                    }
-                    studentAttendanceList = new ArrayList<StudentAttendance>();
-                    for (int code = 0; code < jsonArray.length(); code++) {
-                        String string = jsonArray.getString(code);
-                        StudentAttendance studentAttendance = new StudentAttendance(string);
+                    //当查询到最后一页的时候
+                    if((page * rows) > Integer.parseInt(total)){
+                        ShowToast("已到底部");
+                    }else{
+                        List<StudentAttendance> appendStudentAttendanceList = new ArrayList<StudentAttendance>();
+                        for (int code = 0; code < jsonArray.length(); code++) {
+                            String string = jsonArray.getString(code);
+                            StudentAttendance studentAttendance = new StudentAttendance(string);
 //                        showErrorIms(studentAttendance.toString());
-                        studentAttendanceList.add(studentAttendance);
+                            appendStudentAttendanceList.add(studentAttendance);
+                        }
+                        studentAttendanceList.addAll(appendStudentAttendanceList);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

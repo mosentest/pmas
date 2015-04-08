@@ -47,7 +47,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     private FileOutputStream b = null;
     private List<ContactGroup> contactGroups;
     //对应xml的id
-    private ImageView imageView_head;
+//    private ImageView imageView_head;
     private EditText et_contact_edit_name;
     //    private EditText et_contact_edit_birthday;
     private LinearLayout ll_edit_phone1;
@@ -71,9 +71,9 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.imageView_head:
-                imgAlertDialog();
-                break;
+//            case R.id.imageView_head:
+//                imgAlertDialog();
+//                break;
             case R.id.et_contact_edit_name:
                 break;
 //            case R.id.et_contact_edit_birthday:
@@ -212,7 +212,7 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
 
     @Override
     protected void toInitUI() {
-        imageView_head = (ImageView) findViewById(R.id.imageView_head);
+//        imageView_head = (ImageView) findViewById(R.id.imageView_head);
         et_contact_edit_name = (EditText) findViewById(R.id.et_contact_edit_name);
 //        et_contact_edit_birthday = (EditText) findViewById(R.id.et_contact_edit_birthday);
         ll_edit_phone1 = (LinearLayout) findViewById(R.id.ll_edit_phone1);
@@ -329,9 +329,9 @@ public class ContactEidtActivity extends BaseFramgmentActivity implements View.O
             ll_edit_phone4.setVisibility(View.GONE);
             ll_edit_phone5.setVisibility(View.GONE);
         }
-        imageView_head.setImageBitmap(oneById.getContactPhoto());
+//        imageView_head.setImageBitmap(oneById.getContactPhoto());
 //============================================================================================================
-        imageView_head.setOnClickListener(this);
+//        imageView_head.setOnClickListener(this);
     }
 
     private void imgAlertDialog() {

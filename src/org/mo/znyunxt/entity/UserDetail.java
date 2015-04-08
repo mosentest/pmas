@@ -10,6 +10,17 @@ import java.io.Serializable;
  */
 public class UserDetail implements Serializable {
 
+    public interface ColumnName {
+        public final static String ID = "id";
+        public final static String NAME = "name";
+        public final static String DEPART_NAME = "depart_name";
+        public final static String DEPART_ID = "depart_id";
+        public final static String SEX = "sex";
+        public final static String ROLE_NAME = "role_name";
+        public final static String ROLE_ID = "role_id";
+        public final static String ROLE_CODE = "role_code";
+    }
+
     /**
      * 用户主键id
      */

@@ -32,7 +32,7 @@ import java.util.List;
  * Created by moziqi on 2015/1/13 0013.
  */
 public class ContactAddActivity extends BaseFramgmentActivity implements View.OnClickListener {
-    private ImageView imageView_add_head;
+//    private ImageView imageView_add_head;
     private EditText et_contact_add_name;
 //    private EditText et_contact_add_birthday;
     private LinearLayout ll_add_phone1;
@@ -61,7 +61,7 @@ public class ContactAddActivity extends BaseFramgmentActivity implements View.On
 
     @Override
     protected void toInitUI() {
-        imageView_add_head = (ImageView) findViewById(R.id.imageView_add_head);
+//        imageView_add_head = (ImageView) findViewById(R.id.imageView_add_head);
         et_contact_add_name = (EditText) findViewById(R.id.et_contact_add_name);
 //        et_contact_add_birthday = (EditText) findViewById(R.id.et_contact_add_birthday);
         ll_add_phone1 = (LinearLayout) findViewById(R.id.ll_add_phone1);

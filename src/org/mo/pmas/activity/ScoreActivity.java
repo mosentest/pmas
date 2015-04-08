@@ -82,9 +82,9 @@ public class ScoreActivity extends BaseFramgmentActivity {
         sp_exam_type = (Spinner) findViewById(R.id.sp_exam_type);
         list_score = (XListView) findViewById(R.id.list_score);
         rl_kaoshi = (RelativeLayout) findViewById(R.id.rl_kaoshi);
+        rl_kaoshi.setVisibility(View.GONE);
         rl_score = (RelativeLayout) findViewById(R.id.rl_score);
         header = (LinearLayout) findViewById(R.id.header);
-        rl_score.setVisibility(View.GONE);
 
         list_score.setPullRefreshEnable(false);
         list_score.setPullLoadEnable(false);
@@ -92,15 +92,26 @@ public class ScoreActivity extends BaseFramgmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Exam exam = examList.get(position - 1);
-//                ShowToast(exam.toString());
                 Intent intent = new Intent(ScoreActivity.this, ScoreOneActivity.class);
+                departId=preferences.getString(UserDetail.ColumnName.DEPART_ID,"");
+                intent.putExtra("departId",departId);
+                departname=preferences.getString(UserDetail.ColumnName.DEPART_NAME, "");
+                showErrorIms(departId+"--"+departname);
+                intent.putExtra("departname", departname);
                 intent.putExtra("semesterid", exam.getSemesterid());
                 intent.putExtra("exam.id", exam.getId());
-                intent.putExtra("departId", departId);
-                intent.putExtra("departname", departname);
                 startActivity(intent);
             }
         });
+
+        String roleCode = preferences.getString(UserDetail.ColumnName.ROLE_CODE,"");
+        showErrorIms(roleCode);
+        if(!("grade".equals(roleCode) && "admin".equals(roleCode))){
+            //TODO 2015-4-7
+            // 普通用户，你只做两件事，1、登录，2、拿用户信息
+            //这两件事做完后，保存登录用户的信息
+            //等用户要查询其他数据的时候，用开发账户登录，用对应的接口查询
+        }
     }
 
     @Override
@@ -111,104 +122,44 @@ public class ScoreActivity extends BaseFramgmentActivity {
     protected void toUIOper() {
         String url = null;
         RequestParams params = null;
-        if (username != null) {
-            try {
-                String encrypt3DES = EncryptUtils.Encrypt3DES(username, ConfigContract.CODE);
-                url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
-                params = new RequestParams();
-                params.put("loginname", encrypt3DES);
-                instance.post(url, params, new TextHttpResponseHandler() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                    }
-
-                    @Override
-                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                        showErrorIms(i + "--" + s);
-                    }
-
-                    @Override
-                    public void onSuccess(int i, Header[] headers, String s) {
-                        if (i == 200) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(s);
-                                String attributes = jsonObject.getString("attributes");
-                                UserDetail userDetail = new UserDetail(attributes);
-                                Log.e(ConfigContract.CMD, userDetail.toString());
-                                if (userDetail != null) {
-                                    studentId = userDetail.getId();
-                                    departId = userDetail.getDepartid();
-                                    departname = userDetail.getDepartname();
-                                    rolename = userDetail.getRolename();
-                                    if ("学生".equals(rolename)) {
-                                        ShowToast("正在开发中。。。");
-                                    } else {
-                                        rl_score.setVisibility(View.VISIBLE);
-                                        list_score.setVisibility(View.VISIBLE);
-                                        header.setVisibility(View.VISIBLE);
-                                        rl_kaoshi.setVisibility(View.GONE);
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.e(ConfigContract.CMD, e.getMessage());
-                            }
-                        } else {
-                            showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        String url = null;
-                        RequestParams params = null;
-                        url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_SEMESTER_CONTROLLER_URL2;
-                        params = new RequestParams();
-                        params.put(ConfigContract.filed, "id,year,semester,name");
-                        params.put(ConfigContract.PAGE, page);
-                        params.put(ConfigContract.ROWS, rows);
-                        instance.post(url, params, new TextHttpResponseHandler() {
-                            @Override
-                            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(int i, Header[] headers, String s) {
-                                try {
-                                    semesterList = new ArrayList<Semester>();
-                                    JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
-                                    for (int j = 0; j < jsonArray.length(); j++) {
-                                        Semester semester = new Semester(jsonArray.getString(j));
-                                        semesterList.add(semester);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                super.onFinish();
-                                String[] arrays = new String[semesterList.size()];
-                                for (int i = 0; i < semesterList.size(); i++) {
-                                    arrays[i] = semesterList.get(i).getName();
-                                }
-                                ArrayAdapter arrayAdapter = new ArrayAdapter(ScoreActivity.this, android.R.layout.simple_spinner_item, arrays);
-                                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_semester.setAdapter(arrayAdapter);
-                            }
-                        });
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
+        url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_SEMESTER_CONTROLLER_URL2;
+        params = new RequestParams();
+        params.put(ConfigContract.filed, "id,year,semester,name");
+        params.put(ConfigContract.PAGE, page);
+        params.put(ConfigContract.ROWS, rows);
+        instance.post(url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
             }
-        } else {
-            ShowToast(ConfigContract.GET_USER_INFO_ERROR);
-        }
+
+            @Override
+            public void onSuccess(int i, Header[] headers, String s) {
+                try {
+                    semesterList = new ArrayList<Semester>();
+                    JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        Semester semester = new Semester(jsonArray.getString(j));
+                        semesterList.add(semester);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                if (semesterList != null && !semesterList.isEmpty()) {
+                    String[] arrays = new String[semesterList.size()];
+                    for (int i = 0; i < semesterList.size(); i++) {
+                        arrays[i] = semesterList.get(i).getName();
+                    }
+                    ArrayAdapter arrayAdapter = new ArrayAdapter(ScoreActivity.this, android.R.layout.simple_spinner_item, arrays);
+                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    sp_semester.setAdapter(arrayAdapter);
+                }
+            }
+        });
     }
 
     @Override
@@ -227,33 +178,6 @@ public class ScoreActivity extends BaseFramgmentActivity {
                 finish();
                 return true;
             case R.id.score_search_actions:
-
-                return true;
-            case R.id.kaoshixinxi:
-
-                return true;
-            case R.id.xueshengchengji:
-
-                return true;
-            case R.id.xueqiliebiao1:
-                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_SEMESTER_CONTROLLER_URL;
-                params = new RequestParams();
-                instance.post(url, params, new TextHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(int i, Header[] headers, String s) {
-                        showErrorIms(s);
-                    }
-                });
-                return true;
-            case R.id.xueqiliebiao2:
-
-                return true;
-            case R.id.kaoshiliebiao1:
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_EXAM_CONTROLLER_URL1;
                 params = new RequestParams();
                 Semester semester = semesterList.get(sp_semester.getSelectedItemPosition());
@@ -290,33 +214,94 @@ public class ScoreActivity extends BaseFramgmentActivity {
                     }
                 });
                 return true;
-            case R.id.kaoshiliebiao2:
-                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_EXAM_CONTROLLER_URL2;
-                params = new RequestParams();
-                Semester semester2 = semesterList.get(sp_semester.getSelectedItemPosition());
-                params.put(ConfigContract.SEMESTER_ID, semester2.getId());
-                params.put(ConfigContract.userDid, departId);
-                showErrorIms("考试列表参数：" + params.toString());
-                instance.post(url, params, new TextHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                        showErrorIms(i + s);
-                    }
-
-                    @Override
-                    public void onSuccess(int i, Header[] headers, String s) {
-                        try {
-                            JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
-                            showErrorIms(s);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                return true;
-            case R.id.genjukaoshihuoquchengjibiebiao:
-
-                return true;
+//            case R.id.kaoshixinxi:
+//
+//                return true;
+//            case R.id.xueshengchengji:
+//
+//                return true;
+//            case R.id.xueqiliebiao1:
+//                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_SEMESTER_CONTROLLER_URL;
+//                params = new RequestParams();
+//                instance.post(url, params, new TextHttpResponseHandler() {
+//                    @Override
+//                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(int i, Header[] headers, String s) {
+//                        showErrorIms(s);
+//                    }
+//                });
+//                return true;
+//            case R.id.xueqiliebiao2:
+//
+//                return true;
+//            case R.id.kaoshiliebiao1:
+//                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_EXAM_CONTROLLER_URL1;
+//                params = new RequestParams();
+//                Semester semester = semesterList.get(sp_semester.getSelectedItemPosition());
+//                params.put(ConfigContract.filed, "id,semesterid,examType,name,createDatetime");
+//                params.put(ConfigContract.SEMESTER_ID, semester.getId());
+//                params.put(ConfigContract.EXAM_TYPE, "");
+//                params.put(ConfigContract.PAGE, page);
+//                params.put(ConfigContract.ROWS, rows);
+//                instance.post(url, params, new TextHttpResponseHandler() {
+//                    @Override
+//                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(int i, Header[] headers, String s) {
+//                        try {
+//                            examList = new ArrayList<Exam>();
+//                            JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+//                            for (int j = 0; j < jsonArray.length(); j++) {
+//                                Exam semester = new Exam(jsonArray.getString(j));
+//                                examList.add(semester);
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        super.onFinish();
+//                        examAdapter = new ExamAdapter(ScoreActivity.this, examList);
+//                        list_score.setAdapter(examAdapter);
+//                    }
+//                });
+//                return true;
+//            case R.id.kaoshiliebiao2:
+//                url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_EXAM_CONTROLLER_URL2;
+//                params = new RequestParams();
+//                Semester semester2 = semesterList.get(sp_semester.getSelectedItemPosition());
+//                params.put(ConfigContract.SEMESTER_ID, semester2.getId());
+//                params.put(ConfigContract.userDid, departId);
+//                showErrorIms("考试列表参数：" + params.toString());
+//                instance.post(url, params, new TextHttpResponseHandler() {
+//                    @Override
+//                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+//                        showErrorIms(i + s);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(int i, Header[] headers, String s) {
+//                        try {
+//                            JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+//                            showErrorIms(s);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                return true;
+//            case R.id.genjukaoshihuoquchengjibiebiao:
+//
+//                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -55,6 +55,11 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
         initUI();
         preferences = PmasAppliaction.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         username = preferences.getString(ConfigContract.USERNAME, null);
+        tv_username.setText(username);
+        tv_name.setText(preferences.getString(UserDetail.ColumnName.NAME,""));
+        tv_depart_name.setText(preferences.getString(UserDetail.ColumnName.DEPART_NAME, ""));
+        tv_sex.setText(Integer.parseInt(preferences.getString(UserDetail.ColumnName.SEX, "0")) == 0 ? "男" : "女");
+        tv_role_name.setText(preferences.getString(UserDetail.ColumnName.ROLE_NAME, ""));
     }
 
     @Override
@@ -75,57 +80,12 @@ public class SetMyInfoActivity extends BaseFramgmentActivity implements View.OnC
         tv_sex = (TextView) findViewById(R.id.tv_sex);
         tv_role_name = (TextView) findViewById(R.id.tv_role_name);
         setOnClick();
-        instance = HttpURLTools.getInstance();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (username != null) {
-            tv_username.setText(username);
-            try {
-                String encrypt3DES = EncryptUtils.Encrypt3DES(username, ConfigContract.CODE);
-                String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
-                RequestParams params = new RequestParams();
-                params.put("loginname", encrypt3DES);
-                instance.post(url, params, new TextHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-                        showErrorIms(i + "--" + s);
-                    }
-
-                    @Override
-                    public void onSuccess(int i, Header[] headers, String s) {
-                        Log.e(ConfigContract.CMD, s);
-                        if (i == 200) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(s);
-                                String attributes = jsonObject.getString("attributes");
-                                UserDetail userDetail = new UserDetail(attributes);
-                                Log.e(ConfigContract.CMD, userDetail.toString());
-                                if (userDetail != null) {
-                                    tv_name.setText(userDetail.getName());
-                                    tv_depart_name.setText(userDetail.getDepartname());
-                                    if (userDetail.getSex() != null) {
-                                        tv_sex.setText(Integer.parseInt(userDetail.getSex()) == 0 ? "男" : "女");
-                                    }
-                                    tv_role_name.setText(userDetail.getRolename());
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.e(ConfigContract.CMD, e.getMessage());
-                            }
-                        } else {
-                            showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            ShowToast(ConfigContract.GET_USER_INFO_ERROR);
-        }
     }
 
     public void setOnClick() {

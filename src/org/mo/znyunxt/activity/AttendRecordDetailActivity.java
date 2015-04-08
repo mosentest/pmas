@@ -53,7 +53,7 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
     private TextView tv_depart_time;
 
     private static int page = 1;//当前页
-    private static int rows = 10;//每页多少条记录
+    private int rows = 10;//每页多少条记录
     private String recordid;
     private String total;
 
@@ -85,6 +85,7 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -109,10 +110,11 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
                 params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, 1);
-                params.put(ConfigContract.ROWS, 30);
+                params.put(ConfigContract.ROWS, 1000);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -203,7 +205,6 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
     public void onRefresh() {
         onLoad();
         page = 1;
-        rows = 10;
         url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_DATA_GRID_BY_RECORD_ID_URL;
         params = new RequestParams();
         params.put(ConfigContract.recordid, recordid);
@@ -213,6 +214,7 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -237,7 +239,7 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
                 params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, 1);
-                params.put(ConfigContract.ROWS, 30);
+                params.put(ConfigContract.ROWS, 1000);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -296,7 +298,7 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
         params = new RequestParams();
         params.put(ConfigContract.recordid, recordid);
         params.put(ConfigContract.filed, "id,student.name,depart.departname,depart.id,part,attendName,realAttend,createTime,lastOccurtime,lastIo");
-        params.put(ConfigContract.PAGE, page);
+        params.put(ConfigContract.PAGE, ++page);
         params.put(ConfigContract.ROWS, rows);
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
@@ -308,18 +310,20 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     total = jsonObject.getString("total");
-                    rows = rows + 10;
-                    if (Integer.parseInt(total) < rows) {
-                        ShowToast("无数据可以加载啦");
-                        rows = Integer.parseInt(total);
+                    //当查询到最后一页的时候
+                    if((page * rows) > Integer.parseInt(total)){
+                        ShowToast("已到底部");
+                    }else{
+                        JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+                        List<AttendRecordDetail> appendLists = new ArrayList<AttendRecordDetail>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            String string = jsonArray.getString(i);
+                            AttendRecordDetail attendRecordDetail = new AttendRecordDetail(string);
+                            lists.add(attendRecordDetail);
+                        }
+                        lists.addAll(appendLists);
                     }
-                    JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
-                    lists = new ArrayList<AttendRecordDetail>();
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        String string = jsonArray.getString(i);
-                        AttendRecordDetail attendRecordDetail = new AttendRecordDetail(string);
-                        lists.add(attendRecordDetail);
-                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -332,7 +336,7 @@ public class AttendRecordDetailActivity extends BaseFramgmentActivity implements
                 params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, 1);
-                params.put(ConfigContract.ROWS, 30);
+                params.put(ConfigContract.ROWS, 1000);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {

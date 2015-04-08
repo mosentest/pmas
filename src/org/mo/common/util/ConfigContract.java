@@ -6,6 +6,8 @@ package org.mo.common.util;
 public interface ConfigContract {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public final static String DEPART_ID="departId";
+    public final static String ROLE_ID="role_id";
 
     public static final String LOGIN_NAME = "loginname";
 

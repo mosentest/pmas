@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
@@ -27,12 +29,15 @@ import org.mo.common.util.ConfigContract;
 import org.mo.common.util.EncryptUtils;
 import org.mo.common.util.HttpURLTools;
 import org.mo.pmas.activity.application.PmasAppliaction;
+import org.mo.znyunxt.entity.JsonToObjectUtil;
+import org.mo.znyunxt.entity.Semester;
 import org.mo.znyunxt.entity.UserDetail;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -237,7 +242,6 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
 
             @Override
             public void onFailure(int code, Header[] headers, String s, Throwable throwable) {
-                Log.e(ConfigContract.CMD, "登录onFailure:" + code);
                 if (progress != null) {
                     progress.dismiss();
                 }
@@ -247,12 +251,57 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
                     instance.post("http://www.znyunxt.cn:9080/school/cloudLoginController.do?applogin",null,new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                            showErrorIms(i+"");
+                            //成功登录后，获取用户信息
+                            try {
+                                String encrypt3DES = EncryptUtils.Encrypt3DES(username2, ConfigContract.CODE);
+                                String url = ConfigContract.SERVICE_SCHOOL + "loginController.do?getUserInfo";
+                                RequestParams params = new RequestParams();
+                                params.put("loginname", encrypt3DES);
+                                instance.post(url, params, new TextHttpResponseHandler() {
+                                    @Override
+                                    public void onStart() {
+                                        super.onStart();
+                                    }
+
+                                    @Override
+                                    public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                                    }
+
+                                    @Override
+                                    public void onSuccess(int i, Header[] headers, String s) {
+                                        if (i == 200) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(s);
+                                                String attributes = jsonObject.getString("attributes");
+                                                UserDetail userDetail = new UserDetail(attributes);
+                                                if (userDetail != null) {
+                                                    SharedPreferences.Editor edit = preferences.edit();
+                                                    edit.putString(UserDetail.ColumnName.ID, userDetail.getId());
+                                                    edit.putString(UserDetail.ColumnName.DEPART_ID, userDetail.getDepartid());
+                                                    edit.putString(UserDetail.ColumnName.DEPART_NAME, userDetail.getDepartname());
+                                                    edit.putString(UserDetail.ColumnName.SEX, userDetail.getSex());
+                                                    edit.putString(UserDetail.ColumnName.NAME, userDetail.getName());
+                                                    edit.putString(UserDetail.ColumnName.ROLE_ID, userDetail.getRoleid());
+                                                    edit.putString(UserDetail.ColumnName.ROLE_CODE, userDetail.getRolecode());
+                                                    edit.putString(UserDetail.ColumnName.ROLE_NAME, userDetail.getRolename());
+                                                    edit.commit();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Log.e(ConfigContract.CMD, e.getMessage());
+                                            }
+                                        } else {
+                                            showErrorIms(ConfigContract.GET_USER_INFO_ERROR);
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
                         public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                            showErrorIms(i+"");
                         }
                     });
                     SharedPreferences.Editor edit = preferences.edit();
@@ -261,6 +310,9 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
                     edit.commit();
                     LoginActivity.this.finish();
                     overridePendingTransition(R.anim.myenteranim, R.anim.myexitanim);
+                }
+                else{
+                    ShowToast("登录失败，帐号或密码错误！");
                 }
             }
 
@@ -274,7 +326,10 @@ public class LoginActivity extends BaseFramgmentActivity implements View.OnClick
 
             @Override
             public void onSuccess(int code, Header[] headers, String s) {
-                Log.e(ConfigContract.CMD, "onSuccess" + code + "" + s);
+                if (progress != null) {
+                    progress.dismiss();
+                }
+                ShowToast("登录失败，帐号或密码错误！");
             }
         });
     }

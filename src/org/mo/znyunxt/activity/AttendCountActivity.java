@@ -51,7 +51,7 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
     private XListView list_attend_count;
 
     private static int page = 1;//当前页
-    private static int rows = 10;//每页多少条记录
+    private int rows = 10;//每页多少条记录
 
     private AsyncHttpClient instance;
     private String url;
@@ -97,7 +97,7 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -161,7 +161,6 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
                 return true;
             case R.id.attend_count_actions:
                 page = 1;
-                rows = 10;
                 //学生考勤查询
                 if (et_attend_count_date_up.getText().toString().equals("") || et_attend_count_date_down.getText().toString().equals("")) {
                     ShowToast("日期不能为空");
@@ -188,7 +187,7 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -237,7 +236,6 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
     public void onRefresh() {
         onLoad();
         page = 1;
-        rows = 10;
         //学生考勤查询
         if (et_attend_count_date_up.getText().toString().equals("") || et_attend_count_date_down.getText().toString().equals("")) {
             ShowToast("日期不能为空");
@@ -264,7 +262,7 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -309,13 +307,13 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
         params.put("departid", departList.get(sp_depart_name.getSelectedItemPosition()).getId());
         params.put(ConfigContract.countDate_begin, et_attend_count_date_up.getText().toString());
         params.put(ConfigContract.countDate_end, et_attend_count_date_down.getText().toString());
-        params.put(ConfigContract.PAGE, page);
+        params.put(ConfigContract.PAGE, ++page);
         params.put(ConfigContract.ROWS, rows);
         showErrorIms(params.toString());
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -324,24 +322,20 @@ public class AttendCountActivity extends BaseFramgmentActivity implements XListV
                     JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
                     JSONObject jsonObject = new JSONObject(s);
                     total = jsonObject.getString("total");
-                    attendCountList = new ArrayList<AttendCount>();
-                    for (int j = 0; j < jsonArray.length(); j++) {
-                        AttendCount attendCount = new AttendCount(jsonArray.getString(j));
-                        attendCountList.add(attendCount);
+                    //当查询到最后一页的时候
+                    if((page * rows) > Integer.parseInt(total)){
+                        ShowToast("已到底部");
+                    }else{
+                        List<AttendCount> appendAttendCountList = new ArrayList<AttendCount>();
+                        for (int j = 0; j < jsonArray.length(); j++) {
+                            AttendCount attendCount = new AttendCount(jsonArray.getString(j));
+                            appendAttendCountList.add(attendCount);
+                        }
+                        attendCountList.addAll(appendAttendCountList);
                     }
                     attendCountAdapter.update(attendCountList);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                rows = rows + 10;
-                if (Integer.parseInt(total) < rows) {
-                    ShowToast("无数据可以加载啦");
-                    rows = Integer.parseInt(total);
                 }
             }
         });

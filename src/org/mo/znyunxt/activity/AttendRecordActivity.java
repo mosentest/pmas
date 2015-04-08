@@ -50,7 +50,7 @@ public class AttendRecordActivity extends BaseFramgmentActivity implements XList
     private AsyncHttpClient instance;
 
     private static int page = 1;//当前页
-    private static int rows = 10;//每页多少条记录
+    private int rows = 100;//每页多少条记录
     private String departId;//部门id
     private String recordid;//汇总id
     private List<AttendRecord> list;
@@ -140,7 +140,6 @@ public class AttendRecordActivity extends BaseFramgmentActivity implements XList
 
     private void searchAttendRecord() {
         page = 1;//当前页
-        rows = 10;//每页多少条记录
         RequestParams params = null;
         String url = null;
         url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_ATTEND_RECORD_CONTROLLER_URL;
@@ -158,6 +157,7 @@ public class AttendRecordActivity extends BaseFramgmentActivity implements XList
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -202,6 +202,7 @@ public class AttendRecordActivity extends BaseFramgmentActivity implements XList
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override

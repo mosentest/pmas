@@ -15,27 +15,26 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/acm_inputbox">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:background="@drawable/acm_inputbox">-->
 
-                <ImageView
-                    android:id="@+id/imageView_add_head"
-                    android:layout_width="100dip"
-                    android:layout_height="120dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="1dip" />
-            </RelativeLayout>
+                <!--<ImageView-->
+                    <!--android:id="@+id/imageView_add_head"-->
+                    <!--android:layout_width="100dip"-->
+                    <!--android:layout_height="120dip"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_marginTop="1dip" />-->
+            <!--</RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout style="@style/Register_Input">
 
@@ -58,7 +57,6 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
                 android:layout_marginTop="55dp">
 
                 <LinearLayout style="@style/Register_Input">

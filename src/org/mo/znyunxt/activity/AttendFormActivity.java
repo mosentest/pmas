@@ -52,7 +52,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
     private AsyncHttpClient instance;
 
     private static int page = 1;//当前页
-    private static int rows = 10;//每页多少条记录
+    private int rows = 10;//每页多少条记录
 
     private String total;
     private String departId;
@@ -102,7 +102,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -127,13 +127,15 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
             @Override
             public void onFinish() {
                 super.onFinish();
-                String[] arrays = new String[departList.size()];
-                for (int i = 0; i < departList.size(); i++) {
-                    arrays[i] = departList.get(i).getText();
+                if(departList!=null){
+                    String[] arrays = new String[departList.size()];
+                    for (int i = 0; i < departList.size(); i++) {
+                        arrays[i] = departList.get(i).getText();
+                    }
+                    ArrayAdapter arrayAdapter = new ArrayAdapter(AttendFormActivity.this, android.R.layout.simple_spinner_item, arrays);
+                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    sp_depart_name.setAdapter(arrayAdapter);
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(AttendFormActivity.this, android.R.layout.simple_spinner_item, arrays);
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                sp_depart_name.setAdapter(arrayAdapter);
             }
         });
     }
@@ -164,7 +166,6 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                 return true;
             case R.id.attend_form_actions:
                 page = 1;
-                rows = 10;
                 //学生考勤查询
                 if (et_attend_form_time.getText().toString().equals("")) {
                     ShowToast("日期不能为空");
@@ -193,7 +194,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -217,11 +218,13 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                         String url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_IO_CONTROLLER_URL;
                         RequestParams params = new RequestParams();
                         params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
+                        //设置进出类型有1000行
                         params.put(ConfigContract.PAGE, 1);
-                        params.put(ConfigContract.ROWS, 30);
+                        params.put(ConfigContract.ROWS, 1000);
                         instance.post(url, params, new TextHttpResponseHandler() {
                             @Override
                             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                                ShowToast("1.检测网络 2.请重新登录");
                             }
 
                             @Override
@@ -275,7 +278,6 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
     public void onRefresh() {
         onLoad();
         page = 1;
-        rows = 10;
         //学生考勤查询
         if (et_attend_form_time.getText().toString().equals("")) {
             ShowToast("日期不能为空");
@@ -304,7 +306,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -329,10 +331,11 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                 RequestParams params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, 1);
-                params.put(ConfigContract.ROWS, 30);
+                params.put(ConfigContract.ROWS, 1000);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -396,13 +399,13 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
         }
         params.put(ConfigContract.userDid, departId);
         params.put(ConfigContract.departid, departList.get(sp_depart_name.getSelectedItemPosition()).getId());
-        params.put(ConfigContract.PAGE, page);
+        params.put(ConfigContract.PAGE, ++page);
         params.put(ConfigContract.ROWS, rows);
-
+        final ArrayList<AttendForm> appendAttendFormList = new ArrayList<AttendForm>();
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -411,17 +414,15 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     total = jsonObject.getString("total");
-                    rows = rows + 10;
-                    if (Integer.parseInt(total) < rows) {
-                        ShowToast("无数据可以加载啦");
-                        rows = Integer.parseInt(total);
-                    }
-
-                    attendFormList = new ArrayList<AttendForm>();
-                    JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
-                    for (int j = 0; j < jsonArray.length(); j++) {
-                        AttendForm attendForm = new AttendForm(jsonArray.getString(j));
-                        attendFormList.add(attendForm);
+                    //当查询到最后一页的时候
+                    if((page * rows) > Integer.parseInt(total)){
+                        ShowToast("已到底部");
+                    }else{
+                        JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+                        for (int j = 0; j < jsonArray.length(); j++) {
+                            AttendForm attendForm = new AttendForm(jsonArray.getString(j));
+                            appendAttendFormList.add(attendForm);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -437,7 +438,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                 RequestParams params = new RequestParams();
                 params.put(ConfigContract.filed, "id,io,gate,ioType,ioSortName,gateType,inschool,ioname");
                 params.put(ConfigContract.PAGE, 1);
-                params.put(ConfigContract.ROWS, 30);
+                params.put(ConfigContract.ROWS, 1000);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
@@ -457,7 +458,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                                 list.add(studentAttendance);
 
                             }
-                            Iterator<AttendForm> iterator = attendFormList.iterator();
+                            Iterator<AttendForm> iterator = appendAttendFormList.iterator();
                             while (iterator.hasNext()) {
                                 AttendForm next = iterator.next();
                                 String lastIo = next.getLastIo();
@@ -469,6 +470,7 @@ public class AttendFormActivity extends BaseFramgmentActivity implements XListVi
                                     }
                                 }
                             }
+                            attendFormList.addAll(appendAttendFormList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -15,6 +15,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.mo.common.activity.BaseFramgmentActivity;
 import org.mo.common.util.ConfigContract;
 import org.mo.common.util.HttpURLTools;
@@ -36,7 +37,7 @@ public class ScoreOneActivity extends BaseFramgmentActivity implements XListView
 
     private AsyncHttpClient instance;
 
-    private int page = 1;//当前页
+    private static int page = 1;//当前页
     private int rows = 10;//每页多少条记录
 
     private String url = null;
@@ -55,6 +56,7 @@ public class ScoreOneActivity extends BaseFramgmentActivity implements XListView
     private String departname;
 
     private ScoreOneAdapter scoreOneAdapter;
+    private String total;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class ScoreOneActivity extends BaseFramgmentActivity implements XListView
         instance.post(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                ShowToast("1.检测网络 2.请重新登录");
             }
 
             @Override
@@ -153,8 +155,6 @@ public class ScoreOneActivity extends BaseFramgmentActivity implements XListView
                 finish();
                 return true;
             case R.id.attend_score_one_actions:
-                page = 1;//当前页
-                rows = 10;//每页多少条记录
                 url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_CJ_CONTROLLER_URL;
                 params = new RequestParams();
                 params.put(ConfigContract.filed, "id,semesterid,exam.name,exam.id,wenli,depart.departname,depart.id,studentName,yuwen,shuxue,yingyu,kouyu,zhenzhi,lishi,dili,wuli,huaxu,shengwu,zonghe,total,ranking");
@@ -162,13 +162,17 @@ public class ScoreOneActivity extends BaseFramgmentActivity implements XListView
                 params.put(ConfigContract.departid, departList.get(sp_depart_name.getSelectedItemPosition()).getId());
                 params.put(ConfigContract.SEMESTER_ID, semesterid);
                 params.put(ConfigContract.EXAM_ID, examID);
-                params.put(ConfigContract.studentName, "");
-                params.put(ConfigContract.PAGE, page);
+                if(et_student_name.getText().toString().trim().length() > 2){
+                    params.put(ConfigContract.studentName, et_student_name.getText().toString().trim());
+                }else{
+                    params.put(ConfigContract.studentName, "");
+                }
+                params.put(ConfigContract.PAGE, 1);
                 params.put(ConfigContract.ROWS, rows);
                 instance.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
-
+                        ShowToast("1.检测网络 2.请重新登录");
                     }
 
                     @Override
@@ -198,13 +202,111 @@ public class ScoreOneActivity extends BaseFramgmentActivity implements XListView
         return super.onOptionsItemSelected(item);
     }
 
+    //或的数据后一定要加onLoad()方法，否则刷新会一直进行，根本停不下来
+    private void onLoad() {
+        list_score.stopRefresh();
+        list_score.stopLoadMore();
+        list_score.setRefreshTime("刚刚");
+    }
+
+
     @Override
     public void onRefresh() {
+        onLoad();
+        url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_CJ_CONTROLLER_URL;
+        params = new RequestParams();
+        params.put(ConfigContract.filed, "id,semesterid,exam.name,exam.id,wenli,depart.departname,depart.id,studentName,yuwen,shuxue,yingyu,kouyu,zhenzhi,lishi,dili,wuli,huaxu,shengwu,zonghe,total,ranking");
+        params.put(ConfigContract.userDid, departId);
+        params.put(ConfigContract.departid, departList.get(sp_depart_name.getSelectedItemPosition()).getId());
+        params.put(ConfigContract.SEMESTER_ID, semesterid);
+        params.put(ConfigContract.EXAM_ID, examID);
+        if(et_student_name.getText().toString().trim().length() > 2){
+            params.put(ConfigContract.studentName, et_student_name.getText().toString().trim());
+        }else{
+            params.put(ConfigContract.studentName, "");
+        }
+        params.put(ConfigContract.PAGE, 1);
+        params.put(ConfigContract.ROWS, rows);
+        instance.post(url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
+            }
 
+            @Override
+            public void onSuccess(int i, Header[] headers, String s) {
+                try {
+                    scoreList = new ArrayList<Score>();
+                    JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        Score score = new Score(jsonArray.getString(j));
+                        scoreList.add(score);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                showErrorIms(s);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                scoreOneAdapter.update(scoreList);
+            }
+        });
     }
 
     @Override
     public void onLoadMore() {
+        onLoad();
+        url = ConfigContract.SERVICE_SCHOOL + ConfigContract.TB_CJ_CONTROLLER_URL;
+        params = new RequestParams();
+        params.put(ConfigContract.filed, "id,semesterid,exam.name,exam.id,wenli,depart.departname,depart.id,studentName,yuwen,shuxue,yingyu,kouyu,zhenzhi,lishi,dili,wuli,huaxu,shengwu,zonghe,total,ranking");
+        params.put(ConfigContract.userDid, departId);
+        params.put(ConfigContract.departid, departList.get(sp_depart_name.getSelectedItemPosition()).getId());
+        params.put(ConfigContract.SEMESTER_ID, semesterid);
+        params.put(ConfigContract.EXAM_ID, examID);
+        if(et_student_name.getText().toString().trim().length() > 2){
+            params.put(ConfigContract.studentName, et_student_name.getText().toString().trim());
+        }else{
+            params.put(ConfigContract.studentName, "");
+        }
+        params.put(ConfigContract.PAGE, ++page);
+        params.put(ConfigContract.ROWS, rows);
+        instance.post(url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                ShowToast("1.检测网络 2.请重新登录");
+            }
 
+            @Override
+            public void onSuccess(int i, Header[] headers, String s) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    total = jsonObject.getString("total");
+                    //当查询到最后一页的时候
+                    if((page * rows) > Integer.parseInt(total)){
+                        ShowToast("已到底部");
+                    }else{
+                        List<Score> appendScoreList = new ArrayList<Score>();
+                        JSONArray jsonArray = JsonToObjectUtil.getJSONArray(s);
+                        for (int j = 0; j < jsonArray.length(); j++) {
+                            Score score = new Score(jsonArray.getString(j));
+                            appendScoreList.add(score);
+                        }
+                        scoreList.addAll(appendScoreList);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                showErrorIms(s);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                scoreOneAdapter.update(scoreList);
+            }
+        });
     }
 }
